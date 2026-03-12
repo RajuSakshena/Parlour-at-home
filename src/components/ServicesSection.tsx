@@ -1,61 +1,71 @@
 import { Sparkles, Package, Scissors, Heart, Hand, Flower2, Gem, Gift } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
+// LOCAL IMAGE IMPORTS
+import facialImg from '../images/Facial Treatment.jpg';
+import makeupImg from '../images/Professional Makeup.jpg';
+import waxingImg from '../images/Waxing Services.jpg';
+import maniPediImg from '../images/Mani-Pedi.jpg';
+import hairCareImg from '../images/Hair Care.jpg';
+import bodyMassageImg from '../images/Body Massage.jpg';
+import preBridalImg from '../images/Pre-Bridal.jpg';
+import packagesImg from '../images/Packages.jpg';
+
 const services = [
   {
     title: 'Facial',
     route: '/services/facial',
     icon: Sparkles,
-    image: 'https://images.pexels.com/photos/3738388/pexels-photo-3738388.jpeg',
+    image: facialImg,
     description: 'Rejuvenating facial treatments for glowing skin'
   },
   {
     title: 'Makeup',
     route: '/services/makeup',
     icon: Heart,
-    image: 'https://images.pexels.com/photos/457701/pexels-photo-457701.jpeg',
+    image: makeupImg,
     description: 'Professional makeup for every occasion'
   },
   {
     title: 'Waxing',
     route: '/services/waxing',
     icon: Flower2,
-    image: 'https://images.pexels.com/photos/3997994/pexels-photo-3997994.jpeg',
+    image: waxingImg,
     description: 'Smooth and pain-free waxing services'
   },
   {
     title: 'Mani-Pedi',
     route: '/services/mani-pedi',
     icon: Hand,
-    image: 'https://images.pexels.com/photos/1570149/pexels-photo-1570149.jpeg',
+    image: maniPediImg,
     description: 'Complete nail care and beautification'
   },
   {
     title: 'Hair Care',
     route: '/services/hair',
     icon: Scissors,
-    image: 'https://images.pexels.com/photos/3993324/pexels-photo-3993324.jpeg',
+    image: hairCareImg,
     description: 'Hair styling, coloring, and treatments'
   },
   {
     title: 'Body Massage',
     route: '/services/massage',
     icon: Gem,
-    image: 'https://images.pexels.com/photos/3757946/pexels-photo-3757946.jpeg',
+    image: bodyMassageImg,
     description: 'Relaxing full body massage therapy'
   },
   {
-    title: 'Pre Bridal Care',
+    title: 'Pre Bridal',
     route: '/services/pre-bridal',
     icon: Gift,
-    image: 'https://images.pexels.com/photos/3065209/pexels-photo-3065209.jpeg',
+    image: preBridalImg,
     description: 'Complete bridal beauty packages'
   },
   {
     title: 'Packages',
     route: '/services/packages',
     icon: Package,
-    image: 'https://images.pexels.com/photos/3785147/pexels-photo-3785147.jpeg',
+    image: packagesImg,
     description: 'Customized beauty service bundles'
   }
 ];
@@ -64,44 +74,50 @@ export default function ServicesSection() {
   const navigate = useNavigate();
 
   return (
-    <section id="services" className="py-16 bg-white">
+    <section id="services" className="pt-6 pb-16 md:pt-10 md:pb-24 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800">
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-800">
             Our Home Salon <span className="text-pink-500">Services</span>
           </h2>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-600 mt-3 text-sm md:text-lg">
             Professional beauty treatments at your doorstep
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
+
             return (
               <div
                 key={index}
                 onClick={() => navigate(service.route)}
-                className="cursor-pointer bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition border"
+                className="cursor-pointer bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition border group"
               >
-                <div className="relative h-48">
+                <div className="relative h-32 md:h-48">
                   <img
                     src={service.image}
                     alt={service.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-black/40 flex items-end p-4">
-                    <Icon className="text-white w-8 h-8" />
+
+                  <div className="absolute inset-0 bg-black/30 flex items-end p-3">
+                    <Icon className="text-white w-6 h-6 md:w-8 md:h-8" />
                   </div>
                 </div>
 
-                <div className="p-5">
-                  <h3 className="text-xl font-semibold">{service.title}</h3>
-                  <p className="text-sm text-gray-600 mt-1">
+                <div className="p-3 md:p-5">
+                  <h3 className="text-base md:text-xl font-bold text-gray-800">
+                    {service.title}
+                  </h3>
+
+                  <p className="hidden md:block text-sm text-gray-600 mt-1">
                     {service.description}
                   </p>
-                  <span className="inline-block mt-3 text-pink-500 font-medium">
-                    View Services →
+
+                  <span className="inline-block mt-2 text-pink-500 text-xs md:text-sm font-bold">
+                    Book Now →
                   </span>
                 </div>
               </div>

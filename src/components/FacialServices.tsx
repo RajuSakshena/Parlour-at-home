@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 /* =========================
-   NAV MENU
+   NAV MENU (Style synced with MakeupServices.tsx)
 ========================= */
 const categories = [
   "Luxury Facial",
@@ -1034,50 +1034,47 @@ const allData: Record<string, FacialService[]> = {
    COMPONENT
 ========================= */
 export default function FacialServices() {
-  const [activeCategory, setActiveCategory] = useState(categories[0]);
   const [selected, setSelected] = useState<FacialService | null>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
-  const scrollToSection = (cat: string) => {
-    sectionRefs.current[cat]?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
+  // Fix for scroll issue on refresh
   useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "-20% 0px -70% 0px",
-      threshold: 0,
+    window.scrollTo(0, 0);
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    return () => {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "auto";
+      }
     };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveCategory(entry.target.id);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-    Object.values(sectionRefs.current).forEach((section) => {
-      if (section) observer.observe(section);
-    });
-
-    return () => observer.disconnect();
   }, []);
+
+  const scrollToSection = (cat: string) => {
+    sectionRefs.current[cat]?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <section className="bg-[#f6edff] min-h-screen">
-      <div className="sticky top-0 z-40 bg-[#f6edff]/95 backdrop-blur-sm pt-6 pb-4 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4">
-          <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">Facial & Skin Services</h1>
-          <div className="flex overflow-x-auto no-scrollbar gap-3 bg-[#e9d8ff] p-2 rounded-xl">
+       <div className="py-8 text-center bg-white border-b">
+    <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">
+      Facial
+    </h1>
+    <p className="text-gray-500 text-sm mt-1 uppercase tracking-widest">
+      Premium Salon Services
+    </p>
+  </div>
+      {/* NAV BAR 
+          Direct copy of style from MakeupServices.tsx
+      */}
+      <div className="sticky top-0 z-40 bg-[#f6edff] py-4 shadow-sm">
+        <div className="flex justify-center">
+          <div className="flex gap-3 overflow-x-auto px-4 no-scrollbar">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => scrollToSection(cat)}
-                className={`px-5 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition flex-shrink-0 ${
-                  activeCategory === cat ? "bg-purple-700 text-white shadow-md" : "bg-white text-purple-700"
-                }`}
+                className="px-5 py-2 rounded-full bg-purple-200 text-purple-800 font-semibold whitespace-nowrap hover:bg-purple-300 transition-colors"
               >
                 {cat}
               </button>
@@ -1086,32 +1083,60 @@ export default function FacialServices() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8 space-y-16">
+      {/* SECTIONS */}
+      <div className="max-w-7xl mx-auto px-4 py-10 space-y-16">
         {categories.map((cat) => (
-          <div key={cat} id={cat} ref={(el) => (sectionRefs.current[cat] = el)} className="scroll-mt-32">
-            <h2 className="text-xl font-bold text-purple-900 mb-6 border-l-4 border-purple-700 pl-3">{cat}</h2>
+          <div key={cat} ref={(el) => (sectionRefs.current[cat] = el)}>
+            <h2 className="text-xl font-black mb-6 uppercase tracking-tight">{cat}</h2>
+
             <div className="grid md:grid-cols-2 gap-6">
               {allData[cat].map((item, idx) => (
-                <div key={idx} className="bg-white rounded-xl shadow-sm flex overflow-hidden border border-purple-100 h-full">
-                  <img src={item.image} className="w-40 object-cover" alt={item.title} />
-                  <div className="p-4 flex-1 flex flex-col">
-                    <div className="flex justify-between items-start mb-1">
-                      <h3 className="text-md font-bold text-gray-800 leading-tight flex-1 pr-2">{item.title}</h3>
-                      <button className="bg-purple-600 text-white px-3 py-1 rounded-md text-xs font-bold shadow-sm">Add</button>
+                <div
+                  key={idx}
+                  className="bg-white rounded-3xl shadow flex overflow-hidden hover:shadow-lg transition-shadow"
+                >
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-36 md:w-44 object-cover"
+                  />
+
+                  <div className="p-4 flex-1">
+                    <div className="flex justify-between items-start">
+                      <h3 className="font-bold text-gray-800">{item.title}</h3>
+                      <button className="bg-purple-700 text-white px-4 py-1.5 rounded-xl text-xs font-bold active:scale-95 transition-transform">
+                        ADD
+                      </button>
                     </div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-gray-400 line-through text-xs">₹{item.mrp}</span>
-                      <span className="text-gray-800 font-bold">₹{item.price}</span>
-                      <span className="text-orange-600 text-[10px] font-bold">{item.discount}</span>
+
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="font-black text-lg">₹{item.price}</span>
+                      <span className="line-through text-xs text-gray-400">
+                        ₹{item.mrp}
+                      </span>
+                      <span className="text-orange-600 text-xs font-bold">
+                        {item.discount}
+                      </span>
                     </div>
-                    <p className="text-[11px] text-gray-500 mb-2 italic">⏱ {item.duration}</p>
-                    <hr className="mb-2 border-gray-50" />
-                    <ul className="text-[12px] text-gray-600 space-y-0.5 flex-grow">
-                      {item.includes.slice(0, 2).map((inc, iidx) => (
-                        <li key={iidx} className="line-clamp-1">• {inc}</li>
+
+                    <p className="text-xs text-gray-400 mt-1">
+                      ⏱ {item.duration}
+                    </p>
+
+                    <ul className="mt-3 space-y-1">
+                      {item.includes.map((i, k) => (
+                        <li key={k} className="text-xs text-gray-500">
+                          • {i}
+                        </li>
                       ))}
                     </ul>
-                    <button onClick={() => setSelected(item)} className="mt-3 text-purple-700 text-xs font-bold hover:underline">View Details</button>
+
+                    <button 
+                      onClick={() => setSelected(item)}
+                      className="mt-3 text-purple-700 text-xs font-bold hover:underline"
+                    >
+                      VIEW DETAILS
+                    </button>
                   </div>
                 </div>
               ))}
@@ -1120,10 +1145,16 @@ export default function FacialServices() {
         ))}
       </div>
 
+      {/* DETAIL MODAL (Preserved from your original file) */}
       {selected && (
         <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
           <div className="bg-white max-w-[480px] w-full rounded-2xl overflow-hidden relative shadow-2xl flex flex-col max-h-[85vh]">
-            <button onClick={() => setSelected(null)} className="absolute top-4 right-4 z-20 bg-gray-100 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center font-bold">✕</button>
+            <button 
+              onClick={() => setSelected(null)} 
+              className="absolute top-4 right-4 z-20 bg-gray-100 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center font-bold"
+            >
+              ✕
+            </button>
             <div className="overflow-y-auto p-6">
               <div className="flex gap-4 mb-6">
                 <img src={selected.image} className="w-28 h-28 object-cover rounded-xl" alt={selected.title} />
@@ -1151,14 +1182,16 @@ export default function FacialServices() {
                   <h4 className="font-bold text-gray-800 mb-2 text-sm uppercase tracking-wider">Information:</h4>
                   <ul className="space-y-1.5">
                     {selected.info.map((i, idx) => (
-                      <li key={idx} className="text-xs text-gray-500 flex gap-2 items-start">
+                      <li key={idx} className="text-xs text-gray-900 flex gap-2 items-start">
                         <span className="mt-1 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" /> {i}
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
-              <button className="w-full mt-6 bg-purple-700 text-white py-3 rounded-xl font-bold shadow-lg shadow-purple-200">Book Now</button>
+              <button className="w-full mt-6 bg-purple-700 text-white py-3 rounded-xl font-bold shadow-lg shadow-purple-200">
+                Book Now
+              </button>
             </div>
           </div>
         </div>
