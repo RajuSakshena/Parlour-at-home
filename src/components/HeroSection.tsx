@@ -2,6 +2,7 @@ import { Star, Phone } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 export default function HeroSection() {
+
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -11,7 +12,7 @@ export default function HeroSection() {
     let scrollAmount = 0;
 
     const scroll = () => {
-      scrollAmount += 1;
+      scrollAmount += 0.5;
 
       if (scrollAmount >= scrollContainer.scrollWidth / 2) {
         scrollAmount = 0;
@@ -25,12 +26,12 @@ export default function HeroSection() {
   }, []);
 
   const beautyImages = [
-    "https://images.pexels.com/photos/3065209/pexels-photo-3065209.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/3997379/pexels-photo-3997379.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/3764540/pexels-photo-3764540.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/3785147/pexels-photo-3785147.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/3865675/pexels-photo-3865675.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "https://images.pexels.com/photos/3065209/pexels-photo-3065209.jpeg",
+    "https://images.pexels.com/photos/3997379/pexels-photo-3997379.jpeg",
+    "https://images.pexels.com/photos/3764540/pexels-photo-3764540.jpeg",
+    "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg",
+    "https://images.pexels.com/photos/3785147/pexels-photo-3785147.jpeg",
+    "https://images.pexels.com/photos/3865675/pexels-photo-3865675.jpeg",
   ];
 
   const cities = [
@@ -45,77 +46,81 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="pt-8 bg-gradient-to-br from-pink-50 via-rose-50 to-peach-50 overflow-hidden"
+      className="pt-4 bg-gradient-to-br from-pink-50 via-rose-50 to-peach-50 overflow-x-hidden"
     >
-      <div className="container mx-auto px-4 pb-6">
 
-        <div className="grid md:grid-cols-2 gap-10 items-center">
+      <div className="w-full px-3">
 
-          {/* LEFT SIDE */}
-          <div className="space-y-6 text-center md:text-left">
+        {/* MOBILE: column reverse */}
+        <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-4 items-center">
 
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
+          {/* LEFT TEXT */}
+          <div className="space-y-3 text-center md:text-left max-w-full">
+
+            <h1 className="text-xl md:text-5xl font-bold text-gray-800">
               Salon at Home for{" "}
               <span className="bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
                 Women
               </span>
             </h1>
 
-            <div className="flex flex-col items-center md:items-start space-y-2">
+            <div className="flex flex-col items-center md:items-start space-y-1">
 
               <div className="flex">
                 {[1,2,3,4,5].map((star)=>(
-                  <Star key={star} className="w-5 h-5 fill-yellow-400 text-yellow-400"/>
+                  <Star key={star} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400"/>
                 ))}
               </div>
 
-              <span className="text-gray-600 font-medium text-sm md:text-base">
+              <span className="text-gray-600 text-[11px]">
                 4.9/5 stars (2,500+ reviews)
               </span>
 
             </div>
 
-            <p className="text-base md:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto md:mx-0">
-              Experience professional beauty treatments in the comfort of your home.
-              Our certified beauticians bring premium salon services right to your doorstep.
+            <p className="text-xs text-gray-600">
+              Experience professional beauty treatments at home with certified beauticians.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex justify-center md:justify-start gap-2">
 
               <a
                 href="tel:+919811923486"
-                className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white px-8 py-4 rounded-full hover:shadow-xl transition-all font-semibold"
+                className="flex items-center gap-1 bg-pink-500 text-white px-4 py-2 rounded-full text-xs"
               >
-                <Phone className="w-5 h-5"/>
-                <span>Call Now</span>
+                <Phone className="w-3 h-3"/>
+                Call
               </a>
 
               <button
                 onClick={()=>document.getElementById("services")?.scrollIntoView({behavior:"smooth"})}
-                className="inline-flex items-center justify-center space-x-2 border-2 border-pink-500 text-pink-500 px-8 py-4 rounded-full hover:bg-pink-50 transition-all font-semibold"
+                className="border border-pink-500 text-pink-500 px-4 py-2 rounded-full text-xs"
               >
-                <span>Explore Services</span>
+                Explore
               </button>
 
             </div>
 
           </div>
 
-          {/* RIGHT SIDE IMAGE SCROLL */}
-          <div className="relative mt-8 md:mt-0">
+          {/* IMAGE SCROLL */}
+          <div className="w-full overflow-hidden">
 
             <div
               ref={scrollRef}
-              className="flex overflow-x-hidden space-x-4 pb-4"
-              style={{scrollBehavior:"auto"}}
+              className="flex space-x-2 overflow-hidden"
             >
 
               {[...beautyImages,...beautyImages].map((img,index)=>(
                 <div
                   key={index}
-                  className="flex-shrink-0 w-48 md:w-64 h-64 md:h-80 rounded-2xl overflow-hidden shadow-lg border-4 border-white"
+                  className="flex-shrink-0 w-28 h-36 rounded-lg overflow-hidden shadow"
                 >
-                  <img src={img} alt="Beauty service" className="w-full h-full object-cover"/>
+                  <img
+                    src={img}
+                    alt="Beauty service"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               ))}
 
@@ -128,23 +133,25 @@ export default function HeroSection() {
       </div>
 
       {/* SERVICE STRIP */}
-      <div className="bg-pink-100 py-3 flex items-center overflow-hidden">
 
-        <div className="flex-shrink-0 pl-4 pr-8 font-semibold whitespace-nowrap text-lg text-pink-700">
-          Service Available{" "}
-          <span className="text-rose-600 font-bold">(10% OFF)</span>
+      <div className="bg-pink-100 py-2 mt-3 flex items-center overflow-hidden">
+
+        <div className="pl-3 pr-4 font-semibold text-sm text-pink-700 whitespace-nowrap">
+          Service Available <span className="text-rose-600">(10% OFF)</span>
         </div>
 
         <div className="overflow-hidden flex-1">
-          <div className="flex animate-marquee whitespace-nowrap font-semibold text-base md:text-lg">
+
+          <div className="flex animate-marquee whitespace-nowrap text-xs font-semibold">
 
             {[...cities,...cities,...cities].map((city,index)=>(
-              <span key={index} className={`mx-8 ${city.color}`}>
+              <span key={index} className={`mx-4 ${city.color}`}>
                 {city.name}
               </span>
             ))}
 
           </div>
+
         </div>
 
       </div>
@@ -152,7 +159,7 @@ export default function HeroSection() {
       <style>
         {`
         .animate-marquee {
-          animation: marquee 12s linear infinite;
+          animation: marquee 14s linear infinite;
         }
 
         @keyframes marquee {
