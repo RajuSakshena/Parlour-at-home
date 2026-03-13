@@ -1,12 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
-import HeroSection from "./components/HeroSection";
-import ServicesSection from "./components/ServicesSection";
-import OffersSection from "./components/OffersSection";
-import TestimonialsSection from "./components/TestimonialsSection";
-import KnowMoreSection from "./components/KnowMoreSection";
 import Footer from "./components/Footer";
+import Home from "./components/home";
 
 import FacialServices from "./components/FacialServices";
 import MakeupServices from "./components/MakeupServices";
@@ -17,18 +13,6 @@ import MassageServices from "./components/MassageServices";
 import PreBridalServices from "./components/PreBridalServices";
 import PackageServices from "./components/PackageServices";
 
-function HomePage() {
-  return (
-    <>
-      <HeroSection />
-      <ServicesSection />
-      <OffersSection />
-      <TestimonialsSection />
-      <KnowMoreSection />
-    </>
-  );
-}
-
 function App() {
   return (
     <BrowserRouter>
@@ -38,7 +22,7 @@ function App() {
         <main className="flex-grow">
           <Routes>
             {/* Home */}
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<Home />} />
 
             {/* Service Pages */}
             <Route path="/services/facial" element={<FacialServices />} />
