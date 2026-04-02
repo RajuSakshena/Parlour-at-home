@@ -2,6 +2,19 @@ import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
+import exoticManicurePedicure from "../images/Exotic Manicure-Pedicure.jpg";
+import aromaMagicBrighteningManiPedi from "../images/Aroma Magic Brightening Mani-Pedi.jpg";
+import saraManiPedi from "../images/Sara Mani-Pedi.jpg";
+import o3BubblegumManiPedi from "../images/O3+ Bubblegum Mani Pedi.jpg";
+import aromaMagicBrighteningPedicure from "../images/Aroma Magic Brightening Pedicure.jpg";
+import exoticPedicure from "../images/Exotic Pedicure.jpg";
+import saraPedicure from "../images/Sara Pedicure.jpg";
+import o3BubblegumPedicure from "../images/O3+ Bubblegum Pedicure.jpg";
+import aromaMagicBrighteningManicure from "../images/Aroma Magic Brightening Manicure.jpg";
+import exoticManicure from "../images/Exotic Manicure.jpg";
+import saraManicure from "../images/Sara Manicure.jpg";
+import o3BubblegumManicure from "../images/O3+ Bubblegum Manicure.jpg";
+
 const categories = [
   "Mani-Pedi",
   "Pedicure",
@@ -24,28 +37,28 @@ const allManiPediData: Record<string, ManiPediService[]> = {
     {
       title: "Exotic Manicure-Pedicure",
       price: 699, mrp: 1398, discount: "50% Off", duration: "75 min",
-      image: "https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3",
+      image: exoticManicurePedicure,
       includes: ["Nail trimming & shaping for hands and feet", "Cuticle care", "Exotic scrub exfoliation", "Moisturizing cream massage", "Pack for tan removal"],
       info: ["Remove old polish before service", "Inform if you have any nail conditions or allergies", "Avoid water contact for 1 hour post service", "Any complaint report within 24 hrs with pictures via email"]
     },
     {
       title: "Aroma Magic Brightening Mani-Pedi",
       price: 799, mrp: 1598, discount: "50% Off", duration: "90 min",
-      image: "https://images.unsplash.com/photo-1607779097040-26e80aa4576b",
+      image: aromaMagicBrighteningManiPedi,
       includes: ["Nail care", "Cuticle treatment", "Brightening scrub", "Aroma massage", "Brightening pack"],
       info: ["Remove old polish before service", "Inform if you have any nail conditions or allergies", "Avoid water contact for 1 hour post service", "Any complaint report within 24 hrs with pictures via email"]
     },
     {
       title: "Sara Mani-Pedi",
       price: 899, mrp: 1798, discount: "50% Off", duration: "75 min",
-      image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9",
+      image: saraManiPedi,
       includes: ["Nail shaping", "Cuticle cleaning", "Sara scrub", "Sara cream massage", "Sara pack"],
       info: ["Remove old polish before service", "Inform if you have any nail conditions or allergies", "Avoid water contact for 1 hour post service", "Any complaint report within 24 hrs with pictures via email"]
     },
     {
       title: "O3+ Bubblegum Mani Pedi",
       price: 1149, mrp: 2298, discount: "50% Off", duration: "90 min",
-      image: "https://images.unsplash.com/photo-1596178060671-7a80dc8059ea",
+      image: o3BubblegumManiPedi,
       includes: ["Nail trim & shape", "Cuticle care", "Bubblegum scrub", "Bubblegum massage", "O3+ pack"],
       info: ["Remove old polish before service", "Inform if you have any nail conditions or allergies", "Avoid water contact for 1 hour post service", "Any complaint report within 24 hrs with pictures via email"]
     },
@@ -54,28 +67,28 @@ const allManiPediData: Record<string, ManiPediService[]> = {
     {
       title: "Aroma Magic Brightening Pedicure",
       price: 499, mrp: 998, discount: "50% Off", duration: "40 min",
-      image: "https://images.unsplash.com/photo-1556228578-567ba26b1b3c",
+      image: aromaMagicBrighteningPedicure,
       includes: ["Foot soak", "Nail trim & shape", "Cuticle care", "Brightening scrub", "Aroma massage", "Brightening pack"],
       info: ["Remove old polish before service", "Inform if you have any foot conditions or allergies", "Avoid tight shoes post service", "Any complaint report within 24 hrs with pictures via email"]
     },
     {
       title: "Exotic Pedicure",
       price: 549, mrp: 1098, discount: "50% Off", duration: "45 min",
-      image: "https://images.unsplash.com/photo-1556228578-567ba26b1b3c",
+      image: exoticPedicure,
       includes: ["Foot soak", "Nail care", "Cuticle treatment", "Exotic scrub", "Moisturizing massage", "Tan removal pack"],
       info: ["Remove old polish before service", "Inform if you have any foot conditions or allergies", "Avoid tight shoes post service", "Any complaint report within 24 hrs with pictures via email"]
     },
     {
       title: "Sara Pedicure",
       price: 599, mrp: 1198, discount: "50% Off", duration: "45 min",
-      image: "https://images.unsplash.com/photo-1556228578-567ba26b1b3c",
+      image: saraPedicure,
       includes: ["Foot soak", "Nail shaping", "Cuticle cleaning", "Sara scrub", "Sara cream massage", "Sara pack"],
       info: ["Remove old polish before service", "Inform if you have any foot conditions or allergies", "Avoid tight shoes post service", "Any complaint report within 24 hrs with pictures via email"]
     },
     {
       title: "O3+ Bubblegum Pedicure",
       price: 749, mrp: 1498, discount: "50% Off", duration: "60 min",
-      image: "https://images.unsplash.com/photo-1556228578-567ba26b1b3c",
+      image: o3BubblegumPedicure,
       includes: ["Foot soak", "Nail trim", "Cuticle care", "Bubblegum scrub", "Bubblegum massage", "O3+ pack"],
       info: ["Remove old polish before service", "Inform if you have any foot conditions or allergies", "Avoid tight shoes post service", "Any complaint report within 24 hrs with pictures via email"]
     },
@@ -84,28 +97,28 @@ const allManiPediData: Record<string, ManiPediService[]> = {
     {
       title: "Aroma Magic Brightening Manicure",
       price: 399, mrp: 798, discount: "50% Off", duration: "35 min",
-      image: "https://images.unsplash.com/photo-1607779097040-26e80aa4576b",
+      image: aromaMagicBrighteningManicure,
       includes: ["Hand soak", "Nail trim & shape", "Cuticle care", "Brightening scrub", "Aroma massage", "Brightening pack"],
       info: ["Remove old polish before service", "Inform if you have any hand conditions or allergies", "Avoid water for 1 hr post service", "Any complaint report within 24 hrs with pictures via email"]
     },
     {
       title: "Exotic Manicure",
       price: 449, mrp: 898, discount: "50% Off", duration: "45 min",
-      image: "https://images.unsplash.com/photo-1607779097040-26e80aa4576b",
+      image: exoticManicure,
       includes: ["Hand soak", "Nail care", "Cuticle treatment", "Exotic scrub", "Moisturizing massage", "Tan removal pack"],
       info: ["Remove old polish before service", "Inform if you have any hand conditions or allergies", "Avoid water for 1 hr post service", "Any complaint report within 24 hrs with pictures via email"]
     },
     {
       title: "Sara Manicure",
       price: 499, mrp: 998, discount: "50% Off", duration: "30 min",
-      image: "https://images.unsplash.com/photo-1607779097040-26e80aa4576b",
+      image: saraManicure,
       includes: ["Hand soak", "Nail shaping", "Cuticle cleaning", "Sara scrub", "Sara cream massage", "Sara pack"],
       info: ["Remove old polish before service", "Inform if you have any hand conditions or allergies", "Avoid water for 1 hr post service", "Any complaint report within 24 hrs with pictures via email"]
     },
     {
       title: "O3+ Bubblegum Manicure",
       price: 649, mrp: 1298, discount: "50% Off", duration: "45 min",
-      image: "https://images.unsplash.com/photo-1607779097040-26e80aa4576b",
+      image: o3BubblegumManicure,
       includes: ["Hand soak", "Nail trim", "Cuticle care", "Bubblegum scrub", "Bubblegum massage", "O3+ pack"],
       info: ["Remove old polish before service", "Inform if you have any hand conditions or allergies", "Avoid water for 1 hr post service", "Any complaint report within 24 hrs with pictures via email"]
     },
@@ -172,13 +185,16 @@ export default function ManipediServices() {
               {allManiPediData[cat]?.map((item, idx) => (
                 <div
                   key={idx}
-                  className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex overflow-hidden transition-shadow"
+                  className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex items-stretch overflow-hidden transition-shadow"
                 >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 object-cover"
-                  />
+                  {/* Updated professional image container */}
+                  <div className="w-28 md:w-36 lg:w-44 h-full flex-shrink-0">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover object-center rounded-l-xl md:rounded-l-2xl"
+                    />
+                  </div>
 
                   <div className="p-3 md:p-4 flex-1">
                     <div className="flex justify-between items-start">
@@ -226,8 +242,14 @@ export default function ManipediServices() {
 
       {/* MODAL (Exact match to MakeupServices.tsx) */}
       {selected && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-xl md:rounded-2xl max-w-[480px] w-full mx-4 relative max-h-[80vh]">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setSelected(null)}
+        >
+          <div
+            className="bg-white rounded-xl md:rounded-2xl max-w-[480px] w-full mx-4 relative max-h-[80vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={() => setSelected(null)}
               className="absolute top-4 right-4 z-20 bg-gray-100 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center font-bold"

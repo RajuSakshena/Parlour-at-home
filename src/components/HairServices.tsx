@@ -2,6 +2,27 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
+import hairCutKids from "../images/Hair Cut Kids.jpg";
+import babyHairCut from "../images/Baby Hair Cut.jpg";
+import hairTrimming from "../images/Hair Trimming.jpg";
+import normalHairCut from "../images/Normal Hair Cut.jpg";
+import headMassage from "../images/Head Massage.jpg";
+
+import lorealHairSpaS from "../images/Loreal Hair Spa - S.jpg";
+import lorealHairSpaM from "../images/Loreal Hair Spa - M.jpg";
+import lorealHairSpaL from "../images/Loreal Hair Spa - L.jpg";
+import lorealDrySensitiveScalpAmpoule from "../images/L'oreal Dry & Sensitive Scalp Ampoule.jpg";
+import lorealAntiDandruffAmpoule from "../images/L'oreal Anti Dandruff Ampoule.jpg";
+
+import lorealMajirelRootTouchUp from "../images/L’Oréal Majirel Root Touch Up.jpg";
+import lorealInoaGlobalSmall from "../images/Loreal INOA Global - Small.jpg";
+import lorealMajirelGlobalSmall from "../images/L’Oreal Majirel Global - Small.jpg";
+import lorealInoaGlobalMedium from "../images/Loreal INOA Global - Medium.jpg";
+import lorealMajirelGlobalMedium from "../images/L’Oreal Majirel Global - Medium.jpg";
+import lorealInoaGlobalLarge from "../images/Loreal INOA Global - Large.jpg";
+import lorealMajirelGlobalLarge from "../images/L’Oreal Majirel Global - Large.jpg";
+import hennaColourApplication from "../images/Henna - Colour Application.jpg";
+
 const categories = ["Hair Cut", "Hair Treatment", "Hair Color"];
 
 type HairService = {
@@ -15,13 +36,6 @@ type HairService = {
   info: string[];
 };
 
-const hairCutImage =
-  "https://images.unsplash.com/photo-1519415943484-9fa1873496d4";
-const hairTreatmentImage =
-  "https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3";
-const hairColorImage =
-  "https://images.unsplash.com/photo-1600948836101-f9ffda59d250";
-
 const hairCutServices: HairService[] = [
   {
     title: "Hair Cut Kids",
@@ -29,7 +43,7 @@ const hairCutServices: HairService[] = [
     price: 117,
     mrp: 195,
     discount: "40% Off",
-    image: hairCutImage,
+    image: hairCutKids,
     includes: [],
     info: [],
   },
@@ -39,7 +53,7 @@ const hairCutServices: HairService[] = [
     price: 117,
     mrp: 195,
     discount: "40% Off",
-    image: hairCutImage,
+    image: babyHairCut,
     includes: [],
     info: [],
   },
@@ -49,7 +63,7 @@ const hairCutServices: HairService[] = [
     price: 177,
     mrp: 295,
     discount: "40% Off",
-    image: hairCutImage,
+    image: hairTrimming,
     includes: ["For trimming your damaged or uneven hair"],
     info: [],
   },
@@ -59,7 +73,7 @@ const hairCutServices: HairService[] = [
     price: 350,
     mrp: 500,
     discount: "30% Off",
-    image: hairCutImage,
+    image: normalHairCut,
     includes: ["Straight, U shape, V Shape Cut"],
     info: [],
   },
@@ -69,7 +83,7 @@ const hairCutServices: HairService[] = [
     price: 100,
     mrp: 200,
     discount: "50% Off",
-    image: hairCutImage,
+    image: headMassage,
     includes: ["Hair Oil to be provided by customer"],
     info: [],
   },
@@ -90,7 +104,7 @@ const hairTreatmentServices: HairService[] = [
     price: 649,
     mrp: 1298,
     discount: "50% Off",
-    image: hairTreatmentImage,
+    image: lorealHairSpaS,
     includes: [
       "Hair Size: Small Length (above shoulder)",
       "Product Used: Loreal",
@@ -104,7 +118,7 @@ const hairTreatmentServices: HairService[] = [
     price: 849,
     mrp: 1698,
     discount: "50% Off",
-    image: hairTreatmentImage,
+    image: lorealHairSpaM,
     includes: [
       "Hair Size: Medium Length (upto elbow)",
       "Product Used: Loreal",
@@ -118,7 +132,7 @@ const hairTreatmentServices: HairService[] = [
     price: 1199,
     mrp: 2398,
     discount: "50% Off",
-    image: hairTreatmentImage,
+    image: lorealHairSpaL,
     includes: [
       "Hair Size: Large (upto waist)",
       "Product Used: Loreal",
@@ -132,7 +146,7 @@ const hairTreatmentServices: HairService[] = [
     price: 120,
     mrp: 120,
     discount: "0% Off",
-    image: hairTreatmentImage,
+    image: lorealDrySensitiveScalpAmpoule,
     includes: [
       "L'Oreal Paris Hair Spa Hydrating Concentrate",
       "Leaves your scalp & hair soft and supple",
@@ -146,7 +160,7 @@ const hairTreatmentServices: HairService[] = [
     price: 120,
     mrp: 120,
     discount: "0% Off",
-    image: hairTreatmentImage,
+    image: lorealAntiDandruffAmpoule,
     includes: [
       "L'Oreal Paris Hair Spa Hydrating Concentrate",
       "Leaves your scalp & hair soft and supple",
@@ -163,7 +177,7 @@ const hairColorServices: HairService[] = [
     price: 700,
     mrp: 1400,
     discount: "50% Off",
-    image: hairColorImage,
+    image: lorealMajirelRootTouchUp,
     includes: [
       "L'oreal Majirel hair color",
       "Shades: Black, Darkest Brown, Brown, Light Brown",
@@ -181,7 +195,7 @@ const hairColorServices: HairService[] = [
     price: 1349,
     mrp: 2698,
     discount: "50% Off",
-    image: hairColorImage,
+    image: lorealInoaGlobalSmall,
     includes: [
       "Hair size: Small (Above shoulder)",
       "Basic shades: Black, Darkest Brown, Brown, Light Brown",
@@ -198,7 +212,7 @@ const hairColorServices: HairService[] = [
     price: 1200,
     mrp: 2400,
     discount: "50% Off",
-    image: hairColorImage,
+    image: lorealMajirelGlobalSmall,
     includes: [
       "Hair size: Small (Above shoulder)",
       "Shades: Black, Darkest Brown, Brown, Light Brown",
@@ -211,7 +225,7 @@ const hairColorServices: HairService[] = [
     price: 2100,
     mrp: 4200,
     discount: "50% Off",
-    image: hairColorImage,
+    image: lorealInoaGlobalMedium,
     includes: [
       "Hair size: Medium (Upto elbow)",
       "Shades: Black, Darkest Brown, Brown, Light Brown",
@@ -224,7 +238,7 @@ const hairColorServices: HairService[] = [
     price: 1900,
     mrp: 3800,
     discount: "50% Off",
-    image: hairColorImage,
+    image: lorealMajirelGlobalMedium,
     includes: [
       "Hair size: Medium (Upto elbow)",
       "Shades: Black, Darkest Brown, Brown, Light Brown",
@@ -237,7 +251,7 @@ const hairColorServices: HairService[] = [
     price: 2599,
     mrp: 5198,
     discount: "50% Off",
-    image: hairColorImage,
+    image: lorealInoaGlobalLarge,
     includes: [
       "Hair Size: Large (Upto waist)",
       "Shades: Black, Darkest Brown, Brown, Light Brown",
@@ -250,7 +264,7 @@ const hairColorServices: HairService[] = [
     price: 2400,
     mrp: 4800,
     discount: "50% Off",
-    image: hairColorImage,
+    image: lorealMajirelGlobalLarge,
     includes: [
       "Hair size: Large (Upto waist)",
       "Shades: Black, Darkest Brown, Brown, Light Brown",
@@ -263,7 +277,7 @@ const hairColorServices: HairService[] = [
     price: 350,
     mrp: 700,
     discount: "50% Off",
-    image: hairColorImage,
+    image: hennaColourApplication,
     includes: ["Henna / Colour to be provided by the customer"],
     info: [
       "Hair should be washed and dry before taking service",
@@ -339,13 +353,16 @@ export default function HairServices() {
               {allData[cat].map((item, idx) => (
                 <div
                   key={idx}
-                  className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex overflow-hidden transition-shadow"
+                  className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex flex-col md:flex-row md:items-stretch overflow-hidden transition-shadow"
                 >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 object-cover"
-                  />
+                  {/* UPDATED IMAGE CONTAINER - Professional layout fix */}
+                  <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-t-none">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover object-center"
+                    />
+                  </div>
 
                   <div className="p-3 md:p-4 flex-1">
                     <div className="flex justify-between items-start">
@@ -391,10 +408,16 @@ export default function HairServices() {
         ))}
       </div>
 
-      {/* MODAL (Exact match to MakeupServices.tsx) */}
+      {/* DETAIL MODAL - Updated with outside click support */}
       {selected && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-xl md:rounded-2xl max-w-[480px] w-full mx-4 relative max-h-[80vh]">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setSelected(null)}
+        >
+          <div
+            className="bg-white rounded-xl md:rounded-2xl max-w-[480px] w-full mx-4 relative max-h-[80vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={() => setSelected(null)}
               className="absolute top-4 right-4 z-20 bg-gray-100 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center font-bold"

@@ -2,6 +2,23 @@ import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
+import luxuryPartyMakeup from "../images/Luxury Party Makeup.jpg";
+import hdPartyMakeUp from "../images/HD Party Make Up.jpg";
+import luxuryEngagementMakeUp from "../images/Luxury Engagement Make Up.jpg";
+import hdEngagementMakeUp from "../images/HD Engagement Make Up.jpg";
+import airBrushEngagementMakeup from "../images/Air Brush Engagement Makeup.jpg";
+import luxuryBridalMakeup from "../images/Luxury Bridal Makeup.jpg";
+import hdBridalMakeUp from "../images/HD Bridal Make Up.jpg";
+import airBrushBridalMakeUp from "../images/Air Brush Bridal Make Up.jpg";
+import luxuryPartyGroupMakeUp from "../images/Luxury Party Group Make Up.jpg";
+import hdPartyGroupMakeUp from "../images/HD Party Group Make Up.jpg";
+import sareeDraping from "../images/Saree Draping.jpg";
+import blowDry from "../images/Blow Dry.jpg";
+import straightening from "../images/Straightening.jpg";
+import hairCurl from "../images/Hair Curl.jpg";
+import advanceHairDo from "../images/Advance Hair Do.jpg";
+import basicGroupHairStyling from "../images/Basic Group Hair Styling.jpg";
+
 /* =========================
    NAV MENU
 ========================= */
@@ -28,20 +45,6 @@ type MakeupService = {
 };
 
 /* =========================
-   SECTION IMAGES
-========================= */
-const PARTY_IMG =
-  "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=600";
-const ENGAGEMENT_IMG =
-  "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=600";
-const BRIDAL_IMG =
-  "https://images.unsplash.com/photo-1595475038784-bbe439ff41e6?q=80&w=600";
-const GROUP_IMG =
-  "https://images.unsplash.com/photo-1583001931096-959e9a1a6223?q=80&w=600";
-const ADDON_IMG =
-  "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=600";
-
-/* =========================
    DATA
 ========================= */
 const partyMakeup: MakeupService[] = [
@@ -51,7 +54,7 @@ price:2999,
 mrp:5998,
 discount:"50% Off",
 duration:"90 minutes",
-image:PARTY_IMG,
+image: luxuryPartyMakeup,
 includes:["Advance Makeup","Advance Hair Do","Professional Makeup Artist"],
 info:[
 "Advance long lasting make up with good coverage",
@@ -68,7 +71,7 @@ price:3999,
 mrp:6665,
 discount:"40% Off",
 duration:"100 minutes",
-image:PARTY_IMG,
+image: hdPartyMakeUp,
 includes:["Premium HD Party Make Up","Advance Hair Do","Professional Makeup Artist"],
 info:[
 "Flawless HD coverage Make Up that will last longer than your occasion",
@@ -87,7 +90,7 @@ price:3999,
 mrp:7998,
 discount:"50% Off",
 duration:"180 minutes",
-image:ENGAGEMENT_IMG,
+image: luxuryEngagementMakeUp,
 includes:["Advance Makeup","Advance Hair Do","Dress/Saree Draping is not included","Professional Makeup Artist"],
 info:[
 "Advance Make up",
@@ -104,7 +107,7 @@ price:5099,
 mrp:10198,
 discount:"50% Off",
 duration:"180 minutes",
-image:ENGAGEMENT_IMG,
+image: hdEngagementMakeUp,
 includes:["Premium HD Engagement Make up","Advance Hair Do","Complimentary Dress/Saree Draping","Professional Makeup Artist"],
 info:[
 "Flawless HD coverage Make Up that will last longer than your occasion",
@@ -122,7 +125,7 @@ price:6999,
 mrp:13998,
 discount:"50% Off",
 duration:"180 minutes",
-image:ENGAGEMENT_IMG,
+image: airBrushEngagementMakeup,
 includes:["Air Brush Engagement Make up","Advance Hair Do","Complimentary Dress/Saree Draping","Professional Makeup Artist"],
 info:[
 "Air Brush Make Up that will cover all the blemishes/pores and give flawless finish which will last longer than your occasion",
@@ -142,7 +145,7 @@ price:6999,
 mrp:13998,
 discount:"50% Off",
 duration:"240 minutes",
-image:BRIDAL_IMG,
+image: luxuryBridalMakeup,
 includes:["Luxury Advance Bridal Make up","Advance Hair Do","Dress/Saree Draping","Professional Makeup Artist"],
 info:[
 "Advance Bridal Make up",
@@ -160,7 +163,7 @@ price:10499,
 mrp:20998,
 discount:"50% Off",
 duration:"280 minutes",
-image:BRIDAL_IMG,
+image: hdBridalMakeUp,
 includes:["Premium HD Bridal Make up","Advance Hair Do","Dress/Saree Draping","Professional Makeup Artist"],
 info:[
 "Flawless HD coverage Make Up that will last longer than your occasion",
@@ -178,7 +181,7 @@ price:15499,
 mrp:30998,
 discount:"50% Off",
 duration:"360 minutes",
-image:BRIDAL_IMG,
+image: airBrushBridalMakeUp,
 includes:["Air Brush Bridal Make UP","Advance Hair Do","Dress/Saree Draping","Professional Makeup Artist"],
 info:[
 "Air Brush Make Up that will cover all the blemishes/pores and give flawless finish which will last longer than your occasion",
@@ -198,7 +201,7 @@ price:8499,
 mrp:16998,
 discount:"50% Off",
 duration:"360 minutes",
-image:GROUP_IMG,
+image: luxuryPartyGroupMakeUp,
 includes:["Advance Party Make Up","Advance Hair do","Package for group of 3"],
 info:[
 "Advance long lasting make up with good coverage",
@@ -215,7 +218,7 @@ price:11499,
 mrp:22998,
 discount:"50% Off",
 duration:"360 minutes",
-image:GROUP_IMG,
+image: hdPartyGroupMakeUp,
 includes:["HD Party Make up","Advance Hair do","Package for group of 3"],
 info:[
 "Flawless HD coverage Make Up that will last longer than your occasion",
@@ -234,7 +237,7 @@ price:350,
 mrp:389,
 discount:"10% Off",
 duration:"15 minutes",
-image:ADDON_IMG,
+image: sareeDraping,
 includes:["Saree draping / Dress Draping"],
 info:["Only available with booking of make up services"]
 },
@@ -244,7 +247,7 @@ price:499,
 mrp:998,
 discount:"50% Off",
 duration:"30 minutes",
-image:ADDON_IMG,
+image: blowDry,
 includes:["For Any Length","Only available with booking of make up services"],
 info:["Hair wash is not included","Hair should be washed before appointment time"]
 },
@@ -254,7 +257,7 @@ price:499,
 mrp:998,
 discount:"50% Off",
 duration:"35 minutes",
-image:ADDON_IMG,
+image: straightening,
 includes:["For Any Length","Only available with booking of make up services"],
 info:["Hair wash & Blow dry is not included","Hair should be washed and dry before appointment time"]
 },
@@ -264,7 +267,7 @@ price:499,
 mrp:998,
 discount:"50% Off",
 duration:"35 minutes",
-image:ADDON_IMG,
+image: hairCurl,
 includes:["For Any Length","Only available with booking of make up services"],
 info:["Hair wash & Blow dry is not included","Hair should be washed and dry before appointment time"]
 },
@@ -274,7 +277,7 @@ price:990,
 mrp:1500,
 discount:"34% Off",
 duration:"65 minutes",
-image:ADDON_IMG,
+image: advanceHairDo,
 includes:["For Any length","Only available with booking of make up services"],
 info:[
 "Hair wash & Blow dry is not included",
@@ -289,7 +292,7 @@ price:1999,
 mrp:3998,
 discount:"50% Off",
 duration:"180 minutes",
-image:ADDON_IMG,
+image: basicGroupHairStyling,
 includes:["Hair styling for group of 4","Only available with booking of make up services"],
 info:[
 "Hair wash & Blow dry is not included",
@@ -373,13 +376,15 @@ export default function MakeupServices() {
               {allData[cat].map((item, idx) => (
                 <div
                   key={idx}
-                  className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex overflow-hidden transition-shadow"
+                  className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex flex-col md:flex-row md:items-stretch overflow-hidden transition-shadow"
                 >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 object-cover"
-                  />
+                  <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-t-none">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover object-center"
+                    />
+                  </div>
 
                   <div className="p-3 md:p-4 flex-1">
                     <div className="flex justify-between items-start">
@@ -424,9 +429,17 @@ export default function MakeupServices() {
           </div>
         ))}
       </div>
+
+      {/* DETAIL MODAL */}
       {selected && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-xl md:rounded-2xl max-w-[480px] w-full mx-4 relative max-h-[80vh]">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setSelected(null)}
+        >
+          <div
+            className="bg-white rounded-xl md:rounded-2xl max-w-[480px] w-full mx-4 relative max-h-[80vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={() => setSelected(null)}
               className="absolute top-4 right-4 z-20 bg-gray-100 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center font-bold"
@@ -436,10 +449,13 @@ export default function MakeupServices() {
 
             <div className="overflow-y-auto p-4 md:p-6">
               <div className="flex gap-2 md:gap-4 mb-4 md:mb-6">
-                <img
-                  src={selected.image}
-                  className="w-20 h-20 md:w-28 md:h-28 object-cover rounded-xl"
-                />
+                <div className="w-20 h-20 md:w-28 md:h-28 bg-gray-100 flex items-center justify-center rounded-xl flex-shrink-0">
+                  <img
+                    src={selected.image}
+                    className="max-w-full max-h-full object-contain"
+                    alt={selected.title}
+                  />
+                </div>
 
                 <div>
                   <h2 className="text-lg md:text-xl font-bold text-gray-900 leading-tight">

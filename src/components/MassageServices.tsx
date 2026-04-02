@@ -1,6 +1,16 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import backScrub from "../images/Back Scrub.jpg";
+import fullBodyScrub from "../images/Full Body Scrub.jpg";
+import backPolish from "../images/Back Polish.jpg";
+import fullBodyPolish from "../images/Full Body Polish.jpg";
+import fullBodyMassage from "../images/Full Body Massage.jpg";
+import rejuvenatingMassage from "../images/Rejuvenating Massage.jpg";
+import healthyHeadMassage from "../images/Healthy Head Massage.jpg";
+import shoulderBackMassage from "../images/Shoulder & Back Massage.jpg";
+import footMassage from "../images/Foot Massage.jpg";
+import armsMassage from "../images/Arms Massage.jpg";
 
 const categories = ["Body Polish", "Massage"];
 
@@ -15,9 +25,6 @@ type Service = {
   info: string[];
 };
 
-const bodyImage =
-  "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=800&auto=format&fit=crop";
-
 const bodyPolishServices: Service[] = [
   {
     title: "Back Scrub",
@@ -25,7 +32,7 @@ const bodyPolishServices: Service[] = [
     price: 349,
     mrp: 436,
     discount: "20% Off",
-    image: bodyImage,
+    image: backScrub,
     includes: [
       "Removes dead skin cells & reduces tanning",
       "Leaves skin smooth & supple",
@@ -39,7 +46,7 @@ const bodyPolishServices: Service[] = [
     price: 599,
     mrp: 1198,
     discount: "50% Off",
-    image: bodyImage,
+    image: fullBodyScrub,
     includes: [
       "Removes dead skin cells & reduces tanning",
       "Leaves skin smooth & supple",
@@ -53,7 +60,7 @@ const bodyPolishServices: Service[] = [
     price: 399,
     mrp: 499,
     discount: "20% Off",
-    image: bodyImage,
+    image: backPolish,
     includes: [
       "4 Steps Back Polishing",
       "Promotes regeneration of new cells",
@@ -72,7 +79,7 @@ const bodyPolishServices: Service[] = [
     price: 1099,
     mrp: 2198,
     discount: "50% Off",
-    image: bodyImage,
+    image: fullBodyPolish,
     includes: [
       "4 Steps Body Polishing",
       "Promotes regeneration of new cells",
@@ -95,7 +102,7 @@ const massageServices: Service[] = [
     price: 899,
     mrp: 1798,
     discount: "50% Off",
-    image: bodyImage,
+    image: fullBodyMassage,
     includes: ["Extreme Relaxing Massage", "Relieves Stress"],
     info: ["Face is not covered"],
   },
@@ -105,7 +112,7 @@ const massageServices: Service[] = [
     price: 1199,
     mrp: 2398,
     discount: "50% Off",
-    image: bodyImage,
+    image: rejuvenatingMassage,
     includes: [
       "Full Body Massage",
       "Full Body Scrub",
@@ -123,7 +130,7 @@ const massageServices: Service[] = [
     price: 299,
     mrp: 374,
     discount: "20% Off",
-    image: bodyImage,
+    image: healthyHeadMassage,
     includes: [
       "Stress buster",
       "Improves scalp health",
@@ -137,7 +144,7 @@ const massageServices: Service[] = [
     price: 349,
     mrp: 436,
     discount: "20% Off",
-    image: bodyImage,
+    image: shoulderBackMassage,
     includes: [
       "Reduces tightness",
       "Improves blood circulation",
@@ -155,7 +162,7 @@ const massageServices: Service[] = [
     price: 349,
     mrp: 436,
     discount: "20% Off",
-    image: bodyImage,
+    image: footMassage,
     includes: [
       "Promotes better sleep",
       "Improves blood circulation",
@@ -173,7 +180,7 @@ const massageServices: Service[] = [
     price: 349,
     mrp: 436,
     discount: "20% Off",
-    image: bodyImage,
+    image: armsMassage,
     includes: [
       "Improves blood circulation",
       "Relieves pain",
@@ -248,13 +255,15 @@ export default function MassageServices() {
               {allData[cat].map((item, idx) => (
                 <div
                   key={idx}
-                  className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex overflow-hidden transition-shadow"
+                  className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex flex-col md:flex-row md:items-stretch overflow-hidden transition-shadow"
                 >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 object-cover"
-                  />
+                  <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-t-none">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover object-center"
+                    />
+                  </div>
 
                   <div className="p-3 md:p-4 flex-1">
                     <div className="flex justify-between items-start">
@@ -300,10 +309,16 @@ export default function MassageServices() {
         ))}
       </div>
 
-      {/* MODAL (Exact match to MakeupServices.tsx) */}
+      {/* DETAIL MODAL - Updated with outside click support */}
       {selected && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-xl md:rounded-2xl max-w-[480px] w-full mx-4 relative max-h-[80vh]">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setSelected(null)}
+        >
+          <div
+            className="bg-white rounded-xl md:rounded-2xl max-w-[480px] w-full mx-4 relative max-h-[80vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={() => setSelected(null)}
               className="absolute top-4 right-4 z-20 bg-gray-100 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center font-bold"

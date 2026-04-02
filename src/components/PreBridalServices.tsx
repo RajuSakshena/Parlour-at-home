@@ -2,6 +2,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import classicPreBridal from "../images/Classic Pre-bridal Grooming.jpg";
+import luxuryPreBridal from "../images/Luxury Pre-bridal Grooming.jpg";
+import magnificencePreBridal from "../images/Magnificence Pre-bridal Grooming.jpg";
 
 const services = [
   {
@@ -11,7 +14,7 @@ const services = [
     mrp: "₹ 8,000.00",
     discount: "34% Off",
     duration: "330 mins",
-    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+    image: classicPreBridal,
     includes: [
       "Sara Gold Facial",
       "Oxy Face Bleach",
@@ -31,7 +34,7 @@ const services = [
     mrp: "₹ 8,500.00",
     discount: "19% Off",
     duration: "420 mins",
-    image: "https://images.unsplash.com/photo-1487412912498-0447578fcca8",
+    image: luxuryPreBridal,
     includes: [
       "O3+ Bridal Facial",
       "Nature’s Body Bleach",
@@ -51,7 +54,7 @@ const services = [
     mrp: "₹ 9,500.00",
     discount: "21% Off",
     duration: "570 mins",
-    image: "https://images.unsplash.com/photo-1519741497674-611481863552",
+    image: magnificencePreBridal,
     includes: [
       "O3+ Bridal Facial",
       "Full Body Bleach (Nature’s Body Bleach / Raaga De-tan)",
@@ -73,9 +76,7 @@ export default function PreBridalServices() {
 
   return (
     <>
-      {/* HEADER WITH BACK BUTTON */}
       <div className="py-4 md:py-6 lg:py-8 text-center bg-white border-b relative">
-        {/* Back Arrow Button */}
         <button
           onClick={() => navigate(-1)}
           className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-9 md:h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shadow-sm"
@@ -91,29 +92,30 @@ export default function PreBridalServices() {
         </p>
       </div>
 
-      {/* ORIGINAL CONTENT - UNCHANGED */}
       <div className="max-w-6xl mx-auto px-3 md:px-6 lg:px-10 py-6 md:py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {services.map((service) => (
           <div
             key={service.id}
-            className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex flex-col md:flex-row overflow-hidden"
+            className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex flex-col overflow-hidden h-auto hover:-translate-y-1 transition-all duration-300"
           >
             <img
               src={service.image}
               alt={service.name}
-              className="w-full h-32 md:w-36 md:h-48 lg:w-44 lg:h-56 object-cover"
+              className="w-full h-44 object-cover"
             />
 
-            <div className="p-3 md:p-4 lg:p-6 flex-1">
+            <div className="p-3 md:p-4 lg:p-6 flex-1 min-w-0 w-full">
               <div className="flex justify-between items-start">
-                <h3 className="font-semibold text-sm md:text-base lg:text-lg">{service.name}</h3>
+                <h3 className="font-semibold text-sm md:text-base lg:text-lg break-words leading-snug whitespace-normal">
+                  {service.name}
+                </h3>
 
-                <button className="bg-purple-700 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-xl text-xs md:text-sm font-bold">
+                <button className="bg-purple-700 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-xl text-xs md:text-sm font-bold flex-shrink-0">
                   ADD
                 </button>
               </div>
 
-              <div className="flex items-center gap-2 mt-1">
+              <div className="flex flex-wrap items-center gap-2 mt-1">
                 <span className="font-bold text-sm md:text-base">{service.price}</span>
                 <span className="line-through text-xs md:text-sm text-gray-400">
                   {service.mrp}
@@ -127,7 +129,7 @@ export default function PreBridalServices() {
                 {service.duration}
               </div>
 
-              <ul className="mt-3 space-y-1 text-xs md:text-sm text-gray-500">
+              <ul className="mt-3 space-y-1 text-xs md:text-sm text-gray-500 break-words whitespace-normal">
                 {service.includes.slice(0, 3).map((item, i) => (
                   <li key={i}>• {item}</li>
                 ))}
@@ -144,8 +146,14 @@ export default function PreBridalServices() {
         ))}
 
         {selectedService && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-            <div className="bg-white rounded-xl md:rounded-2xl max-w-md w-full mx-4 p-4 md:p-6 relative max-h-[80vh] overflow-y-auto">
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+            onClick={() => setSelectedService(null)}
+          >
+            <div
+              className="bg-white rounded-xl md:rounded-2xl max-w-md w-full mx-4 p-4 md:p-6 relative max-h-[80vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
               <button
                 onClick={() => setSelectedService(null)}
                 className="absolute top-4 right-4 text-gray-500 text-lg"

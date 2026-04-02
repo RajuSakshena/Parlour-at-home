@@ -3,7 +3,55 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 /* =========================
-   NAV MENU (Style synced with MakeupServices.tsx)
+   IMAGE IMPORTS (src/images/)
+========================= */
+import lotusWhiteGlowActivatedCharcoalFacial from "../images/Lotus WhiteGlow Activated Charcoal Facial.jpg";
+import lotusWhiteGlowBrighteningFacial from "../images/Lotus WhiteGlow Brightening Facial.jpg";
+import lotusHydravitalFacial from "../images/Lotus Hydravital Facial.jpg";
+import fruitFacial from "../images/Fruit Facial.jpg";
+import antiTanFacial from "../images/Anti Tan Facial.jpg";
+import aromaMagicBridalGlow from "../images/Aroma Magic Bridal Glow.jpg";
+import vedicLineVitaminCFacial from "../images/Vedic Line Vitamin C Facial.jpg";
+import redWineFacial from "../images/Red Wine Facial.jpg";
+import saraGoldFacial from "../images/Sara Gold Facial.jpg";
+import saraDiamondFacial from "../images/Sara Diamond Facial.jpg";
+import lotusBridalGlowFacial from "../images/Lotus Bridal Glow Facial.jpg";
+import o3SeaWhiteFacial from "../images/O3+ Sea White Facial.jpg";
+import o3WhiteningFacial from "../images/O3+ Whitening Facial.jpg";
+import o3AntiAgeingFacial from "../images/O3+ Anti Ageing Facial.jpg";
+import o3PowerBrighteningWithBleach from "../images/O3+ PowerBrightening With O3+ Bleach.jpg";
+import lotusInstafairTreatment from "../images/Lotus Instafair Treatment.jpg";
+import seasoulCcDermaIceFacial from "../images/Seasoul CC Derma Ice Facial.jpg";
+import lotusGoldSheenTreatment from "../images/Lotus GoldSheen Treatment.jpg";
+import o3BridalGlow from "../images/03+ Bridal Glow.jpg";
+import casmaraGojiFacial from "../images/Casmara Goji Facial.jpg";
+import instaGlowCleanUp from "../images/Insta Glow Clean Up.jpg";
+import fruitCleanUp from "../images/Fruit Clean Up.jpg";
+import faceNeckDeTan from "../images/Face & Neck DeTan.jpg";
+import underarmsDeTan from "../images/Underarms De Tan.jpg";
+import fullArmsDeTan from "../images/Full Arms DeTan.jpg";
+import fullLegsDeTan from "../images/Full Legs De Tan.jpg";
+import stomachDeTan from "../images/Stomach DeTan.jpg";
+import halfBackDeTan from "../images/Half Back DeTan.jpg";
+import fullBackDeTan from "../images/Full Back DeTan.jpg";
+import fullBodyDeTan from "../images/Full Back DeTan.jpg";
+import fullBodyDeTanFaceNeck from "../images/Full Body DeTan + Face & Neck.jpg";
+import faceNeckBleach from "../images/Face & Neck Bleach.jpg";
+import fullArmsBleach from "../images/Full Arms Bleach.jpg";
+import halfLegsBleach from "../images/Half Legs Bleach.jpg";
+import fullLegsBleach from "../images/Full Legs Bleach.jpg";
+import fullBackBleach from "../images/Full Back Bleach.jpg";
+import fullFrontBleach from "../images/Full Front Bleach.jpg";
+import fullBodyBleach from "../images/Full Body Bleach.jpg";
+import eyeBrowThreading from "../images/Eye Brow Threading.jpg";
+import upperLipThreading from "../images/Upper Lip Threading.jpg";
+import foreheadThreading from "../images/Forehead Threading.jpg";
+import chinThreading from "../images/Chin Threading.jpg";
+import sideLocksThreading from "../images/Side Locks Threading.jpg";
+import fullFaceThreading from "../images/Full Face Threading.jpg";
+
+/* =========================
+   NAV MENU
 ========================= */
 const categories = [
   "Luxury Facial",
@@ -39,7 +87,7 @@ const luxuryFacials: FacialService[] = [
     price: 749,
     mrp: 1498,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/3762402/pexels-photo-3762402.jpeg",
+    image: lotusWhiteGlowActivatedCharcoalFacial,
     includes: [
       "Removes dead skin cells & blackheads",
       "Minimizes pores by removing dirt & excess oil",
@@ -62,7 +110,7 @@ const luxuryFacials: FacialService[] = [
     price: 749,
     mrp: 1498,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/3762466/pexels-photo-3762466.jpeg",
+    image: lotusWhiteGlowBrighteningFacial,
     includes: [
       "Lightens, whitens & brightens your skin",
       "Revives natural glow & regulates pigmentation",
@@ -84,7 +132,7 @@ const luxuryFacials: FacialService[] = [
     price: 699,
     mrp: 1398,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/6663462/pexels-photo-6663462.jpeg",
+    image: lotusHydravitalFacial,
     includes: [
       "Suitable for Normal to Dry skin",
       "Refreshes and revitalizes skin cells",
@@ -105,7 +153,7 @@ const luxuryFacials: FacialService[] = [
     price: 549,
     mrp: 1098,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/3738388/pexels-photo-3738388.jpeg",
+    image: fruitFacial,
     includes: [
       "VLCC five step facial",
       "For blemish free & radiant complexion",
@@ -128,7 +176,7 @@ const luxuryFacials: FacialService[] = [
     price: 549,
     mrp: 1098,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    image: antiTanFacial,
     includes: [
       "VLCC five step facial",
       "Reduces tan & heals sun damaged skin",
@@ -151,7 +199,7 @@ const luxuryFacials: FacialService[] = [
     price: 699,
     mrp: 1398,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/3065209/pexels-photo-3065209.jpeg",
+    image: aromaMagicBridalGlow,
     includes: [
       "Blossom Kochhar's 7 step facial",
       "Imparts dazzling radiance",
@@ -174,7 +222,7 @@ const luxuryFacials: FacialService[] = [
     price: 699,
     mrp: 1398,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/3762871/pexels-photo-3762871.jpeg",
+    image: vedicLineVitaminCFacial,
     includes: [
       "Lightens and rejuvenates the skin",
       "Boosts collagen synthesis",
@@ -198,7 +246,7 @@ const luxuryFacials: FacialService[] = [
     price: 599,
     mrp: 1198,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/3985330/pexels-photo-3985330.jpeg",
+    image: redWineFacial,
     includes: [
       "GlamVeda Red wine 6 step facial",
       "Reduces fine lines, pigmentation, dark circles",
@@ -228,7 +276,7 @@ const premiumFacials: FacialService[] = [
     price: 775,
     mrp: 1550,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/6663471/pexels-photo-6663471.jpeg",
+    image: saraGoldFacial,
     includes: [
       "Six step facial with two masks",
       "Provides Ultra Bridal radiance & shine",
@@ -253,7 +301,7 @@ const premiumFacials: FacialService[] = [
     price: 899,
     mrp: 1798,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/3735657/pexels-photo-3735657.jpeg",
+    image: saraDiamondFacial,
     includes: [
       "Six step facial with two masks",
       "Provides mega glow & ultra brightening",
@@ -285,7 +333,7 @@ const ultraPremiumFacials: FacialService[] = [
     price: 1299,
     mrp: 2598,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/7480313/pexels-photo-7480313.jpeg",
+    image: lotusBridalGlowFacial,
     includes: [
       "Five step facial with algae peel off mask",
       "Reduces premature ageing",
@@ -310,7 +358,7 @@ const ultraPremiumFacials: FacialService[] = [
     price: 1299,
     mrp: 2598,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/3618606/pexels-photo-3618606.jpeg",
+    image: o3SeaWhiteFacial,
     includes: [
       "Balances oil, prevents future acne",
       "Purifies the skin while brightening",
@@ -336,7 +384,7 @@ const ultraPremiumFacials: FacialService[] = [
     price: 1399,
     mrp: 2798,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/5069432/pexels-photo-5069432.jpeg",
+    image: o3WhiteningFacial,
     includes: [
       "With glow boosting anti-oxidants",
       "Reduces fine lines & pigmentation",
@@ -360,7 +408,7 @@ const ultraPremiumFacials: FacialService[] = [
     price: 1399,
     mrp: 2798,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/5938590/pexels-photo-5938590.jpeg",
+    image: o3AntiAgeingFacial,
     includes: [
       "Instant brightening and glow boosting",
       "Reduces finelines and wrinkles",
@@ -384,7 +432,7 @@ const ultraPremiumFacials: FacialService[] = [
     price: 1499,
     mrp: 2998,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg",
+    image: o3PowerBrighteningWithBleach,
     includes: [
       "Complimentary O3+ Face & neck Bleach",
       "For ultimate brightening & whitening of skin",
@@ -407,7 +455,7 @@ const ultraPremiumFacials: FacialService[] = [
     price: 1599,
     mrp: 3198,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/6621217/pexels-photo-6621217.jpeg",
+    image: lotusInstafairTreatment,
     includes: [
       "Melanin control and skin lightening treatment",
       "Highly concentrated herbal actives",
@@ -435,7 +483,7 @@ const ultraPremiumFacials: FacialService[] = [
     price: 1799,
     mrp: 3598,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/5217911/pexels-photo-5217911.jpeg",
+    image: seasoulCcDermaIceFacial,
     includes: [
       "With Glutathione,Vitamin C, Alpha Arbutin",
       "Gives instant brightening & hydration",
@@ -459,7 +507,7 @@ const ultraPremiumFacials: FacialService[] = [
     price: 1999,
     mrp: 2856,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/8140916/pexels-photo-8140916.jpeg",
+    image: lotusGoldSheenTreatment,
     includes: [
       "Exclusive facial with gold bhasm",
       "Contains actives for instant gold-like luster",
@@ -488,7 +536,7 @@ const ultraPremiumFacials: FacialService[] = [
     price: 2099,
     mrp: 4198,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/1029896/pexels-photo-1029896.jpeg",
+    image: o3BridalGlow,
     includes: [
       "Gently repairs & brightens skin",
       "Removes tan while boosting glow",
@@ -513,7 +561,7 @@ const ultraPremiumFacials: FacialService[] = [
     price: 2999,
     mrp: 4998,
     discount: "40% Off",
-    image: "https://images.pexels.com/photos/5217915/pexels-photo-5217915.jpeg",
+    image: casmaraGojiFacial,
     includes: [
       "High technologyfacial with Goji Berries",
       "Prevents the appearance of signs of aging",
@@ -544,7 +592,7 @@ const cleanUpServices: FacialService[] = [
     price: 399,
     mrp: 798,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/6663471/pexels-photo-6663471.jpeg",
+    image: instaGlowCleanUp,
     includes: [
       "VLCC Insta Glow Clean Up",
       "Suitable for all skin types",
@@ -559,7 +607,7 @@ const cleanUpServices: FacialService[] = [
     price: 399,
     mrp: 798,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/6621245/pexels-photo-6621245.jpeg",
+    image: fruitCleanUp,
     includes: [
       "VLCC Fruit clean up",
       "Suitable for all skin types",
@@ -582,7 +630,7 @@ const deTanServices: FacialService[] = [
     price: 249,
     mrp: 356,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/3762460/pexels-photo-3762460.jpeg",
+    image: faceNeckDeTan,
     includes: [
       "Ammonia free skin lightening formula",
       "Removes tanning effect of the sun",
@@ -603,7 +651,7 @@ const deTanServices: FacialService[] = [
     price: 179,
     mrp: 256,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/5119213/pexels-photo-5119213.jpeg",
+    image: underarmsDeTan,
     includes: [
       "Ammonia free skin lightening formula",
       "Removes tanning effect of the sun",
@@ -624,7 +672,7 @@ const deTanServices: FacialService[] = [
     price: 349,
     mrp: 499,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    image: fullArmsDeTan,
     includes: [
       "Ammonia free skin lightening formula",
       "Removes tanning effect of the sun",
@@ -646,7 +694,7 @@ const deTanServices: FacialService[] = [
     price: 399,
     mrp: 570,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/1031631/pexels-photo-1031631.jpeg",
+    image: fullLegsDeTan,
     includes: [
       "Ammonia free skin lightening formula",
       "Removes tanning effect of the sun",
@@ -667,7 +715,7 @@ const deTanServices: FacialService[] = [
     price: 199,
     mrp: 284,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/8140922/pexels-photo-8140922.jpeg",
+    image: stomachDeTan,
     includes: [
       "Ammonia free skin lightening formula",
       "Removes tanning effect of the sun",
@@ -688,7 +736,7 @@ const deTanServices: FacialService[] = [
     price: 199,
     mrp: 284,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/3373738/pexels-photo-3373738.jpeg",
+    image: halfBackDeTan,
     includes: [
       "Ammonia free skin lightening formula",
       "Removes tanning effect of the sun",
@@ -709,7 +757,7 @@ const deTanServices: FacialService[] = [
     price: 269,
     mrp: 384,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    image: fullBackDeTan,
     includes: [
       "Ammonia free skin lightening formula",
       "Removes tanning effect of the sun",
@@ -730,7 +778,7 @@ const deTanServices: FacialService[] = [
     price: 829,
     mrp: 1658,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/5483248/pexels-photo-5483248.jpeg",
+    image: fullBodyDeTan,
     includes: [
       "Excluding Face & neck",
       "Ammonia free skin lightening formula",
@@ -752,7 +800,7 @@ const deTanServices: FacialService[] = [
     price: 999,
     mrp: 1998,
     discount: "50% Off",
-    image: "https://images.pexels.com/photos/3762871/pexels-photo-3762871.jpeg",
+    image: fullBodyDeTanFaceNeck,
     includes: [
       "Including Face & Neck",
       "Ammonia free skin lightening formula",
@@ -780,7 +828,7 @@ const bleachServices: FacialService[] = [
     price: 229,
     mrp: 327,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/6663462/pexels-photo-6663462.jpeg",
+    image: faceNeckBleach,
     includes: ["Helps in lightening hair color", "Evens out skin tone"],
     info: [
       "Skin looks brighter",
@@ -801,7 +849,7 @@ const bleachServices: FacialService[] = [
     price: 329,
     mrp: 549,
     discount: "40% Off",
-    image: "https://images.pexels.com/photos/3985330/pexels-photo-3985330.jpeg",
+    image: fullArmsBleach,
     includes: ["Helps in lightening hair color", "Evens out skin tone"],
     info: [
       "Skin looks brighter",
@@ -822,7 +870,7 @@ const bleachServices: FacialService[] = [
     price: 329,
     mrp: 470,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/1031631/pexels-photo-1031631.jpeg",
+    image: halfLegsBleach,
     includes: ["Helps in lightening hair color", "Evens out skin tone"],
     info: [
       "Skin looks brighter",
@@ -843,7 +891,7 @@ const bleachServices: FacialService[] = [
     price: 399,
     mrp: 570,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/3373738/pexels-photo-3373738.jpeg",
+    image: fullLegsBleach,
     includes: ["Helps in lightening hair color", "Evens out skin tone"],
     info: [
       "Skin looks brighter",
@@ -864,7 +912,7 @@ const bleachServices: FacialService[] = [
     price: 329,
     mrp: 470,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/1029896/pexels-photo-1029896.jpeg",
+    image: fullBackBleach,
     includes: ["Helps in lightening hair color", "Evens out skin tone"],
     info: [
       "Skin looks brighter",
@@ -885,7 +933,7 @@ const bleachServices: FacialService[] = [
     price: 329,
     mrp: 470,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/5217915/pexels-photo-5217915.jpeg",
+    image: fullFrontBleach,
     includes: ["Helps in lightening hair color", "Evens out skin tone"],
     info: [
       "Skin looks brighter",
@@ -906,7 +954,7 @@ const bleachServices: FacialService[] = [
     price: 849,
     mrp: 1415,
     discount: "40% Off",
-    image: "https://images.pexels.com/photos/8140916/pexels-photo-8140916.jpeg",
+    image: fullBodyBleach,
     includes: ["Helps in lightening hair color", "Evens out skin tone"],
     info: [
       "Including Under arms, front & back",
@@ -934,7 +982,7 @@ const threadingServices: FacialService[] = [
     price: 30,
     mrp: 43,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg",
+    image: eyeBrowThreading,
     includes: ["Eye Brow Threading"],
     info: [
       "Threading is an ancient method of hair removal",
@@ -952,7 +1000,7 @@ const threadingServices: FacialService[] = [
     price: 20,
     mrp: 29,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/3065209/pexels-photo-3065209.jpeg",
+    image: upperLipThreading,
     includes: ["Upper Lip Threading"],
     info: [
       "Pain & redness is normal",
@@ -966,7 +1014,7 @@ const threadingServices: FacialService[] = [
     price: 20,
     mrp: 29,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    image: foreheadThreading,
     includes: ["Fore Head Threading"],
     info: [
       "Pain & redness is normal",
@@ -980,7 +1028,7 @@ const threadingServices: FacialService[] = [
     price: 20,
     mrp: 29,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/5119213/pexels-photo-5119213.jpeg",
+    image: chinThreading,
     includes: ["Chin Threading"],
     info: [
       "Pain & redness is normal",
@@ -994,7 +1042,7 @@ const threadingServices: FacialService[] = [
     price: 49,
     mrp: 70,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/3762871/pexels-photo-3762871.jpeg",
+    image: sideLocksThreading,
     includes: ["Side Locks Threading"],
     info: [
       "Pain & redness is normal",
@@ -1008,7 +1056,7 @@ const threadingServices: FacialService[] = [
     price: 169,
     mrp: 242,
     discount: "30% Off",
-    image: "https://images.pexels.com/photos/5217911/pexels-photo-5217911.jpeg",
+    image: fullFaceThreading,
     includes: ["Full Face Threading"],
     info: [
       "Eye brows & side locks threading including",
@@ -1033,14 +1081,13 @@ const allData: Record<string, FacialService[]> = {
 };
 
 /* =========================
-   COMPONENT
+   COMPONENT - RESPONSIVE + ADD BUTTON REMOVED
 ========================= */
 export default function FacialServices() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<FacialService | null>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
-  // Fix for scroll issue on refresh
   useEffect(() => {
     window.scrollTo(0, 0);
     if ("scrollRestoration" in window.history) {
@@ -1061,7 +1108,6 @@ export default function FacialServices() {
     <section className="bg-[#f6edff] min-h-screen">
       {/* HEADER WITH BACK BUTTON */}
       <div className="py-4 md:py-6 lg:py-8 text-center bg-white border-b relative">
-        {/* Back Arrow Button */}
         <button
           onClick={() => navigate(-1)}
           className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shadow-sm"
@@ -1077,9 +1123,7 @@ export default function FacialServices() {
         </p>
       </div>
 
-      {/* NAV BAR 
-          Direct copy of style from MakeupServices.tsx
-      */}
+      {/* NAV BAR */}
       <div className="sticky top-0 z-40 bg-[#f6edff] py-3 md:py-4 shadow-sm">
         <div className="flex justify-center">
           <div className="flex gap-3 overflow-x-auto px-2 md:px-4 no-scrollbar">
@@ -1102,51 +1146,45 @@ export default function FacialServices() {
           <div key={cat} ref={(el) => (sectionRefs.current[cat] = el)}>
             <h2 className="text-lg md:text-xl lg:text-2xl font-black mb-4 md:mb-6 uppercase tracking-tight">{cat}</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {allData[cat].map((item, idx) => (
                 <div
                   key={idx}
-                  className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex overflow-hidden transition-shadow"
+                  className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex flex-col md:flex-row md:items-stretch overflow-hidden transition-shadow"
                 >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 object-cover"
-                  />
+                  {/* IMAGE - Mobile: Full width on top | Desktop: Fixed left */}
+                  <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-t-none">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover object-center"
+                    />
+                  </div>
 
-                  <div className="p-3 md:p-4 flex-1">
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-sm md:text-base font-bold text-gray-800">{item.title}</h3>
-                      <button className="bg-purple-700 text-white px-3 md:px-4 py-1 md:py-1.5 rounded-xl text-xs md:text-sm font-bold active:scale-95 transition-transform">
-                        ADD
-                      </button>
-                    </div>
+                  {/* CONTENT - ADD BUTTON REMOVED */}
+                  <div className="p-4 md:p-5 flex-1 flex flex-col">
+                    {/* Title only (no ADD button) */}
+                    <h3 className="text-sm md:text-base font-bold text-gray-800">{item.title}</h3>
 
-                    <div className="flex items-center gap-2 mt-1">
+                    {/* Price & Duration */}
+                    <div className="flex items-center gap-2 mt-2">
                       <span className="font-black text-base md:text-lg lg:text-xl">₹{item.price}</span>
-                      <span className="line-through text-xs text-gray-400">
-                        ₹{item.mrp}
-                      </span>
-                      <span className="text-orange-600 text-xs font-bold">
-                        {item.discount}
-                      </span>
+                      <span className="line-through text-xs text-gray-400">₹{item.mrp}</span>
+                      <span className="text-orange-600 text-xs font-bold">{item.discount}</span>
                     </div>
+                    <p className="text-xs text-gray-400 mt-1">⏱ {item.duration}</p>
 
-                    <p className="text-xs text-gray-400 mt-1">
-                      ⏱ {item.duration}
-                    </p>
-
-                    <ul className="mt-2 md:mt-3 space-y-1">
+                    {/* Includes */}
+                    <ul className="mt-3 md:mt-4 space-y-1 flex-1 text-xs md:text-sm text-gray-500">
                       {item.includes.map((i, k) => (
-                        <li key={k} className="text-xs md:text-sm text-gray-500">
-                          • {i}
-                        </li>
+                        <li key={k}>• {i}</li>
                       ))}
                     </ul>
 
-                    <button 
+                    {/* View Details (kept) */}
+                    <button
                       onClick={() => setSelected(item)}
-                      className="mt-2 md:mt-3 text-purple-700 text-xs md:text-sm font-bold hover:underline"
+                      className="mt-4 text-purple-700 text-xs md:text-sm font-bold hover:underline self-start"
                     >
                       VIEW DETAILS
                     </button>
@@ -1158,19 +1196,25 @@ export default function FacialServices() {
         ))}
       </div>
 
-      {/* DETAIL MODAL (Preserved from your original file) */}
+      {/* DETAIL MODAL */}
       {selected && (
         <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
           <div className="bg-white max-w-[480px] w-full rounded-2xl overflow-hidden relative shadow-2xl flex flex-col max-h-[85vh]">
-            <button 
-              onClick={() => setSelected(null)} 
+            <button
+              onClick={() => setSelected(null)}
               className="absolute top-4 right-4 z-20 bg-gray-100 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center font-bold"
             >
               ✕
             </button>
             <div className="overflow-y-auto p-4 md:p-6">
               <div className="flex gap-2 md:gap-4 mb-4 md:mb-6">
-                <img src={selected.image} className="w-20 h-20 md:w-28 md:h-28 object-cover rounded-xl" alt={selected.title} />
+                <div className="w-20 h-20 md:w-28 md:h-28 flex items-center justify-center bg-white rounded-xl">
+                  <img
+                    src={selected.image}
+                    alt={selected.title}
+                    className="max-w-full max-h-full object-contain rounded-xl"
+                  />
+                </div>
                 <div>
                   <h2 className="text-lg md:text-xl font-bold text-gray-900 leading-tight">{selected.title}</h2>
                   <div className="mt-2 flex items-baseline gap-1 md:gap-2">
