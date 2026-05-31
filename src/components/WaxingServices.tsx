@@ -1,9 +1,9 @@
-import { useRef, useEffect, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 /* =========================
-   IMAGE IMPORTS (Exact filenames - case-sensitive)
+   IMAGE IMPORTS (src/images/)
 ========================= */
 // Honey Wax
 import honeyFullArms from "../images/Honey Full Arms Wax.jpg";
@@ -60,7 +60,7 @@ import chinWax from "../images/Chin.jpg";
 import sideLockWax from "../images/Side Lock.jpg";
 
 /* =========================
-   NAV MENU CATEGORIES
+   NAV MENU
 ========================= */
 const categories = [
   "Honey Wax",
@@ -84,982 +84,1031 @@ type WaxingService = {
   info: string[];
 };
 
-const WAX_IMG = "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?q=80&w=600";
-
 /* =========================
-   SERVICE DATA (All items from pricescard.txt)
+   SERVICE DATA
 ========================= */
 const allWaxingData: Record<string, WaxingService[]> = {
-"Honey Wax": [
-{
-title: "Honey Full Body + Bikini Wax",
-price: 1299,
-mrp: 1856,
-discount: "30% Off",
-duration: "80 minutes",
-image: honeyFullBodyBikini,
-includes: ["Excluding Face( Honey wax)"],
-info: [
-"In order to have an effective waxing, hair should be at least 6mm in length",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Honey Full Body Wax",
-price: 899,
-mrp: 1284,
-discount: "30% Off",
-duration: "60 minutes",
-image: honeyFullBody,
-includes: ["Excluding Face, Bikini & Butt(Honey wax)"],
-info: [
-"In order to have an effective waxing, hair should be at least 6mm in length",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Honey FA+FL+UA Wax",
-price: 449,
-mrp: 642,
-discount: "30% Off",
-duration: "45 minutes",
-image: honeyFAFLUA,
-includes: ["Full Arms , Full legs & Under Arms"],
-info: [
-"In order to have an effective waxing, hair should be at least 6mm in length",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Honey Full Arms & UA Wax",
-price: 199,
-mrp: 284,
-discount: "30% Off",
-duration: "20 minutes",
-image: honeyFullArmsUA,
-includes: ["Product Used: Honey wax"],
-info: [
-"In order to have an effective waxing, hair should be at least 6mm in length",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Honey Full Arms Wax",
-price: 175,
-mrp: 250,
-discount: "30% Off",
-duration: "15 minutes",
-image: honeyFullArms,
-includes: ["Product Used: Honey wax"],
-info: [
-"In order to have an effective waxing, hair should be at least 6mm in length",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Honey Half Legs Wax",
-price: 229,
-mrp: 327,
-discount: "30% Off",
-duration: "15 minutes",
-image: honeyHalfLegs,
-includes: ["Product Used: Honey wax"],
-info: [
-"In order to have an effective waxing, hair should be at least 6mm in length",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Honey Full Legs Wax",
-price: 249,
-mrp: 356,
-discount: "30% Off",
-duration: "25 minutes",
-image: honeyFullLegs,
-includes: ["Product Used: Honey wax"],
-info: [
-"In order to have an effective waxing, hair should be at least 6mm in length",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Honey Stomach / Half Back Wax",
-price: 249,
-mrp: 356,
-discount: "30% Off",
-duration: "25 minutes",
-image: honeyStomachHalfBack,
-includes: ["Product Used: Honey Wax"],
-info: [
-"In order to have an effective waxing, hair should be at least 6mm in length",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Honey Full Back Wax",
-price: 289,
-mrp: 413,
-discount: "30% Off",
-duration: "20 minutes",
-image: honeyFullBack,
-includes: ["Product Used: Honey wax"],
-info: [
-"In order to have an effective waxing, hair should be at least 6mm in length",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Butt Wax",
-price: 239,
-mrp: 341,
-discount: "30% Off",
-duration: "25 minutes",
-image: buttWax,
-includes: ["Product Used: Honey wax"],
-info: []
-},
-{
-title: "Bikini",
-price: 499,
-mrp: 713,
-discount: "30% Off",
-duration: "25 minutes",
-image: bikiniWax,
-includes: ["Excluding butt(Honey wax)"],
-info: ["Product Used: Honey wax"]
-},
-{
-title: "Bikini & Butt Wax",
-price: 649,
-mrp: 927,
-discount: "30% Off",
-duration: "30 minutes",
-image: bikiniButtWax,
-includes: ["Product Used: Honey wax"],
-info: []
-},
-{
-title: "Under Arms Wax",
-price: 59,
-mrp: 118,
-discount: "50% Off",
-duration: "10 minutes",
-image: underArmsWax,
-includes: ["Product used - Honey Wax"],
-info: []
-}
-],
-"White Chocolate wax": [
-{
-title: "Smooth Skin Days",
-price: 609,
-mrp: 1218,
-discount: "50% Off",
-duration: "45 minutes",
-image: smoothSkinDays,
-includes: [
-"Wax : Full Arms, Full Legs & Under Arms(Honey wax)",
-"Richelon White Choc Liposoluble wax",
-"Leaves skin soft ,supple & tan free"
-],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Full Body White Chocolate",
-price: 1249,
-mrp: 2498,
-discount: "50% Off",
-duration: "75 minutes",
-image: whiteChocFullBody,
-includes: [
-"Wax : Full Body without Bikini",
-"Richelon White Choc Liposoluble wax",
-"Leaves skin soft ,supple & tan free"
-],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Best Waxing Deal",
-price: 1699,
-mrp: 3398,
-discount: "50% Off",
-duration: "90 minutes",
-image: bestWaxingDeal,
-includes: [
-"Wax : Full Body with Bikini",
-"Richleon White Choc Liposoluble wax",
-"Leaves skin soft ,supple & tan free"
-],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "White Choc FA & UA",
-price: 349,
-mrp: 499,
-discount: "30% Off",
-duration: "20 minutes",
-image: whiteChocFAUA,
-includes: [
-"Wax : Full arms & Under arms",
-"Richelon White Choc Liposoluble wax",
-"Leaves skin soft ,supple & tan free"
-],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "White Choc FA",
-price: 309,
-mrp: 442,
-discount: "30% Off",
-duration: "15 minutes",
-image: whiteChocFA,
-includes: [
-"Wax : Full arms wax without under arms",
-"Richelon White Choc Liposoluble wax",
-"Leaves skin soft ,supple & tan free"
-],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "White Choc HA",
-price: 199,
-mrp: 284,
-discount: "30% Off",
-duration: "15 minutes",
-image: whiteChocHA,
-includes: [
-"Wax : Half Arms wax",
-"Richelon White Choc Liposoluble wax",
-"Leaves skin soft ,supple & tan free"
-],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "White Choc FL",
-price: 399,
-mrp: 570,
-discount: "30% Off",
-duration: "20 minutes",
-image: whiteChocFL,
-includes: [
-"Wax : Full legs wax",
-"Richelon White Choc Liposoluble wax",
-"Leaves skin soft ,supple & tan free"
-],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "White Choc HL",
-price: 249,
-mrp: 356,
-discount: "30% Off",
-duration: "15 minutes",
-image: whiteChocHalfLegs,
-includes: [
-"Wax : HAlf legs wax",
-"Richelon White Choc Liposoluble wax",
-"Leaves skin soft ,supple & tan free"
-],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "White Choc Half Back/Stomach",
-price: 399,
-mrp: 570,
-discount: "30% Off",
-duration: "15 minutes",
-image: whiteChocHalfBack,
-includes: [
-"Wax : Half back or Stomach wax",
-"Richelon White Choc Liposoluble wax",
-"Leaves skin soft ,supple & tan free"
-],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "White Choc Full Back",
-price: 499,
-mrp: 713,
-discount: "30% Off",
-duration: "25 minutes",
-image: whiteChocFullBack,
-includes: [
-"Wax : Full back wax",
-"Richelon White Choc Liposoluble wax",
-"Leaves skin soft ,supple & tan free"
-],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "White Choc Bikini",
-price: 699,
-mrp: 999,
-discount: "30% Off",
-duration: "25 minutes",
-image: whiteChocBikini,
-includes: [
-"Wax : Bikini wax",
-"Richelon White Choc Liposoluble wax",
-"Leaves skin soft ,supple & tan free"
-],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "White Choc Under Arms",
-price: 99,
-mrp: 142,
-discount: "30% Off",
-duration: "10 minutes",
-image: whiteChocUnderArms,
-includes: [
-"Wax : Under arms wax",
-"Richelon White Choc Liposoluble wax",
-"Leaves skin soft ,supple & tan free"
-],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-}
-],
-"Rica Wax": [
-{
-title: "Rica Full Body Wax",
-price: 899,
-mrp: 1798,
-discount: "50% Off",
-duration: "60 minutes",
-image: ricaFullBody,
-includes: ["Rica Wax : Full Body without bikini"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Rica FA+FL+UA",
-price: 599,
-mrp: 1198,
-discount: "50% Off",
-duration: "45 minutes",
-image: ricaFAFLUA,
-includes: ["Rica Wax : Full arms, Full legs & Under arms"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Rica Full Arms Wax",
-price: 349,
-mrp: 698,
-discount: "50% Off",
-duration: "20 minutes",
-image: ricaFullArms,
-includes: ["Rica Wax : Full arms wax"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Rica Half Legs Wax",
-price: 299,
-mrp: 598,
-discount: "50% Off",
-duration: "15 minutes",
-image: ricaHalfLegs,
-includes: ["Rica Wax : Half legs wax"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Rica Full Legs Wax",
-price: 399,
-mrp: 798,
-discount: "50% Off",
-duration: "25 minutes",
-image: ricaFullLegs,
-includes: ["Rica Wax : Full legs wax"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Rica Stomach / Half Back Wax",
-price: 399,
-mrp: 798,
-discount: "50% Off",
-duration: "25 minutes",
-image: ricaStomachHalfBack,
-includes: ["Rica Wax : Stomach / Half back wax"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Rica Full Back Wax",
-price: 499,
-mrp: 998,
-discount: "50% Off",
-duration: "30 minutes",
-image: ricaFullBack,
-includes: ["Rica Wax : Full back wax"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Rica Bikini Wax",
-price: 599,
-mrp: 1198,
-discount: "50% Off",
-duration: "25 minutes",
-image: ricaBikini,
-includes: ["Rica Wax : Bikini wax"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Rica Under Arms Wax",
-price: 149,
-mrp: 298,
-discount: "50% Off",
-duration: "10 minutes",
-image: ricaUnderArms,
-includes: ["Rica Wax : Under arms wax"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-}
-],
-"Roll On Wax": [
-{
-title: "ROLL ON Full Body",
-price: 1499,
-mrp: 2998,
-discount: "50% Off",
-duration: "80 minutes",
-image: rollOnFullBody,
-includes: ["White Choc Roll On Wax"],
-info: [
-"Full Body without bikini",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "ROLL ON FA+ FL+UA",
-price: 1049,
-mrp: 2098,
-discount: "50% Off",
-duration: "70 minutes",
-image: rollOnFAFLUA,
-includes: ["White Choc Roll On Wax"],
-info: [
-"Full Legs,Full Arms & Underarms",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Roll On Full Arms",
-price: 529,
-mrp: 1058,
-discount: "50% Off",
-duration: "30 minutes",
-image: rollOnFullArms,
-includes: ["White ChocRoll On wax"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Roll On Half Legs",
-price: 499,
-mrp: 998,
-discount: "50% Off",
-duration: "20 minutes",
-image: rollOnHalfLegs,
-includes: ["White Choc Roll On Wax"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Roll On Full Legs",
-price: 649,
-mrp: 1298,
-discount: "50% Off",
-duration: "34 minutes",
-image: rollOnFullLegs,
-includes: ["white Choc Roll On wax"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Roll On Stomach",
-price: 549,
-mrp: 1098,
-discount: "50% Off",
-duration: "25 minutes",
-image: rollOnStomach,
-includes: ["White Choc Roll On wax"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Roll On Half Back",
-price: 549,
-mrp: 1098,
-discount: "50% Off",
-duration: "25 minutes",
-image: rollOnHalfBack,
-includes: ["White Choc Roll On WAX"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Roll On Full Back",
-price: 599,
-mrp: 856,
-discount: "30% Off",
-duration: "40 minutes",
-image: rollOnFullBack,
-includes: ["White Choc Roll On wax"],
-info: [
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Rica Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-}
-],
-"Facial Wax": [
-{
-title: "Full Face Wax",
-price: 399,
-mrp: 798,
-discount: "50% Off",
-duration: "40 minutes",
-image: fullFaceWax,
-includes: ["Product Used: RIca Brazilian peel off wax"],
-info: [
-"Rica Brazilian peel off wax is safe for sensitive areas",
-"Rica Brazilian peel off wax is less painful than strip wax",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Upper Lips",
-price: 60,
-mrp: 86,
-discount: "30% Off",
-duration: "10 minutes",
-image: upperLipsWax,
-includes: ["Product Used: Rica Brazilian Wax"],
-info: [
-"Rica Brazilian peel off wax is safe for sensitive areas",
-"Rica Brazilian peel off wax is less painful than strip wax",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Chin",
-price: 65,
-mrp: 93,
-discount: "30% Off",
-duration: "10 minutes",
-image: chinWax,
-includes: ["Product Used: RICA Brazilian Wax"],
-info: [
-"Rica Brazilian peel off wax is safe for sensitive areas",
-"Rica Brazilian peel off wax is less painful than strip wax",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-},
-{
-title: "Side Lock",
-price: 99,
-mrp: 141,
-discount: "30% Off",
-duration: "15 minutes",
-image: sideLockWax,
-includes: ["Product Used: Rica Brazilian wax"],
-info: [
-"Rica Brazilian peel off wax is safe for sensitive areas",
-"Rica Brazilian peel off wax is less painful than strip wax",
-"Avoid using moisturiser/oil before taking waxing services",
-"Air conditioning is recommended for waxing during summer and monsoon",
-"Without Air Conditioning , waxing may not yield desired result",
-"Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
-"Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
-"Post waxing some may experience redness/inflammation,which subsides in few hr",
-"In case of undergrowth or razor usage , waxing may not yield desired result",
-"Usage of ice is recommended in case of redness / bumpiness",
-"Any service related complaint should be reported within 24 hrs with pictures via email"
-]
-}
-]
+  "Honey Wax": [
+    {
+      title: "Honey Full Body + Bikini Wax",
+      price: 1299,
+      mrp: 1856,
+      discount: "30% Off",
+      duration: "80 minutes",
+      image: honeyFullBodyBikini,
+      includes: ["Excluding Face( Honey wax)"],
+      info: [
+        "In order to have an effective waxing, hair should be at least 6mm in length",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Honey Full Body Wax",
+      price: 899,
+      mrp: 1284,
+      discount: "30% Off",
+      duration: "60 minutes",
+      image: honeyFullBody,
+      includes: ["Excluding Face, Bikini & Butt(Honey wax)"],
+      info: [
+        "In order to have an effective waxing, hair should be at least 6mm in length",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Honey FA+FL+UA Wax",
+      price: 449,
+      mrp: 642,
+      discount: "30% Off",
+      duration: "45 minutes",
+      image: honeyFAFLUA,
+      includes: ["Full Arms , Full legs & Under Arms"],
+      info: [
+        "In order to have an effective waxing, hair should be at least 6mm in length",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Honey Full Arms & UA Wax",
+      price: 199,
+      mrp: 284,
+      discount: "30% Off",
+      duration: "20 minutes",
+      image: honeyFullArmsUA,
+      includes: ["Product Used: Honey wax"],
+      info: [
+        "In order to have an effective waxing, hair should be at least 6mm in length",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Honey Full Arms Wax",
+      price: 175,
+      mrp: 250,
+      discount: "30% Off",
+      duration: "15 minutes",
+      image: honeyFullArms,
+      includes: ["Product Used: Honey wax"],
+      info: [
+        "In order to have an effective waxing, hair should be at least 6mm in length",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Honey Half Legs Wax",
+      price: 229,
+      mrp: 327,
+      discount: "30% Off",
+      duration: "15 minutes",
+      image: honeyHalfLegs,
+      includes: ["Product Used: Honey wax"],
+      info: [
+        "In order to have an effective waxing, hair should be at least 6mm in length",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Honey Full Legs Wax",
+      price: 249,
+      mrp: 356,
+      discount: "30% Off",
+      duration: "25 minutes",
+      image: honeyFullLegs,
+      includes: ["Product Used: Honey wax"],
+      info: [
+        "In order to have an effective waxing, hair should be at least 6mm in length",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Honey Stomach / Half Back Wax",
+      price: 249,
+      mrp: 356,
+      discount: "30% Off",
+      duration: "25 minutes",
+      image: honeyStomachHalfBack,
+      includes: ["Product Used: Honey Wax"],
+      info: [
+        "In order to have an effective waxing, hair should be at least 6mm in length",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Honey Full Back Wax",
+      price: 289,
+      mrp: 413,
+      discount: "30% Off",
+      duration: "20 minutes",
+      image: honeyFullBack,
+      includes: ["Product Used: Honey wax"],
+      info: [
+        "In order to have an effective waxing, hair should be at least 6mm in length",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Butt Wax",
+      price: 239,
+      mrp: 341,
+      discount: "30% Off",
+      duration: "25 minutes",
+      image: buttWax,
+      includes: ["Product Used: Honey wax"],
+      info: [],
+    },
+    {
+      title: "Bikini",
+      price: 499,
+      mrp: 713,
+      discount: "30% Off",
+      duration: "25 minutes",
+      image: bikiniWax,
+      includes: ["Excluding butt(Honey wax)"],
+      info: ["Product Used: Honey wax"],
+    },
+    {
+      title: "Bikini & Butt Wax",
+      price: 649,
+      mrp: 927,
+      discount: "30% Off",
+      duration: "30 minutes",
+      image: bikiniButtWax,
+      includes: ["Product Used: Honey wax"],
+      info: [],
+    },
+    {
+      title: "Under Arms Wax",
+      price: 59,
+      mrp: 118,
+      discount: "50% Off",
+      duration: "10 minutes",
+      image: underArmsWax,
+      includes: ["Product used - Honey Wax"],
+      info: [],
+    },
+  ],
+  "White Chocolate wax": [
+    {
+      title: "Smooth Skin Days",
+      price: 609,
+      mrp: 1218,
+      discount: "50% Off",
+      duration: "45 minutes",
+      image: smoothSkinDays,
+      includes: [
+        "Wax : Full Arms, Full Legs & Under Arms(Honey wax)",
+        "Richelon White Choc Liposoluble wax",
+        "Leaves skin soft ,supple & tan free",
+      ],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Full Body White Chocolate",
+      price: 1249,
+      mrp: 2498,
+      discount: "50% Off",
+      duration: "75 minutes",
+      image: whiteChocFullBody,
+      includes: [
+        "Wax : Full Body without Bikini",
+        "Richelon White Choc Liposoluble wax",
+        "Leaves skin soft ,supple & tan free",
+      ],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Best Waxing Deal",
+      price: 1699,
+      mrp: 3398,
+      discount: "50% Off",
+      duration: "90 minutes",
+      image: bestWaxingDeal,
+      includes: [
+        "Wax : Full Body with Bikini",
+        "Richleon White Choc Liposoluble wax",
+        "Leaves skin soft ,supple & tan free",
+      ],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "White Choc FA & UA",
+      price: 349,
+      mrp: 499,
+      discount: "30% Off",
+      duration: "20 minutes",
+      image: whiteChocFAUA,
+      includes: [
+        "Wax : Full arms & Under arms",
+        "Richelon White Choc Liposoluble wax",
+        "Leaves skin soft ,supple & tan free",
+      ],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "White Choc FA",
+      price: 309,
+      mrp: 442,
+      discount: "30% Off",
+      duration: "15 minutes",
+      image: whiteChocFA,
+      includes: [
+        "Wax : Full arms wax without under arms",
+        "Richelon White Choc Liposoluble wax",
+        "Leaves skin soft ,supple & tan free",
+      ],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "White Choc HA",
+      price: 199,
+      mrp: 284,
+      discount: "30% Off",
+      duration: "15 minutes",
+      image: whiteChocHA,
+      includes: [
+        "Wax : Half Arms wax",
+        "Richelon White Choc Liposoluble wax",
+        "Leaves skin soft ,supple & tan free",
+      ],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "White Choc FL",
+      price: 399,
+      mrp: 570,
+      discount: "30% Off",
+      duration: "20 minutes",
+      image: whiteChocFL,
+      includes: [
+        "Wax : Full legs wax",
+        "Richelon White Choc Liposoluble wax",
+        "Leaves skin soft ,supple & tan free",
+      ],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "White Choc HL",
+      price: 249,
+      mrp: 356,
+      discount: "30% Off",
+      duration: "15 minutes",
+      image: whiteChocHalfLegs,
+      includes: [
+        "Wax : Half legs wax",
+        "Richelon White Choc Liposoluble wax",
+        "Leaves skin soft ,supple & tan free",
+      ],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "White Choc Half Back/Stomach",
+      price: 399,
+      mrp: 570,
+      discount: "30% Off",
+      duration: "15 minutes",
+      image: whiteChocHalfBack,
+      includes: [
+        "Wax : Half back or Stomach wax",
+        "Richelon White Choc Liposoluble wax",
+        "Leaves skin soft ,supple & tan free",
+      ],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "White Choc Full Back",
+      price: 499,
+      mrp: 713,
+      discount: "30% Off",
+      duration: "25 minutes",
+      image: whiteChocFullBack,
+      includes: [
+        "Wax : Full back wax",
+        "Richelon White Choc Liposoluble wax",
+        "Leaves skin soft ,supple & tan free",
+      ],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "White Choc Bikini",
+      price: 699,
+      mrp: 999,
+      discount: "30% Off",
+      duration: "25 minutes",
+      image: whiteChocBikini,
+      includes: [
+        "Wax : Bikini wax",
+        "Richelon White Choc Liposoluble wax",
+        "Leaves skin soft ,supple & tan free",
+      ],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "White Choc Under Arms",
+      price: 99,
+      mrp: 142,
+      discount: "30% Off",
+      duration: "10 minutes",
+      image: whiteChocUnderArms,
+      includes: [
+        "Wax : Under arms wax",
+        "Richelon White Choc Liposoluble wax",
+        "Leaves skin soft ,supple & tan free",
+      ],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+  ],
+  "Rica Wax": [
+    {
+      title: "Rica Full Body Wax",
+      price: 899,
+      mrp: 1798,
+      discount: "50% Off",
+      duration: "60 minutes",
+      image: ricaFullBody,
+      includes: ["Rica Wax : Full Body without bikini"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Rica FA+FL+UA",
+      price: 599,
+      mrp: 1198,
+      discount: "50% Off",
+      duration: "45 minutes",
+      image: ricaFAFLUA,
+      includes: ["Rica Wax : Full arms, Full legs & Under arms"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Rica Full Arms Wax",
+      price: 349,
+      mrp: 698,
+      discount: "50% Off",
+      duration: "20 minutes",
+      image: ricaFullArms,
+      includes: ["Rica Wax : Full arms wax"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Rica Half Legs Wax",
+      price: 299,
+      mrp: 598,
+      discount: "50% Off",
+      duration: "15 minutes",
+      image: ricaHalfLegs,
+      includes: ["Rica Wax : Half legs wax"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Rica Full Legs Wax",
+      price: 399,
+      mrp: 798,
+      discount: "50% Off",
+      duration: "25 minutes",
+      image: ricaFullLegs,
+      includes: ["Rica Wax : Full legs wax"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Rica Stomach / Half Back Wax",
+      price: 399,
+      mrp: 798,
+      discount: "50% Off",
+      duration: "25 minutes",
+      image: ricaStomachHalfBack,
+      includes: ["Rica Wax : Stomach / Half back wax"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Rica Full Back Wax",
+      price: 499,
+      mrp: 998,
+      discount: "50% Off",
+      duration: "30 minutes",
+      image: ricaFullBack,
+      includes: ["Rica Wax : Full back wax"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Rica Bikini Wax",
+      price: 599,
+      mrp: 1198,
+      discount: "50% Off",
+      duration: "25 minutes",
+      image: ricaBikini,
+      includes: ["Rica Wax : Bikini wax"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Rica Under Arms Wax",
+      price: 149,
+      mrp: 298,
+      discount: "50% Off",
+      duration: "10 minutes",
+      image: ricaUnderArms,
+      includes: ["Rica Wax : Under arms wax"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+  ],
+  "Roll On Wax": [
+    {
+      title: "ROLL ON Full Body",
+      price: 1499,
+      mrp: 2998,
+      discount: "50% Off",
+      duration: "80 minutes",
+      image: rollOnFullBody,
+      includes: ["White Choc Roll On Wax"],
+      info: [
+        "Full Body without bikini",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "ROLL ON FA+ FL+UA",
+      price: 1049,
+      mrp: 2098,
+      discount: "50% Off",
+      duration: "70 minutes",
+      image: rollOnFAFLUA,
+      includes: ["White Choc Roll On Wax"],
+      info: [
+        "Full Legs,Full Arms & Underarms",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Roll On Full Arms",
+      price: 529,
+      mrp: 1058,
+      discount: "50% Off",
+      duration: "30 minutes",
+      image: rollOnFullArms,
+      includes: ["White Choc Roll On wax"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Roll On Half Legs",
+      price: 499,
+      mrp: 998,
+      discount: "50% Off",
+      duration: "20 minutes",
+      image: rollOnHalfLegs,
+      includes: ["White Choc Roll On Wax"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Roll On Full Legs",
+      price: 649,
+      mrp: 1298,
+      discount: "50% Off",
+      duration: "34 minutes",
+      image: rollOnFullLegs,
+      includes: ["White Choc Roll On wax"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Roll On Stomach",
+      price: 549,
+      mrp: 1098,
+      discount: "50% Off",
+      duration: "25 minutes",
+      image: rollOnStomach,
+      includes: ["White Choc Roll On wax"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Roll On Half Back",
+      price: 549,
+      mrp: 1098,
+      discount: "50% Off",
+      duration: "25 minutes",
+      image: rollOnHalfBack,
+      includes: ["White Choc Roll On WAX"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Roll On Full Back",
+      price: 599,
+      mrp: 856,
+      discount: "30% Off",
+      duration: "40 minutes",
+      image: rollOnFullBack,
+      includes: ["White Choc Roll On wax"],
+      info: [
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Rica Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+  ],
+  "Facial Wax": [
+    {
+      title: "Full Face Wax",
+      price: 399,
+      mrp: 798,
+      discount: "50% Off",
+      duration: "40 minutes",
+      image: fullFaceWax,
+      includes: ["Product Used: Rica Brazilian peel off wax"],
+      info: [
+        "Rica Brazilian peel off wax is safe for sensitive areas",
+        "Rica Brazilian peel off wax is less painful than strip wax",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Upper Lips",
+      price: 60,
+      mrp: 86,
+      discount: "30% Off",
+      duration: "10 minutes",
+      image: upperLipsWax,
+      includes: ["Product Used: Rica Brazilian Wax"],
+      info: [
+        "Rica Brazilian peel off wax is safe for sensitive areas",
+        "Rica Brazilian peel off wax is less painful than strip wax",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Chin",
+      price: 65,
+      mrp: 93,
+      discount: "30% Off",
+      duration: "10 minutes",
+      image: chinWax,
+      includes: ["Product Used: RICA Brazilian Wax"],
+      info: [
+        "Rica Brazilian peel off wax is safe for sensitive areas",
+        "Rica Brazilian peel off wax is less painful than strip wax",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+    {
+      title: "Side Lock",
+      price: 99,
+      mrp: 141,
+      discount: "30% Off",
+      duration: "15 minutes",
+      image: sideLockWax,
+      includes: ["Product Used: Rica Brazilian wax"],
+      info: [
+        "Rica Brazilian peel off wax is safe for sensitive areas",
+        "Rica Brazilian peel off wax is less painful than strip wax",
+        "Avoid using moisturiser/oil before taking waxing services",
+        "Air conditioning is recommended for waxing during summer and monsoon",
+        "Without Air Conditioning , waxing may not yield desired result",
+        "Avoid taking Oil based Wax , if you have sensitive or extra dry skin",
+        "Avoid waxing in areas with wounds/injuries /previous history of skin reaction",
+        "Post waxing some may experience redness/inflammation,which subsides in few hr",
+        "In case of undergrowth or razor usage , waxing may not yield desired result",
+        "Usage of ice is recommended in case of redness / bumpiness",
+        "Any service related complaint should be reported within 24 hrs with pictures via email",
+      ],
+    },
+  ],
 };
 
+/* =========================
+   FLOATING BUTTONS STYLES
+========================= */
+const floatingStyles = `
+  @keyframes shake {
+    0%   { transform: rotate(0deg) scale(1); }
+    10%  { transform: rotate(-12deg) scale(1.05); }
+    20%  { transform: rotate(12deg) scale(1.05); }
+    30%  { transform: rotate(-10deg) scale(1.05); }
+    40%  { transform: rotate(10deg) scale(1.05); }
+    50%  { transform: rotate(-6deg) scale(1.05); }
+    60%  { transform: rotate(6deg) scale(1.05); }
+    70%  { transform: rotate(-3deg) scale(1); }
+    80%  { transform: rotate(3deg) scale(1); }
+    100% { transform: rotate(0deg) scale(1); }
+  }
+  @keyframes pulse-ring {
+    0%   { transform: scale(1); opacity: 0.6; }
+    70%  { transform: scale(1.5); opacity: 0; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+  .float-btn {
+    animation: shake 2.5s ease-in-out infinite;
+  }
+  .float-btn:nth-child(2) {
+    animation-delay: 1.25s;
+  }
+  .pulse-ring {
+    animation: pulse-ring 2s ease-out infinite;
+  }
+  .pulse-ring-2 {
+    animation: pulse-ring 2s ease-out infinite;
+    animation-delay: 1.25s;
+  }
+`;
+
+/* =========================
+   COMPONENT
+========================= */
 export default function WaxingServices() {
   const navigate = useNavigate();
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
   const [selected, setSelected] = useState<WaxingService | null>(null);
-  const [activeCategory, setActiveCategory] = useState<string>(categories[0]);
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    return () => {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "auto";
+      }
+    };
   }, []);
 
   const scrollToSection = (cat: string) => {
-    sectionRefs.current[cat]?.scrollIntoView({ behavior: "smooth", block: "start" });
-    setActiveCategory(cat);
+    sectionRefs.current[cat]?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleBookNow = () => {
+    window.location.href = "tel:+919811923486";
   };
 
   return (
-    <section className="bg-[#fcf8ff] min-h-screen">
-      {/* TITLE IN MIDDLE WITH BACK BUTTON */}
+    <section className="bg-[#f6edff] min-h-screen">
+      {/* INJECT FLOATING BUTTON STYLES */}
+      <style>{floatingStyles}</style>
+
+      {/* HEADER WITH BACK BUTTON */}
       <div className="py-4 md:py-6 lg:py-8 text-center bg-white border-b relative">
-        {/* Back Arrow Button */}
         <button
           onClick={() => navigate(-1)}
           className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shadow-sm"
@@ -1067,23 +1116,23 @@ export default function WaxingServices() {
           <ArrowLeft className="w-5 h-5 text-gray-700" />
         </button>
 
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 tracking-tight">Waxing</h1>
-        <p className="text-xs md:text-sm text-gray-500 mt-1 uppercase tracking-widest">Premium Salon Services</p> 
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 tracking-tight">
+          Waxing
+        </h1>
+        <p className="text-xs md:text-sm text-gray-500 mt-1 uppercase tracking-widest">
+          Premium Salon Services
+        </p>
       </div>
 
-      {/* NAVBAR STYLING (Glassmorphism + Active State) */}
-      <div className="sticky top-0 z-40 bg-white/70 backdrop-blur-md py-3 md:py-4 border-b">
+      {/* NAV BAR */}
+      <div className="sticky top-0 z-40 bg-[#f6edff] py-3 md:py-4 shadow-sm">
         <div className="flex justify-center">
-          <div className="flex gap-3 md:gap-4 overflow-x-auto px-2 md:px-6 no-scrollbar pb-2">
+          <div className="flex gap-3 overflow-x-auto px-2 md:px-4 no-scrollbar">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => scrollToSection(cat)}
-                className={`px-4 py-1.5 md:px-6 md:py-2.5 rounded-full font-bold text-xs md:text-sm whitespace-nowrap transition-all duration-300 shadow-sm border ${
-                  activeCategory === cat
-                    ? "bg-purple-700 text-white shadow-md"
-                    : "bg-purple-100 text-purple-700 border-purple-200 hover:bg-purple-700 hover:text-white"
-                }`}
+                className="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-purple-200 text-purple-800 text-sm md:text-base font-semibold whitespace-nowrap hover:bg-purple-300 transition-colors"
               >
                 {cat}
               </button>
@@ -1092,74 +1141,59 @@ export default function WaxingServices() {
         </div>
       </div>
 
-      {/* SERVICES LIST */}
-      <div className="max-w-7xl mx-auto px-3 md:px-6 lg:px-10 py-6 md:py-10 space-y-8 md:space-y-20">
+      {/* SECTIONS */}
+      <div className="max-w-7xl mx-auto px-3 md:px-6 lg:px-10 py-6 md:py-10 space-y-8 md:space-y-16">
         {categories.map((cat) => (
-          <div key={cat} ref={(el) => (sectionRefs.current[cat] = el)} className="scroll-mt-32">
-            {/* Section Heading - Bigger + Gradient Bar */}
-            <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-gray-900 tracking-[-0.02em] uppercase">
-                {cat}
-              </h2>
-              <div className="h-px flex-1 bg-gradient-to-r from-purple-500 to-transparent rounded-full" />
-            </div>
+          <div key={cat} ref={(el) => (sectionRefs.current[cat] = el)}>
+            <h2 className="text-lg md:text-xl lg:text-2xl font-black mb-4 md:mb-6 uppercase tracking-tight">
+              {cat}
+            </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-              {allWaxingData[cat]?.map((item, idx) => (
+            <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {allWaxingData[cat].map((item, idx) => (
                 <div
                   key={idx}
-                  className="group bg-white/70 backdrop-blur-md border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl hover:scale-[1.02] flex flex-col md:flex-row md:items-stretch overflow-hidden transition-all duration-300"
+                  className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex flex-col md:flex-row md:items-stretch overflow-hidden transition-shadow"
                 >
-                  {/* Image Container with Hover Zoom */}
-                  <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-2xl md:rounded-l-2xl md:rounded-t-none">
+                  {/* IMAGE */}
+                  <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-t-none">
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
+                      className="w-full h-full object-contain object-center"
                     />
                   </div>
 
+                  {/* CONTENT */}
                   <div className="p-4 md:p-5 flex-1 flex flex-col">
-                    <div className="flex justify-between items-start gap-3">
-                      <h3 className="text-sm md:text-base font-bold text-gray-800 leading-tight flex-1">
-                        {item.title}
-                      </h3>
-                      {/* ADD Button - Gradient + Rounded Full */}
-                      <button className="bg-gradient-to-r from-purple-600 to-purple-800 text-white px-5 py-1.5 rounded-full text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all duration-300 flex-shrink-0 whitespace-nowrap">
-                        ADD
-                      </button>
-                    </div>
+                    <h3 className="text-sm md:text-base font-bold text-gray-800">
+                      {item.title}
+                    </h3>
 
-                    {/* Price Section */}
                     <div className="flex items-center gap-2 mt-2">
-                      <span className="font-black text-xl md:text-2xl text-gray-900">₹{item.price}</span>
-                      <span className="line-through text-xs text-gray-400">₹{item.mrp}</span>
-                      <span className="text-orange-600 text-xs font-bold bg-orange-100 px-2.5 py-px rounded-full">
+                      <span className="font-black text-base md:text-lg lg:text-xl">
+                        ₹{item.price}
+                      </span>
+                      <span className="line-through text-xs text-gray-400">
+                        ₹{item.mrp}
+                      </span>
+                      <span className="text-orange-600 text-xs font-bold">
                         {item.discount}
                       </span>
                     </div>
+                    <p className="text-xs text-gray-400 mt-1">⏱ {item.duration}</p>
 
-                    <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">
-                      ⏱ <span className="font-medium">{item.duration}</span>
-                    </p>
-
-                    {/* Includes */}
-                    <ul className="mt-3 space-y-1 flex-1">
+                    <ul className="mt-3 md:mt-4 space-y-1 flex-1 text-xs md:text-sm text-gray-500">
                       {item.includes.map((i, k) => (
-                        <li key={k} className="text-xs md:text-sm text-gray-500 flex items-start gap-1.5">
-                          <span className="text-purple-400 mt-0.5">•</span>
-                          <span>{i}</span>
-                        </li>
+                        <li key={k}>• {i}</li>
                       ))}
                     </ul>
 
-                    {/* VIEW DETAILS */}
                     <button
                       onClick={() => setSelected(item)}
-                      className="mt-4 text-purple-600 text-xs md:text-sm font-semibold hover:underline flex items-center gap-1 self-start transition-colors"
+                      className="mt-4 text-purple-700 text-xs md:text-sm font-bold hover:underline self-start"
                     >
                       VIEW DETAILS
-                      <span className="text-base leading-none">→</span>
                     </button>
                   </div>
                 </div>
@@ -1169,88 +1203,146 @@ export default function WaxingServices() {
         ))}
       </div>
 
-      {/* DETAIL MODAL - Premium Glass + Animation */}
+      {/* =====================
+          FLOATING BUTTONS
+          (WhatsApp + Call)
+      ===================== */}
+      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 items-center">
+        {/* WhatsApp Button */}
+        <div className="relative flex items-center justify-center">
+          {/* Pulse ring */}
+          <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-60 pulse-ring" />
+          <a
+            href="https://wa.me/919811923486"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="float-btn relative w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-xl shadow-green-300/50"
+            aria-label="Chat on WhatsApp"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 48 48"
+              className="w-8 h-8"
+              fill="none"
+            >
+              <circle cx="24" cy="24" r="24" fill="#25D366" />
+              <path
+                d="M34.5 13.4A14.7 14.7 0 0 0 24 9C16.3 9 10 15.3 10 23c0 2.5.7 4.9 1.9 7L10 39l9.3-2.4a14.8 14.8 0 0 0 14.7-3.7A14.8 14.8 0 0 0 38 23c0-3.9-1.5-7.6-3.5-9.6zm-10.5 20a12.3 12.3 0 0 1-6.3-1.7l-.5-.3-5 1.3 1.3-4.9-.3-.5A12.3 12.3 0 0 1 24 11.5c6.8 0 12.3 5.5 12.3 12.3S30.8 36.1 24 36.1zm6.7-9.2c-.4-.2-2.2-1.1-2.5-1.2-.3-.1-.6-.2-.8.2-.3.4-1 1.2-1.2 1.5-.2.3-.4.3-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.8-2.2-2.1-2.6-.2-.4 0-.6.2-.7.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3 0-.6-.1-.8-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.3 0-.7.1-1 .4-.4.4-1.4 1.3-1.4 3.2s1.4 3.7 1.6 4c.2.2 2.8 4.3 6.8 6 .9.4 1.7.6 2.2.8.9.3 1.8.3 2.4.2.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.2-.4-.3-.8-.5z"
+                fill="white"
+              />
+            </svg>
+          </a>
+        </div>
+
+        {/* Call Button */}
+        <div className="relative flex items-center justify-center">
+          {/* Pulse ring */}
+          <span className="absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-60 pulse-ring-2" />
+          <a
+            href="tel:+919811923486"
+            className="float-btn relative w-14 h-14 rounded-full bg-purple-600 flex items-center justify-center shadow-xl shadow-purple-300/50"
+            aria-label="Call us"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 48 48"
+              className="w-7 h-7"
+              fill="none"
+            >
+              <circle cx="24" cy="24" r="24" fill="#7C3AED" />
+              <path
+                d="M34.3 29.6l-3.5-1.5a1.5 1.5 0 0 0-1.7.4l-1.6 1.9a22.2 22.2 0 0 1-9.9-9.9l1.9-1.6a1.5 1.5 0 0 0 .4-1.7L18.4 13.7a1.5 1.5 0 0 0-1.7-.9l-3.3.8A1.5 1.5 0 0 0 12 15c0 12.2 9.8 22 22 22a1.5 1.5 0 0 0 1.4-1.1l.8-3.4a1.5 1.5 0 0 0-.9-1.9z"
+                fill="white"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      {/* DETAIL MODAL */}
       {selected && (
         <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 p-4 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
           onClick={() => setSelected(null)}
         >
           <div
-            className="bg-white/95 backdrop-blur-2xl rounded-3xl max-w-[480px] w-full mx-4 relative max-h-[85vh] shadow-2xl transition-all duration-300"
+            className="bg-white max-w-[480px] w-full rounded-2xl overflow-hidden relative shadow-2xl flex flex-col max-h-[85vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
             <button
               onClick={() => setSelected(null)}
-              className="absolute top-4 right-4 z-20 bg-white shadow-md text-gray-700 w-8 h-8 rounded-2xl flex items-center justify-center font-bold text-xl hover:rotate-90 transition-transform"
+              className="absolute top-4 right-4 z-20 bg-gray-100 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center font-bold"
             >
               ✕
             </button>
-
-            <div className="overflow-y-auto max-h-[85vh] p-6 md:p-8">
-              {/* Header Image + Info */}
-              <div className="flex gap-4 md:gap-6 mb-6">
-                <div className="w-24 h-24 md:w-32 md:h-32 flex-shrink-0 overflow-hidden rounded-2xl shadow-inner">
+            <div className="overflow-y-auto p-4 md:p-6">
+              <div className="flex gap-2 md:gap-4 mb-4 md:mb-6">
+                <div className="w-20 h-20 md:w-28 md:h-28 flex items-center justify-center bg-white rounded-xl">
                   <img
                     src={selected.image}
-                    className="w-full h-full object-cover"
                     alt={selected.title}
+                    className="max-w-full max-h-full object-contain rounded-xl"
                   />
                 </div>
-
-                <div className="flex-1">
-                  <h2 className="text-xl md:text-2xl font-bold text-gray-900 leading-tight">
+                <div>
+                  <h2 className="text-lg md:text-xl font-bold text-gray-900 leading-tight">
                     {selected.title}
                   </h2>
-
-                  <div className="mt-3 flex items-baseline gap-2">
-                    <span className="text-3xl font-black text-purple-700">₹{selected.price}</span>
-                    <span className="text-sm text-gray-400 line-through">₹{selected.mrp}</span>
-                    <span className="text-orange-600 text-sm font-bold">{selected.discount}</span>
+                  <div className="mt-2 flex items-baseline gap-1 md:gap-2">
+                    <span className="text-base md:text-lg font-bold text-purple-700">
+                      ₹{selected.price}
+                    </span>
+                    <span className="text-xs md:text-sm text-gray-400 line-through">
+                      ₹{selected.mrp}
+                    </span>
                   </div>
-
-                  <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
-                    <span className="inline-block w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
+                  <p className="text-xs text-gray-500 mt-1">
                     Duration: {selected.duration}
                   </p>
                 </div>
               </div>
-
-              {/* Includes */}
-              <div>
-                <h4 className="font-bold text-gray-800 mb-3 text-sm uppercase tracking-[0.5px]">
-                  Includes
-                </h4>
-                <ul className="space-y-3">
-                  {selected.includes.map((i, idx) => (
-                    <li key={idx} className="text-sm text-gray-600 flex gap-3">
-                      <span className="text-purple-500 text-lg leading-none mt-px">✔</span>
-                      <span>{i}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Information */}
-              {selected.info && selected.info.length > 0 && (
-                <div className="mt-8 bg-gradient-to-br from-purple-50 to-white border border-purple-100 p-5 rounded-2xl">
-                  <h4 className="font-bold text-gray-800 mb-3 text-sm uppercase tracking-[0.5px]">
-                    Important Information
+              <div className="space-y-3 md:space-y-4">
+                <div>
+                  <h4 className="font-bold text-gray-800 mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wide md:tracking-wider">
+                    Includes:
                   </h4>
-                  <ul className="space-y-3 text-xs md:text-sm">
-                    {selected.info.map((i, idx) => (
-                      <li key={idx} className="flex gap-3 text-gray-700">
-                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
-                        <span>{i}</span>
+                  <ul className="grid grid-cols-1 gap-1 md:gap-2">
+                    {selected.includes.map((i, idx) => (
+                      <li
+                        key={idx}
+                        className="text-xs md:text-sm text-gray-600 flex gap-1 md:gap-2"
+                      >
+                        <span className="text-purple-500">✔</span> {i}
                       </li>
                     ))}
                   </ul>
                 </div>
-              )}
+                {selected.info && selected.info.length > 0 && (
+                  <div className="bg-gray-50 p-3 md:p-4 rounded-lg md:rounded-xl">
+                    <h4 className="font-bold text-gray-800 mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wide md:tracking-wider">
+                      Information:
+                    </h4>
+                    <ul className="space-y-1 md:space-y-1.5">
+                      {selected.info.map((i, idx) => (
+                        <li
+                          key={idx}
+                          className="text-xs md:text-sm text-gray-900 flex gap-1 md:gap-2 items-start"
+                        >
+                          <span className="mt-1 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />{" "}
+                          {i}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
 
-              {/* Book Now Button - Premium Gradient */}
-              <button className="w-full mt-8 bg-gradient-to-r from-purple-600 to-purple-800 text-white py-4 rounded-2xl text-base font-semibold shadow-xl shadow-purple-500/30 hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98]">
-                Book Now
+              {/* BOOK NOW → CALLS +91 9811923486 */}
+              <button
+                onClick={handleBookNow}
+                className="w-full mt-4 md:mt-6 bg-purple-700 text-white py-2 md:py-3 rounded-xl text-sm md:text-base font-bold shadow-lg shadow-purple-200 active:scale-95 transition-transform"
+              >
+                📞 Book Now
               </button>
             </div>
           </div>
