@@ -23,8 +23,14 @@ import lorealInoaGlobalLarge from "../images/Loreal INOA Global - Large.jpg";
 import lorealMajirelGlobalLarge from "../images/Loreal Majirel Global - Large.jpg";
 import hennaColourApplication from "../images/Henna - Colour Application.jpg";
 
+/* =========================
+   NAV MENU
+========================= */
 const categories = ["Hair Cut", "Hair Treatment", "Hair Color"];
 
+/* =========================
+   TYPES
+========================= */
 type HairService = {
   title: string;
   duration: string;
@@ -36,6 +42,9 @@ type HairService = {
   info: string[];
 };
 
+/* =========================
+   HAIR CUT DATA
+========================= */
 const hairCutServices: HairService[] = [
   {
     title: "Hair Cut Kids",
@@ -89,8 +98,11 @@ const hairCutServices: HairService[] = [
   },
 ];
 
+/* =========================
+   HAIR TREATMENT DATA
+========================= */
 const spaInfoCommon = [
-  "For best results add Ampoule seperately",
+  "For best results add Ampoule separately",
   "Hair should be shampooed an hour before taking the spa and an hour after the spa with normal water only",
   "Shampoo or hair color is not recommended after hair spa",
   "Hair wash and blow dry is not a part of the service",
@@ -170,6 +182,9 @@ const hairTreatmentServices: HairService[] = [
   },
 ];
 
+/* =========================
+   HAIR COLOR DATA
+========================= */
 const hairColorServices: HairService[] = [
   {
     title: "L'Oréal Majirel Root Touch Up",
@@ -329,6 +344,9 @@ const floatingStyles = `
   }
 `;
 
+/* =========================
+   COMPONENT
+========================= */
 export default function HairServices() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<HairService | null>(null);
@@ -336,6 +354,14 @@ export default function HairServices() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    return () => {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "auto";
+      }
+    };
   }, []);
 
   const scrollToSection = (cat: string) => {
@@ -351,7 +377,7 @@ export default function HairServices() {
       {/* INJECT FLOATING BUTTON STYLES */}
       <style>{floatingStyles}</style>
 
-      {/* TITLE SECTION WITH BACK BUTTON */}
+      {/* HEADER WITH BACK BUTTON */}
       <div className="py-4 md:py-6 lg:py-8 text-center bg-white border-b relative">
         <button
           onClick={() => navigate(-1)}
@@ -361,7 +387,7 @@ export default function HairServices() {
         </button>
 
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 tracking-tight">
-          Hair Cut
+          Hair
         </h1>
         <p className="text-xs md:text-sm text-gray-500 mt-1 uppercase tracking-widest">
           Premium Salon Services
@@ -369,14 +395,14 @@ export default function HairServices() {
       </div>
 
       {/* NAV BAR */}
-      <div className="sticky top-0 z-40 bg-[#f6edff] py-3 md:py-4 border-b">
+      <div className="sticky top-0 z-40 bg-[#f6edff] py-3 md:py-4 shadow-sm">
         <div className="flex justify-center">
           <div className="flex gap-3 overflow-x-auto px-2 md:px-4 no-scrollbar">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => scrollToSection(cat)}
-                className="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-purple-200 text-purple-800 text-sm md:text-base font-semibold whitespace-nowrap hover:bg-purple-300"
+                className="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-purple-200 text-purple-800 text-sm md:text-base font-semibold whitespace-nowrap hover:bg-purple-300 transition-colors"
               >
                 {cat}
               </button>
@@ -389,50 +415,53 @@ export default function HairServices() {
       <div className="max-w-7xl mx-auto px-3 md:px-6 lg:px-10 py-6 md:py-10 space-y-8 md:space-y-16">
         {categories.map((cat) => (
           <div key={cat} ref={(el) => (sectionRefs.current[cat] = el)}>
-            <h2 className="text-lg md:text-xl lg:text-2xl font-black mb-4 md:mb-6">{cat}</h2>
+            <h2 className="text-lg md:text-xl lg:text-2xl font-black mb-4 md:mb-6 uppercase tracking-tight">
+              {cat}
+            </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {allData[cat].map((item, idx) => (
                 <div
                   key={idx}
                   className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex flex-col md:flex-row md:items-stretch overflow-hidden transition-shadow"
                 >
+                  {/* IMAGE */}
                   <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-t-none">
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-full h-full object-cover object-center"
+                      className="w-full h-full object-contain object-center"
                     />
                   </div>
 
-                  <div className="p-3 md:p-4 flex-1">
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-sm md:text-base font-bold text-gray-800">{item.title}</h3>
-                      <button
-                        onClick={handleBookNow}
-                        className="bg-purple-700 text-white px-3 md:px-4 py-1 md:py-1.5 rounded-xl text-xs md:text-sm font-bold active:scale-95 transition-transform"
-                      >
-                        ADD
-                      </button>
-                    </div>
+                  {/* CONTENT */}
+                  <div className="p-4 md:p-5 flex-1 flex flex-col">
+                    <h3 className="text-sm md:text-base font-bold text-gray-800">
+                      {item.title}
+                    </h3>
 
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="font-black text-base md:text-lg lg:text-xl">₹{item.price}</span>
-                      <span className="line-through text-xs text-gray-400">₹{item.mrp}</span>
-                      <span className="text-orange-600 text-xs font-bold">{item.discount}</span>
+                    <div className="flex items-center gap-2 mt-2">
+                      <span className="font-black text-base md:text-lg lg:text-xl">
+                        ₹{item.price}
+                      </span>
+                      <span className="line-through text-xs text-gray-400">
+                        ₹{item.mrp}
+                      </span>
+                      <span className="text-orange-600 text-xs font-bold">
+                        {item.discount}
+                      </span>
                     </div>
-
                     <p className="text-xs text-gray-400 mt-1">⏱ {item.duration}</p>
 
-                    <ul className="mt-2 md:mt-3 space-y-1">
+                    <ul className="mt-3 md:mt-4 space-y-1 flex-1 text-xs md:text-sm text-gray-500">
                       {item.includes.map((i, k) => (
-                        <li key={k} className="text-xs md:text-sm text-gray-500">• {i}</li>
+                        <li key={k}>• {i}</li>
                       ))}
                     </ul>
 
                     <button
                       onClick={() => setSelected(item)}
-                      className="mt-2 md:mt-3 text-purple-700 text-xs md:text-sm font-bold hover:underline"
+                      className="mt-4 text-purple-700 text-xs md:text-sm font-bold hover:underline self-start"
                     >
                       VIEW DETAILS
                     </button>
@@ -459,7 +488,12 @@ export default function HairServices() {
             className="float-btn relative w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-xl shadow-green-300/50"
             aria-label="Chat on WhatsApp"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-8 h-8" fill="none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 48 48"
+              className="w-8 h-8"
+              fill="none"
+            >
               <circle cx="24" cy="24" r="24" fill="#25D366" />
               <path
                 d="M34.5 13.4A14.7 14.7 0 0 0 24 9C16.3 9 10 15.3 10 23c0 2.5.7 4.9 1.9 7L10 39l9.3-2.4a14.8 14.8 0 0 0 14.7-3.7A14.8 14.8 0 0 0 38 23c0-3.9-1.5-7.6-3.5-9.6zm-10.5 20a12.3 12.3 0 0 1-6.3-1.7l-.5-.3-5 1.3 1.3-4.9-.3-.5A12.3 12.3 0 0 1 24 11.5c6.8 0 12.3 5.5 12.3 12.3S30.8 36.1 24 36.1zm6.7-9.2c-.4-.2-2.2-1.1-2.5-1.2-.3-.1-.6-.2-.8.2-.3.4-1 1.2-1.2 1.5-.2.3-.4.3-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.8-2.2-2.1-2.6-.2-.4 0-.6.2-.7.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3 0-.6-.1-.8-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.3 0-.7.1-1 .4-.4.4-1.4 1.3-1.4 3.2s1.4 3.7 1.6 4c.2.2 2.8 4.3 6.8 6 .9.4 1.7.6 2.2.8.9.3 1.8.3 2.4.2.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.2-.4-.3-.8-.5z"
@@ -477,7 +511,12 @@ export default function HairServices() {
             className="float-btn relative w-14 h-14 rounded-full bg-purple-600 flex items-center justify-center shadow-xl shadow-purple-300/50"
             aria-label="Call us"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-7 h-7" fill="none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 48 48"
+              className="w-7 h-7"
+              fill="none"
+            >
               <circle cx="24" cy="24" r="24" fill="#7C3AED" />
               <path
                 d="M34.3 29.6l-3.5-1.5a1.5 1.5 0 0 0-1.7.4l-1.6 1.9a22.2 22.2 0 0 1-9.9-9.9l1.9-1.6a1.5 1.5 0 0 0 .4-1.7L18.4 13.7a1.5 1.5 0 0 0-1.7-.9l-3.3.8A1.5 1.5 0 0 0 12 15c0 12.2 9.8 22 22 22a1.5 1.5 0 0 0 1.4-1.1l.8-3.4a1.5 1.5 0 0 0-.9-1.9z"
@@ -491,11 +530,11 @@ export default function HairServices() {
       {/* DETAIL MODAL */}
       {selected && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
           onClick={() => setSelected(null)}
         >
           <div
-            className="bg-white rounded-xl md:rounded-2xl max-w-[480px] w-full mx-4 relative max-h-[80vh]"
+            className="bg-white max-w-[480px] w-full rounded-2xl overflow-hidden relative shadow-2xl flex flex-col max-h-[85vh]"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -504,14 +543,15 @@ export default function HairServices() {
             >
               ✕
             </button>
-
             <div className="overflow-y-auto p-4 md:p-6">
               <div className="flex gap-2 md:gap-4 mb-4 md:mb-6">
-                <img
-                  src={selected.image}
-                  alt={selected.title}
-                  className="w-20 h-20 md:w-28 md:h-28 object-cover rounded-xl"
-                />
+                <div className="w-20 h-20 md:w-28 md:h-28 flex items-center justify-center bg-white rounded-xl">
+                  <img
+                    src={selected.image}
+                    alt={selected.title}
+                    className="max-w-full max-h-full object-contain rounded-xl"
+                  />
+                </div>
                 <div>
                   <h2 className="text-lg md:text-xl font-bold text-gray-900 leading-tight">
                     {selected.title}
@@ -524,38 +564,46 @@ export default function HairServices() {
                       ₹{selected.mrp}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">Duration: {selected.duration}</p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Duration: {selected.duration}
+                  </p>
                 </div>
               </div>
-
-              <div>
-                <h4 className="font-bold text-gray-800 mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wide md:tracking-wider">
-                  Includes:
-                </h4>
-                <ul className="space-y-1 md:space-y-2">
-                  {selected.includes.map((i, idx) => (
-                    <li key={idx} className="text-xs md:text-sm text-gray-600 flex gap-1 md:gap-2">
-                      <span className="text-purple-500">✔</span> {i}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {selected.info.length > 0 && (
-                <div className="bg-gray-50 p-3 md:p-4 rounded-lg md:rounded-xl mt-3 md:mt-4">
+              <div className="space-y-3 md:space-y-4">
+                <div>
                   <h4 className="font-bold text-gray-800 mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wide md:tracking-wider">
-                    Information:
+                    Includes:
                   </h4>
-                  <ul className="space-y-1 md:space-y-1.5">
-                    {selected.info.map((i, idx) => (
-                      <li key={idx} className="text-xs md:text-sm text-gray-900 flex gap-1 md:gap-2 items-start">
-                        <span className="mt-1 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
-                        {i}
+                  <ul className="grid grid-cols-1 gap-1 md:gap-2">
+                    {selected.includes.map((i, idx) => (
+                      <li
+                        key={idx}
+                        className="text-xs md:text-sm text-gray-600 flex gap-1 md:gap-2"
+                      >
+                        <span className="text-purple-500">✔</span> {i}
                       </li>
                     ))}
                   </ul>
                 </div>
-              )}
+                {selected.info.length > 0 && (
+                  <div className="bg-gray-50 p-3 md:p-4 rounded-lg md:rounded-xl">
+                    <h4 className="font-bold text-gray-800 mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wide md:tracking-wider">
+                      Information:
+                    </h4>
+                    <ul className="space-y-1 md:space-y-1.5">
+                      {selected.info.map((i, idx) => (
+                        <li
+                          key={idx}
+                          className="text-xs md:text-sm text-gray-900 flex gap-1 md:gap-2 items-start"
+                        >
+                          <span className="mt-1 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />{" "}
+                          {i}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
 
               {/* BOOK NOW → CALLS +91 9811923486 */}
               <button
