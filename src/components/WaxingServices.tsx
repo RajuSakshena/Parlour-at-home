@@ -1044,6 +1044,7 @@ export default function WaxingServices() {
   const navigate = useNavigate();
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
   const [selected, setSelected] = useState<WaxingService | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>(categories[0]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -1051,6 +1052,7 @@ export default function WaxingServices() {
 
   const scrollToSection = (cat: string) => {
     sectionRefs.current[cat]?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setActiveCategory(cat);
   };
 
   return (
@@ -1069,15 +1071,19 @@ export default function WaxingServices() {
         <p className="text-xs md:text-sm text-gray-500 mt-1 uppercase tracking-widest">Premium Salon Services</p> 
       </div>
 
-      {/* NAVBAR STYLING (Same as FacialServices.tsx) */}
-      <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-md py-3 md:py-4 border-b">
+      {/* NAVBAR STYLING (Glassmorphism + Active State) */}
+      <div className="sticky top-0 z-40 bg-white/70 backdrop-blur-md py-3 md:py-4 border-b">
         <div className="flex justify-center">
           <div className="flex gap-3 md:gap-4 overflow-x-auto px-2 md:px-6 no-scrollbar pb-2">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => scrollToSection(cat)}
-                className="px-4 py-1.5 md:px-6 md:py-2.5 rounded-full bg-purple-100 text-purple-700 font-bold text-xs md:text-sm whitespace-nowrap hover:bg-purple-700 hover:text-white transition-all shadow-sm border border-purple-200"
+                className={`px-4 py-1.5 md:px-6 md:py-2.5 rounded-full font-bold text-xs md:text-sm whitespace-nowrap transition-all duration-300 shadow-sm border ${
+                  activeCategory === cat
+                    ? "bg-purple-700 text-white shadow-md"
+                    : "bg-purple-100 text-purple-700 border-purple-200 hover:bg-purple-700 hover:text-white"
+                }`}
               >
                 {cat}
               </button>
@@ -1090,60 +1096,70 @@ export default function WaxingServices() {
       <div className="max-w-7xl mx-auto px-3 md:px-6 lg:px-10 py-6 md:py-10 space-y-8 md:space-y-20">
         {categories.map((cat) => (
           <div key={cat} ref={(el) => (sectionRefs.current[cat] = el)} className="scroll-mt-32">
-            <div className="flex items-center gap-2 md:gap-4 mb-4 md:mb-8">
-              <h2 className="text-lg md:text-xl lg:text-2xl font-black text-gray-800 uppercase tracking-tight">{cat}</h2>
-              <div className="h-1 flex-1 bg-gradient-to-r from-purple-200 to-transparent rounded-full" />
+            {/* Section Heading - Bigger + Gradient Bar */}
+            <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-gray-900 tracking-[-0.02em] uppercase">
+                {cat}
+              </h2>
+              <div className="h-px flex-1 bg-gradient-to-r from-purple-500 to-transparent rounded-full" />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {allWaxingData[cat]?.map((item, idx) => (
                 <div
                   key={idx}
-                  className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex flex-col md:flex-row md:items-stretch overflow-hidden transition-shadow"
+                  className="group bg-white/70 backdrop-blur-md border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl hover:scale-[1.02] flex flex-col md:flex-row md:items-stretch overflow-hidden transition-all duration-300"
                 >
-                  <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-t-none">
+                  {/* Image Container with Hover Zoom */}
+                  <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-2xl md:rounded-l-2xl md:rounded-t-none">
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-full h-full object-cover object-center"
+                      className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
                     />
                   </div>
 
-                  <div className="p-3 md:p-4 flex-1">
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-sm md:text-base font-bold text-gray-800">{item.title}</h3>
-                      <button className="bg-purple-700 text-white px-3 md:px-4 py-1 md:py-1.5 rounded-xl text-xs md:text-sm font-bold active:scale-95 transition-transform">
+                  <div className="p-4 md:p-5 flex-1 flex flex-col">
+                    <div className="flex justify-between items-start gap-3">
+                      <h3 className="text-sm md:text-base font-bold text-gray-800 leading-tight flex-1">
+                        {item.title}
+                      </h3>
+                      {/* ADD Button - Gradient + Rounded Full */}
+                      <button className="bg-gradient-to-r from-purple-600 to-purple-800 text-white px-5 py-1.5 rounded-full text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all duration-300 flex-shrink-0 whitespace-nowrap">
                         ADD
                       </button>
                     </div>
 
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="font-black text-base md:text-lg lg:text-xl">₹{item.price}</span>
-                      <span className="line-through text-xs text-gray-400">
-                        ₹{item.mrp}
-                      </span>
-                      <span className="text-orange-600 text-xs font-bold">
+                    {/* Price Section */}
+                    <div className="flex items-center gap-2 mt-2">
+                      <span className="font-black text-xl md:text-2xl text-gray-900">₹{item.price}</span>
+                      <span className="line-through text-xs text-gray-400">₹{item.mrp}</span>
+                      <span className="text-orange-600 text-xs font-bold bg-orange-100 px-2.5 py-px rounded-full">
                         {item.discount}
                       </span>
                     </div>
 
-                    <p className="text-xs text-gray-400 mt-1">
-                      ⏱ {item.duration}
+                    <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">
+                      ⏱ <span className="font-medium">{item.duration}</span>
                     </p>
 
-                    <ul className="mt-2 md:mt-3 space-y-1">
+                    {/* Includes */}
+                    <ul className="mt-3 space-y-1 flex-1">
                       {item.includes.map((i, k) => (
-                        <li key={k} className="text-xs md:text-sm text-gray-500">
-                          • {i}
+                        <li key={k} className="text-xs md:text-sm text-gray-500 flex items-start gap-1.5">
+                          <span className="text-purple-400 mt-0.5">•</span>
+                          <span>{i}</span>
                         </li>
                       ))}
                     </ul>
 
+                    {/* VIEW DETAILS */}
                     <button
                       onClick={() => setSelected(item)}
-                      className="mt-2 md:mt-3 text-purple-700 text-xs md:text-sm font-bold hover:underline"
+                      className="mt-4 text-purple-600 text-xs md:text-sm font-semibold hover:underline flex items-center gap-1 self-start transition-colors"
                     >
                       VIEW DETAILS
+                      <span className="text-base leading-none">→</span>
                     </button>
                   </div>
                 </div>
@@ -1153,82 +1169,87 @@ export default function WaxingServices() {
         ))}
       </div>
 
-      {/* DETAIL MODAL */}
+      {/* DETAIL MODAL - Premium Glass + Animation */}
       {selected && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 p-4 transition-opacity duration-300"
           onClick={() => setSelected(null)}
         >
           <div
-            className="bg-white rounded-xl md:rounded-2xl max-w-[480px] w-full mx-4 relative max-h-[80vh]"
+            className="bg-white/95 backdrop-blur-2xl rounded-3xl max-w-[480px] w-full mx-4 relative max-h-[85vh] shadow-2xl transition-all duration-300"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Close Button */}
             <button
               onClick={() => setSelected(null)}
-              className="absolute top-4 right-4 z-20 bg-gray-100 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center font-bold"
+              className="absolute top-4 right-4 z-20 bg-white shadow-md text-gray-700 w-8 h-8 rounded-2xl flex items-center justify-center font-bold text-xl hover:rotate-90 transition-transform"
             >
               ✕
             </button>
 
-            <div className="overflow-y-auto p-4 md:p-6">
-              <div className="flex gap-2 md:gap-4 mb-4 md:mb-6">
-                <img
-                  src={selected.image}
-                  className="w-20 h-20 md:w-28 md:h-28 object-cover rounded-xl"
-                />
+            <div className="overflow-y-auto max-h-[85vh] p-6 md:p-8">
+              {/* Header Image + Info */}
+              <div className="flex gap-4 md:gap-6 mb-6">
+                <div className="w-24 h-24 md:w-32 md:h-32 flex-shrink-0 overflow-hidden rounded-2xl shadow-inner">
+                  <img
+                    src={selected.image}
+                    className="w-full h-full object-cover"
+                    alt={selected.title}
+                  />
+                </div>
 
-                <div>
-                  <h2 className="text-lg md:text-xl font-bold text-gray-900 leading-tight">
+                <div className="flex-1">
+                  <h2 className="text-xl md:text-2xl font-bold text-gray-900 leading-tight">
                     {selected.title}
                   </h2>
 
-                  <div className="mt-2 flex items-baseline gap-1 md:gap-2">
-                    <span className="text-base md:text-lg font-bold text-purple-700">
-                      ₹{selected.price}
-                    </span>
-                    <span className="text-xs md:text-sm text-gray-400 line-through">
-                      ₹{selected.mrp}
-                    </span>
+                  <div className="mt-3 flex items-baseline gap-2">
+                    <span className="text-3xl font-black text-purple-700">₹{selected.price}</span>
+                    <span className="text-sm text-gray-400 line-through">₹{selected.mrp}</span>
+                    <span className="text-orange-600 text-sm font-bold">{selected.discount}</span>
                   </div>
 
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
+                    <span className="inline-block w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
                     Duration: {selected.duration}
                   </p>
                 </div>
               </div>
 
+              {/* Includes */}
               <div>
-                <h4 className="font-bold text-gray-800 mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wide md:tracking-wider">
-                  Includes:
+                <h4 className="font-bold text-gray-800 mb-3 text-sm uppercase tracking-[0.5px]">
+                  Includes
                 </h4>
-
-                <ul className="space-y-1 md:space-y-2">
+                <ul className="space-y-3">
                   {selected.includes.map((i, idx) => (
-                    <li key={idx} className="text-xs md:text-sm text-gray-600 flex gap-1 md:gap-2">
-                      <span className="text-purple-500">✔</span> {i}
+                    <li key={idx} className="text-sm text-gray-600 flex gap-3">
+                      <span className="text-purple-500 text-lg leading-none mt-px">✔</span>
+                      <span>{i}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              {selected.info && (
-                <div className="bg-gray-50 p-3 md:p-4 rounded-lg md:rounded-xl mt-3 md:mt-4">
-                  <h4 className="font-bold text-gray-800 mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wide md:tracking-wider">
-                    Information:
+              {/* Information */}
+              {selected.info && selected.info.length > 0 && (
+                <div className="mt-8 bg-gradient-to-br from-purple-50 to-white border border-purple-100 p-5 rounded-2xl">
+                  <h4 className="font-bold text-gray-800 mb-3 text-sm uppercase tracking-[0.5px]">
+                    Important Information
                   </h4>
-
-                  <ul className="space-y-1 md:space-y-1.5">
+                  <ul className="space-y-3 text-xs md:text-sm">
                     {selected.info.map((i, idx) => (
-                      <li key={idx} className="text-xs md:text-sm text-gray-900 flex gap-1 md:gap-2 items-start">
-                        <span className="mt-1 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />
-                        {i}
+                      <li key={idx} className="flex gap-3 text-gray-700">
+                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                        <span>{i}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
 
-              <button className="w-full mt-4 md:mt-6 bg-purple-700 text-white py-2 md:py-3 rounded-xl text-sm md:text-base font-bold shadow-lg shadow-purple-200">
+              {/* Book Now Button - Premium Gradient */}
+              <button className="w-full mt-8 bg-gradient-to-r from-purple-600 to-purple-800 text-white py-4 rounded-2xl text-base font-semibold shadow-xl shadow-purple-500/30 hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98]">
                 Book Now
               </button>
             </div>
