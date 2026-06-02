@@ -1,175 +1,171 @@
-// Header.tsx
-import { Menu, X, Sparkles, Phone, Mail, MapPin } from "lucide-react";
-import { useState, useEffect } from "react";
+// Footer.tsx
+import {
+  Phone,
+  Mail,
+  Sparkles,
+  MapPin,
+  Clock,
+  Instagram,
+  Facebook,
+  Twitter,
+} from "lucide-react";
 
-export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Close mobile menu when window is resized above md breakpoint
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsMenuOpen(false);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
+export default function Footer() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-      setIsMenuOpen(false);
     }
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
-      {/* Added relative positioning to nav for proper mobile menu positioning */}
-      <nav className="relative container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <Sparkles className="w-6 h-6 text-pink-500" />
-            <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-              Parlour at Doorstep
-            </span>
-          </div>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-6">
-
-            <button
-              onClick={() => scrollToSection("home")}
-              className="text-gray-700 hover:text-pink-500 transition-colors font-medium"
-            >
-              Home
-            </button>
-
-            <button
-              onClick={() => scrollToSection("services")}
-              className="text-gray-700 hover:text-pink-500 transition-colors font-medium"
-            >
-              Services
-            </button>
-
-            <button
-              onClick={() => scrollToSection("blogs")}
-              className="text-gray-700 hover:text-pink-500 transition-colors font-medium"
-            >
-              Blogs
-            </button>
-
-            {/* 🔥 Location Keyword (SEO Boost) - hidden on md, visible on lg+ */}
-            <div className="hidden lg:flex items-center space-x-1 text-gray-600 text-sm whitespace-nowrap">
-              <MapPin className="w-4 h-4 text-pink-500 flex-shrink-0" />
-              <span>Rohini | Delhi | Noida | Gurugram</span>
-            </div>
-
-            {/* Phone - with whitespace-nowrap to prevent breaking */}
-            <a
-              href="tel:+919811923486"
-              className="flex items-center space-x-2 text-gray-700 hover:text-pink-500 transition-colors font-medium whitespace-nowrap"
-            >
-              <Phone className="w-4 h-4 flex-shrink-0" />
-              <span>+91 98119 23486</span>
-            </a>
-
-            {/* Email - icon always visible, text visible only on lg+ */}
-            <a
-              href="mailto:parlouratdoorsteps@gmail.com"
-              className="flex items-center space-x-2 text-gray-700 hover:text-pink-500 transition-colors font-medium"
-            >
-              <Mail className="w-4 h-4 flex-shrink-0" />
-              <span className="hidden lg:inline whitespace-nowrap">
-                parlouratdoorsteps@gmail.com
+    <footer
+      id="contact"
+      className="bg-gradient-to-br from-gray-900 to-gray-800 text-white"
+    >
+      <div className="container mx-auto px-4 py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          {/* Brand */}
+          <div>
+            <div className="flex items-center space-x-2 mb-4">
+              <Sparkles className="w-6 h-6 text-pink-400" />
+              <span className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent">
+                Parlour at Doorstep
               </span>
-            </a>
+            </div>
+            <p className="text-gray-300 mb-4">
+              Book professional salon services at home with expert beauticians.
+              We provide safe, hygienic and affordable beauty services at your
+              doorstep.
+            </p>
 
-            {/* Book Now */}
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 font-medium whitespace-nowrap"
-            >
-              Book Now
-            </button>
+            {/* SEO Location Text */}
+            <p className="text-gray-400 text-sm">
+              Serving in Rohini, Delhi, Noida, Gurugram and nearby areas.
+            </p>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-gray-700 p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          >
-            {isMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-xl font-bold mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              {[
+                { id: "home", label: "Home" },
+                { id: "services", label: "Services" },
+                { id: "testimonials", label: "Testimonials" },
+                { id: "blogs", label: "About Us" }, // Ensure element with id="blogs" exists or change to "about"
+              ].map((item) => (
+                <li key={item.id}>
+                  <button
+                    type="button"
+                    onClick={() => scrollToSection(item.id)}
+                    className="text-gray-300 hover:text-pink-400 transition-colors cursor-pointer"
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="text-xl font-bold mb-4">Contact Us</h3>
+            <address className="not-italic">
+              <ul className="space-y-3">
+                <li className="flex items-center space-x-3">
+                  <Phone className="w-5 h-5 text-pink-400" aria-hidden="true" />
+                  <a
+                    href="tel:+919811923486"
+                    className="text-gray-300 hover:text-pink-400 transition-colors"
+                    aria-label="Call us at +91 98119-23486"
+                  >
+                    +91 98119-23486
+                  </a>
+                </li>
+
+                <li className="flex items-center space-x-3">
+                  <Mail className="w-5 h-5 text-pink-400" aria-hidden="true" />
+                  <a
+                    href="mailto:info@parlouratdoorstep.com"
+                    className="text-gray-300 hover:text-pink-400 transition-colors"
+                    aria-label="Email us at info@parlouratdoorstep.com"
+                  >
+                    info@parlouratdoorstep.com
+                  </a>
+                </li>
+
+                <li className="flex items-start space-x-3">
+                  <MapPin className="w-5 h-5 text-pink-400 mt-1" aria-hidden="true" />
+                  <span className="text-gray-300">
+                    Rohini, Delhi, Noida, Gurugram
+                  </span>
+                </li>
+
+                <li className="flex items-start space-x-3">
+                  <Clock className="w-5 h-5 text-pink-400 mt-1" aria-hidden="true" />
+                  <span className="text-gray-300">
+                    Mon - Sun: 9:00 AM - 9:00 PM
+                  </span>
+                </li>
+              </ul>
+            </address>
+          </div>
+
+          {/* Locations + Social */}
+          <div>
+            <h3 className="text-xl font-bold mb-4">Our Locations</h3>
+
+            {/* Location Keywords */}
+            <ul className="space-y-2 text-gray-300 mb-4">
+              <li>Salon at Home in Rohini</li>
+              <li>Salon at Home in Delhi</li>
+              <li>Salon at Home in Noida</li>
+              <li>Salon at Home in Gurugram</li>
+            </ul>
+
+            <h3 className="text-lg font-semibold mb-3">Follow Us</h3>
+            <div className="flex space-x-4">
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-pink-500 transition-colors"
+                aria-label="Follow us on Instagram"
+              >
+                <Instagram className="w-5 h-5" aria-hidden="true" />
+              </a>
+
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-pink-500 transition-colors"
+                aria-label="Follow us on Facebook"
+              >
+                <Facebook className="w-5 h-5" aria-hidden="true" />
+              </a>
+
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-pink-500 transition-colors"
+                aria-label="Follow us on Twitter"
+              >
+                <Twitter className="w-5 h-5" aria-hidden="true" />
+              </a>
+            </div>
+          </div>
         </div>
 
-        {/* Mobile Menu - improved spacing, non-breaking phone, and better overflow handling */}
-        {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-100 py-6 px-4 space-y-5 shadow-xl rounded-b-2xl z-50 max-h-[80vh] overflow-y-auto">
-            
-            <button
-              onClick={() => scrollToSection("home")}
-              className="w-full py-2.5 text-center text-gray-700 font-medium hover:text-pink-500 transition-colors rounded-lg"
-            >
-              Home
-            </button>
-
-            <button
-              onClick={() => scrollToSection("services")}
-              className="w-full py-2.5 text-center text-gray-700 font-medium hover:text-pink-500 transition-colors rounded-lg"
-            >
-              Services
-            </button>
-
-            <button
-              onClick={() => scrollToSection("blogs")}
-              className="w-full py-2.5 text-center text-gray-700 font-medium hover:text-pink-500 transition-colors rounded-lg"
-            >
-              Blogs
-            </button>
-
-            {/* 🔥 Location SEO - mobile version with improved readability */}
-            <div className="flex items-center justify-center space-x-2 text-gray-600 text-sm py-2 flex-wrap">
-              <MapPin className="w-4 h-4 text-pink-500 flex-shrink-0" />
-              <span className="text-center">Rohini, Delhi, Noida, Gurugram</span>
-            </div>
-
-            {/* Phone - with whitespace-nowrap to keep on single line */}
-            <a
-              href="tel:+919811923486"
-              className="w-full py-2.5 flex justify-center items-center space-x-2 text-gray-700 font-medium hover:text-pink-500 transition-colors whitespace-nowrap"
-            >
-              <Phone className="w-4 h-4 flex-shrink-0" />
-              <span>+91 98119 23486</span>
-            </a>
-
-            {/* Email - with word break for very small screens */}
-            <a
-              href="mailto:parlouratdoorsteps@gmail.com"
-              className="w-full py-2.5 flex justify-center items-center space-x-2 text-gray-700 font-medium hover:text-pink-500 transition-colors break-all text-center"
-            >
-              <Mail className="w-4 h-4 flex-shrink-0" />
-              <span className="break-words">parlouratdoorsteps@gmail.com</span>
-            </a>
-
-            {/* Book Now - improved touch target */}
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white py-3.5 rounded-xl font-medium hover:shadow-lg transition-all duration-300 mt-2"
-            >
-              Book Now
-            </button>
-          </div>
-        )}
-      </nav>
-    </header>
+        {/* Bottom */}
+        <div className="border-t border-gray-700 pt-8 text-center">
+         <p className="text-gray-400 text-sm">
+  © 2021 Parlour at Doorstep. All rights reserved. | Salon at home services in Rohini, Delhi, Noida & Gurugram
+</p>
+        </div>
+      </div>
+    </footer>
   );
 }
