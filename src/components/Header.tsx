@@ -1,3 +1,4 @@
+// Header.tsx
 import { Menu, X, Sparkles, Phone, Mail } from 'lucide-react';
 import { useState } from 'react';
 
@@ -21,7 +22,7 @@ export default function Header() {
           <div className="flex items-center space-x-2">
             <Sparkles className="w-6 h-6 text-pink-500" />
             <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-              Parlour at Home
+              Parlour at Doorstep
             </span>
           </div>
 
@@ -60,11 +61,11 @@ export default function Header() {
 
             {/* Email */}
             <a
-              href="mailto:parlourathomess@gmail.com"
+              href="mailto:info@parlouratdoorstep.com"
               className="flex items-center space-x-2 text-gray-700 hover:text-pink-500 transition-colors font-medium"
             >
               <Mail className="w-4 h-4" />
-              <span>parlourathomess@gmail.com</span>
+              <span>info@parlouratdoorstep.com</span>
             </a>
 
             {/* Book Now */}
@@ -125,11 +126,11 @@ export default function Header() {
 
             {/* Email */}
             <a
-              href="mailto:parlourathomess@gmail.com"
+              href="mailto:info@parlouratdoorstep.com"
               className="w-full py-2 flex justify-center items-center space-x-2 text-gray-700 font-medium"
             >
               <Mail className="w-4 h-4" />
-              <span>parlourathomess@gmail.com</span>
+              <span>info@parlouratdoorstep.com</span>
             </a>
 
             {/* Book Now */}
