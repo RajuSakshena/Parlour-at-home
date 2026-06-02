@@ -1294,62 +1294,65 @@ export default function FacialServices() {
           </div>
         </div>
 
-        {/* SECTIONS */}
-        <div className="max-w-7xl mx-auto px-3 md:px-6 lg:px-10 py-6 md:py-10 space-y-8 md:space-y-16">
+        {/* SECTIONS - MODIFIED FOR FIXED 3 COLUMNS, COMPACT CARDS */}
+        <div className="max-w-7xl mx-auto px-3 py-6 space-y-8">
           {categories.map((cat) => (
             <div key={cat} ref={(el) => (sectionRefs.current[cat] = el)}>
-              <h2 className="text-lg md:text-xl lg:text-2xl font-black mb-4 md:mb-6 uppercase tracking-tight">
+              <h2 className="text-lg font-black mb-4 uppercase tracking-tight">
                 {cat}
               </h2>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {/* Fixed 3 columns grid without responsive breakpoints */}
+              <div className="grid grid-cols-3 gap-3">
                 {allData[cat].map((item, idx) => (
                   <div
                     key={idx}
-                    className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex flex-col md:flex-row md:items-stretch overflow-hidden transition-shadow"
+                    className="bg-white rounded-lg shadow-sm hover:shadow-md flex flex-col overflow-hidden transition-shadow"
                   >
-                    {/* IMAGE */}
-                    <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-t-none bg-gray-100">
+                    {/* IMAGE - fixed height, object-cover */}
+                    <div className="h-32 w-full overflow-hidden bg-gray-100">
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full object-contain object-center"
+                        className="w-full h-full object-cover object-center"
                         loading="lazy"
                         decoding="async"
                       />
                     </div>
 
-                    {/* CONTENT */}
-                    <div className="p-4 md:p-5 flex-1 flex flex-col">
-                      <h3 className="text-sm md:text-base font-bold text-gray-800 break-words">
+                    {/* CONTENT - compact padding and text-xs */}
+                    <div className="p-2 flex flex-col flex-1">
+                      <h3 className="text-xs font-bold text-gray-800 break-words leading-tight">
                         {item.title}
                       </h3>
 
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-2">
-                        <span className="font-black text-base md:text-lg lg:text-xl">
+                      <div className="flex flex-wrap items-center gap-x-1 gap-y-0 mt-1">
+                        <span className="font-black text-xs">
                           ₹{item.price}
                         </span>
-                        <span className="line-through text-xs text-gray-400">
+                        <span className="line-through text-[10px] text-gray-400">
                           ₹{item.mrp}
                         </span>
-                        <span className="bg-orange-100 text-orange-700 text-xs font-bold px-1.5 py-0.5 rounded-full">
+                        <span className="bg-orange-100 text-orange-700 text-[10px] font-bold px-1 py-0.5 rounded-full">
                           {item.discount}
                         </span>
                       </div>
-                      <p className="text-xs text-gray-400 mt-1">⏱ {item.duration}</p>
+                      <p className="text-[10px] text-gray-400 mt-0.5">⏱ {item.duration}</p>
 
-                      <ul className="mt-3 md:mt-4 space-y-1 flex-1 text-xs md:text-sm text-gray-500">
+                      <ul className="mt-2 space-y-0.5 flex-1">
                         {item.includes.slice(0, 3).map((i, k) => (
-                          <li key={k} className="break-words">• {i}</li>
+                          <li key={k} className="text-[10px] text-gray-500 break-words">
+                            • {i}
+                          </li>
                         ))}
                         {item.includes.length > 3 && (
-                          <li className="text-purple-600 text-xs">+{item.includes.length - 3} more</li>
+                          <li className="text-purple-600 text-[10px]">+{item.includes.length - 3} more</li>
                         )}
                       </ul>
 
                       <button
                         onClick={() => setSelected(item)}
-                        className="mt-4 text-purple-700 text-xs md:text-sm font-bold hover:underline self-start active:scale-95 transition-transform"
+                        className="mt-2 text-purple-700 text-[10px] font-bold hover:underline self-start active:scale-95 transition-transform"
                       >
                         VIEW DETAILS
                       </button>
@@ -1415,7 +1418,7 @@ export default function FacialServices() {
           </div>
         </div>
 
-        {/* DETAIL MODAL */}
+        {/* DETAIL MODAL - unchanged */}
         {selected && (
           <div
             className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
