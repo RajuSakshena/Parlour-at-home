@@ -1,14 +1,14 @@
 User-agent: *
 Allow: /
 
-# Allow important service pages
+# Allow important pages
 Allow: /facial
 Allow: /hair
 Allow: /makeup
 Allow: /waxing
 Allow: /packages
 
-# Block unwanted areas
+# Block private areas
 Disallow: /admin
 Disallow: /dashboard
 Disallow: /private
