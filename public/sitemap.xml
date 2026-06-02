@@ -7,30 +7,35 @@
     <priority>1.0</priority>
   </url>
 
+  <!-- Facial -->
   <url>
     <loc>https://parlouratdoorstep.com/facial</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
+  <!-- Hair -->
   <url>
     <loc>https://parlouratdoorstep.com/hair</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
+  <!-- Makeup -->
   <url>
     <loc>https://parlouratdoorstep.com/makeup</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
+  <!-- Waxing -->
   <url>
     <loc>https://parlouratdoorstep.com/waxing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
+  <!-- Packages -->
   <url>
     <loc>https://parlouratdoorstep.com/packages</loc>
     <changefreq>weekly</changefreq>
