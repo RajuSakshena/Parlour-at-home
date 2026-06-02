@@ -1,3 +1,4 @@
+// Footer.tsx
 import { Phone, Mail, Sparkles, MapPin, Clock, Instagram, Facebook, Twitter } from 'lucide-react';
 
 export default function Footer() {
@@ -9,7 +10,7 @@ export default function Footer() {
             <div className="flex items-center space-x-2 mb-4">
               <Sparkles className="w-6 h-6 text-pink-400" />
               <span className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent">
-                Parlour at Home
+                Parlour at Doorstep
               </span>
             </div>
             <p className="text-gray-300 mb-4">
@@ -66,8 +67,8 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-pink-400" />
-                <a href="mailto:parlourathomess@gmail.com" className="text-gray-300 hover:text-pink-400 transition-colors">
-                  parlourathomess@gmail.com
+                <a href="mailto:info@parlouratdoorstep.com" className="text-gray-300 hover:text-pink-400 transition-colors">
+                  info@parlouratdoorstep.com
                 </a>
               </li>
               <li className="flex items-start space-x-3">
@@ -113,7 +114,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-700 pt-8 text-center">
           <p className="text-gray-400">
-            &copy; {new Date().getFullYear()} Parlour at Home. All rights reserved. | Designed with care for your beauty needs
+            &copy; {new Date().getFullYear()} Parlour at Doorstep. All rights reserved. | Designed with care for your beauty needs
           </p>
         </div>
       </div>
