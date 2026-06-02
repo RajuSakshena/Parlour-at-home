@@ -958,47 +958,75 @@ export default function Home() {
       <GlobalStyles />
 
       <Helmet>
-        <title>Salon at Home | Professional Beauty Services in Delhi NCR — Parlour at Doorstep</title>
-        <meta
-          name="description"
-          content="Book professional salon services at home in Delhi, Noida, Gurugram, Ghaziabad & Faridabad. Facial, Waxing, Makeup, Hair Care, Mani-Pedi & more by certified beauticians. 4.9★ rated. Call +91 9811923486."
-        />
-        <meta
-          name="keywords"
-          content="salon at home, parlour at doorstep, beauty services at home Delhi, home salon Noida, beautician at home Gurugram, facial at home, waxing at home, makeup at home, hair spa at home, mani pedi at home, pre bridal at home Delhi NCR"
-        />
-        <meta name="robots" content="index, follow" />
-        <meta name="author" content="Parlour at Doorstep" />
-        <link rel="canonical" href="https://www.parlouratdoorstep.in/" />
+  <title>Salon at Home for Women in Delhi NCR | Parlour at Doorstep</title>
 
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.parlouratdoorstep.in/" />
-        <meta property="og:site_name" content="Parlour at Doorstep" />
-        <meta property="og:title" content="Salon at Home | Professional Beauty Services in Delhi NCR" />
-        <meta
-          property="og:description"
-          content="Certified beauticians at your doorstep. Facial, Waxing, Makeup, Hair Care, Mani-Pedi & more. Serving Delhi, Noida, Gurugram, Ghaziabad & Faridabad. 4.9★ rated."
-        />
-        <meta property="og:image" content="https://www.parlouratdoorstep.in/og-image.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:locale" content="en_IN" />
+  <meta
+    name="description"
+    content="Book professional salon services at home in Delhi, Noida, Gurgaon, Ghaziabad & Faridabad. Facial, waxing, makeup, mani-pedi & more at your doorstep."
+  />
 
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Salon at Home | Professional Beauty Services in Delhi NCR" />
-        <meta
-          name="twitter:description"
-          content="Book professional beauty services at home. 4.9★ rated. Serving Delhi, Noida, Gurugram, Ghaziabad & Faridabad."
-        />
-        <meta name="twitter:image" content="https://www.parlouratdoorstep.in/og-image.jpg" />
+  <meta name="keywords" content="salon at home Delhi, beauty services at home, facial at home, waxing at home, parlour near me home service" />
 
-        {/* Structured Data */}
-        <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(businessSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-      </Helmet>
+  <link rel="canonical" href="https://parlouratdoorstep.com/" />
+
+  {/* ✅ OPEN GRAPH */}
+  <meta property="og:title" content="Salon at Home for Women in Delhi NCR" />
+  <meta property="og:description" content="Professional beauty services at home with certified beauticians." />
+  <meta property="og:url" content="https://parlouratdoorstep.com/" />
+  <meta property="og:type" content="website" />
+
+  {/* ✅ LOCAL BUSINESS SCHEMA */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BeautySalon",
+      "name": "Parlour at Doorstep",
+      "url": "https://parlouratdoorstep.com",
+      "telephone": "+91-9811923486",
+      "areaServed": ["Delhi", "Noida", "Gurgaon", "Ghaziabad", "Faridabad"],
+      "serviceType": [
+        "Facial",
+        "Waxing",
+        "Makeup",
+        "Manicure",
+        "Pedicure",
+        "Hair Care"
+      ],
+      "priceRange": "₹₹",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "2500"
+      }
+    })}
+  </script>
+
+  {/* ✅ FAQ SCHEMA */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do you provide salon services at home?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, we provide professional salon services at home across Delhi NCR."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which areas do you serve?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We serve Delhi, Noida, Gurugram, Ghaziabad and Faridabad."
+          }
+        }
+      ]
+    })}
+  </script>
+</Helmet>
 
       <HeroSection />
       <ServicesSection />
