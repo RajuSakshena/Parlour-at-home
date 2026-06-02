@@ -1,4 +1,17 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yourdomain.com/sitemap.xml
+# Allow important service pages
+Allow: /facial
+Allow: /hair
+Allow: /makeup
+Allow: /waxing
+Allow: /packages
+
+# Block unwanted areas
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /private
+
+# Sitemap
+Sitemap: https://parlouratdoorstep.com/sitemap.xml
