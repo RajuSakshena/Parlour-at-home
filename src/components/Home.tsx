@@ -44,13 +44,25 @@ import threadingHome from "../images/Indian beauty technician doing threading & 
 const GlobalStyles = memo(function GlobalStyles() {
   return (
     <style>{`
+      /* Default marquee speed (desktop) */
       .animate-marquee {
         animation: marquee 14s linear infinite;
+        will-change: transform;
+        transform: translateZ(0);
       }
+
+      /* Mobile: faster animation + smoother transform */
+      @media (max-width: 768px) {
+        .animate-marquee {
+          animation-duration: 8s;
+        }
+      }
+
       @keyframes marquee {
         0%   { transform: translateX(0); }
         100% { transform: translateX(-33.33%); }
       }
+
       .animate-scroll {
         animation: scroll-cards 18s linear infinite;
       }
@@ -220,19 +232,21 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* SERVICE STRIP */}
+      {/* SERVICE STRIP – IMPROVED FOR MOBILE */}
       <div
         className="bg-pink-100 py-2 mt-3 flex items-center overflow-hidden"
         aria-label="Home salon services available across Delhi NCR with 10% off"
       >
-        <div className="pl-3 pr-4 font-semibold text-[10px] sm:text-xs text-pink-700 whitespace-nowrap flex-shrink-0">
+        {/* Left label – smaller on mobile */}
+        <div className="pl-2 pr-2 font-semibold text-[9px] sm:text-xs text-pink-700 whitespace-nowrap flex-shrink-0">
           Service Available <span className="text-rose-600">(10% OFF)</span>
         </div>
 
+        {/* Scrolling cities – takes all remaining space, tighter gaps */}
         <div className="flex-1 overflow-hidden" aria-hidden="true">
-          <div className="flex animate-marquee whitespace-nowrap font-semibold text-[10px] sm:text-xs">
+          <div className="flex animate-marquee whitespace-nowrap font-semibold text-[9px] sm:text-xs">
             {[...cities, ...cities, ...cities].map((city, index) => (
-              <span key={index} className={`mx-4 ${city.color}`}>
+              <span key={index} className={`mx-2 ${city.color}`}>
                 {city.name}
               </span>
             ))}
