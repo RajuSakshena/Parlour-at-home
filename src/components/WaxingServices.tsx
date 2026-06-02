@@ -1311,54 +1311,51 @@ export default function WaxingServices() {
                 {cat}
               </h2>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {/* FORCED 3 COLUMNS - NO BREAKPOINTS */}
+              <div className="grid grid-cols-3 gap-3">
                 {allWaxingData[cat].map((item, idx) => (
                   <div
                     key={idx}
-                    className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex flex-col md:flex-row md:items-stretch overflow-hidden transition-shadow"
+                    className="bg-white rounded-xl shadow-sm hover:shadow-lg flex flex-col overflow-hidden transition-shadow"
                   >
-                    {/* IMAGE */}
-                    <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-t-none bg-gray-100">
+                    {/* IMAGE - fixed height, object-cover */}
+                    <div className="w-full h-28 flex-shrink-0 overflow-hidden bg-gray-100">
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full object-contain object-center"
+                        className="w-full h-full object-cover object-center"
                         loading="lazy"
                         decoding="async"
                       />
                     </div>
 
-                    {/* CONTENT */}
-                    <div className="p-4 md:p-5 flex-1 flex flex-col">
-                      <h3 className="text-sm md:text-base font-bold text-gray-800 break-words">
+                    {/* CONTENT - compact */}
+                    <div className="p-3 flex-1 flex flex-col">
+                      <h3 className="text-xs font-bold text-gray-800 break-words leading-tight">
                         {item.title}
                       </h3>
 
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-2">
-                        <span className="font-black text-base md:text-lg lg:text-xl">
-                          ₹{item.price}
-                        </span>
-                        <span className="line-through text-xs text-gray-400">
-                          ₹{item.mrp}
-                        </span>
-                        <span className="bg-orange-100 text-orange-700 text-xs font-bold px-1.5 py-0.5 rounded-full">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1">
+                        <span className="font-black text-sm">₹{item.price}</span>
+                        <span className="line-through text-xs text-gray-400">₹{item.mrp}</span>
+                        <span className="bg-orange-100 text-orange-700 text-[10px] font-bold px-1.5 py-0.5 rounded-full">
                           {item.discount}
                         </span>
                       </div>
-                      <p className="text-xs text-gray-400 mt-1">⏱ {item.duration}</p>
+                      <p className="text-[11px] text-gray-400 mt-0.5">⏱ {item.duration}</p>
 
-                      <ul className="mt-3 md:mt-4 space-y-1 flex-1 text-xs md:text-sm text-gray-500">
-                        {item.includes.slice(0, 3).map((i, k) => (
+                      <ul className="mt-2 space-y-0.5 flex-1 text-[11px] text-gray-500">
+                        {item.includes.slice(0, 2).map((i, k) => (
                           <li key={k} className="break-words">• {i}</li>
                         ))}
-                        {item.includes.length > 3 && (
-                          <li className="text-purple-600 text-xs">+{item.includes.length - 3} more</li>
+                        {item.includes.length > 2 && (
+                          <li className="text-purple-600 text-[10px]">+{item.includes.length - 2} more</li>
                         )}
                       </ul>
 
                       <button
                         onClick={() => setSelected(item)}
-                        className="mt-4 text-purple-700 text-xs md:text-sm font-bold hover:underline self-start active:scale-95 transition-transform"
+                        className="mt-2 text-purple-700 text-[11px] font-bold hover:underline self-start active:scale-95 transition-transform"
                       >
                         VIEW DETAILS
                       </button>
