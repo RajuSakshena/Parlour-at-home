@@ -1,5 +1,6 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { ArrowLeft } from "lucide-react";
 
 import luxuryPartyMakeup from "../images/Luxury Party Makeup.jpg";
@@ -354,6 +355,29 @@ const allData: Record<string, MakeupService[]> = {
 };
 
 /* =========================
+   HELPER: Get min/max prices
+========================= */
+const getAllServicesFlat = (): MakeupService[] => {
+  return Object.values(allData).flat();
+};
+
+const getMinPrice = () => {
+  const flat = getAllServicesFlat();
+  if (flat.length === 0) return 0;
+  return Math.min(...flat.map(s => s.price));
+};
+
+const getMaxPrice = () => {
+  const flat = getAllServicesFlat();
+  if (flat.length === 0) return 0;
+  return Math.max(...flat.map(s => s.price));
+};
+
+const getTotalOfferCount = () => {
+  return Object.values(allData).reduce((acc, arr) => acc + arr.length, 0);
+};
+
+/* =========================
    FLOATING BUTTONS STYLES
 ========================= */
 const floatingStyles = `
@@ -409,16 +433,154 @@ export default function MakeupServices() {
     };
   }, []);
 
-  const scrollToSection = (cat: string) => {
+  const scrollToSection = useCallback((cat: string) => {
     sectionRefs.current[cat]?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
+  const handleBookNow = useCallback(() => {
+    window.location.href = "tel:+919811923486";
+  }, []);
+
+  // JSON-LD Structured Data
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.parlouratdoorstep.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://www.parlouratdoorstep.com/services"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Makeup Services at Home",
+        "item": "https://www.parlouratdoorstep.com/services/makeup"
+      }
+    ]
   };
 
-  const handleBookNow = () => {
-    window.location.href = "tel:+919811923486";
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Makeup Services",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "Parlour at Doorstep",
+      "telephone": "+919811923486",
+      "url": "https://www.parlouratdoorstep.com",
+      "areaServed": {
+        "@type": "City",
+        "name": "Delhi NCR"
+      }
+    },
+    "areaServed": [
+      "Delhi",
+      "Noida",
+      "Gurugram",
+      "Ghaziabad",
+      "Faridabad"
+    ],
+    "description": "Professional makeup services at home including Party Makeup, Engagement Makeup, Bridal Makeup, Group Deals, and Add-ons. Certified makeup artists bring salon-quality looks to your doorstep.",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "INR",
+      "lowPrice": getMinPrice(),
+      "highPrice": getMaxPrice(),
+      "offerCount": getTotalOfferCount()
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Makeup Services",
+      "itemListElement": categories.map(cat => ({
+        "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": cat }
+      }))
+    }
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What types of makeup services do you offer at home?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We offer Party Makeup, Engagement Makeup, Bridal Makeup, Group Deals, and Add-ons like Saree Draping, Blow Dry, Straightening, Hair Curl, Advance Hair Do, and Group Hair Styling."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you provide bridal makeup at home?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, we offer Luxury Bridal Makeup, HD Bridal Makeup, and Air Brush Bridal Makeup at home. Our professional makeup artists use premium brands like MAC HD, PAC, Kryolan, and Temptu."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the price range for makeup services?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our makeup services start from ₹350 for add-ons like Saree Draping and go up to ₹15,499 for Air Brush Bridal Makeup. Most services are available at 30-50% discount."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which areas do you serve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We serve Delhi NCR including Delhi, Noida, Gurugram, Ghaziabad, and Faridabad."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I book a makeup service?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can book by clicking the 'Book Now' button or calling us directly at +91 9811923486. You can also reach us on WhatsApp using the floating button on the right."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What products do you use for makeup?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We use high-quality brands including MAC HD, PAC, Forever52, Kryolan, L'oreal, Faces Canada, Nykaa, Makeup Revolution, and Temptu for airbrush makeup."
+        }
+      }
+    ]
   };
 
   return (
     <section className="bg-[#f6edff] min-h-screen">
+      <Helmet>
+        <title>Makeup Services at Home in Delhi NCR | Parlour at Doorstep</title>
+        <meta name="description" content="Book professional makeup services at home in Delhi, Noida, Gurugram, Ghaziabad and Faridabad. Party, Engagement, Bridal Makeup and more by certified makeup artists." />
+        <link rel="canonical" href="https://www.parlouratdoorstep.com/services/makeup" />
+        <meta property="og:title" content="Makeup Services at Home in Delhi NCR | Parlour at Doorstep" />
+        <meta property="og:description" content="Book professional makeup services at home in Delhi, Noida, Gurugram, Ghaziabad and Faridabad. Party, Engagement, Bridal Makeup and more by certified makeup artists." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.parlouratdoorstep.com/services/makeup" />
+        <meta property="og:site_name" content="Parlour at Doorstep" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Makeup Services at Home in Delhi NCR | Parlour at Doorstep" />
+        <meta name="twitter:description" content="Book professional makeup services at home in Delhi, Noida, Gurugram, Ghaziabad and Faridabad. Party, Engagement, Bridal Makeup and more by certified makeup artists." />
+        <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Helmet>
+
       {/* INJECT FLOATING BUTTON STYLES */}
       <style>{floatingStyles}</style>
 
@@ -426,7 +588,8 @@ export default function MakeupServices() {
       <div className="py-4 md:py-6 lg:py-8 text-center bg-white border-b relative">
         <button
           onClick={() => navigate(-1)}
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shadow-sm"
+          className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shadow-sm active:scale-95"
+          aria-label="Go back"
         >
           <ArrowLeft className="w-5 h-5 text-gray-700" />
         </button>
@@ -447,7 +610,7 @@ export default function MakeupServices() {
               <button
                 key={cat}
                 onClick={() => scrollToSection(cat)}
-                className="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-purple-200 text-purple-800 text-sm md:text-base font-semibold whitespace-nowrap hover:bg-purple-300 transition-colors"
+                className="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-purple-200 text-purple-800 text-sm md:text-base font-semibold whitespace-nowrap hover:bg-purple-300 transition-colors active:scale-95"
               >
                 {cat}
               </button>
@@ -464,49 +627,54 @@ export default function MakeupServices() {
               {cat}
             </h2>
 
-            <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {allData[cat].map((item, idx) => (
                 <div
                   key={idx}
                   className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex flex-col md:flex-row md:items-stretch overflow-hidden transition-shadow"
                 >
                   {/* IMAGE */}
-                  <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-t-none">
+                  <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-t-none bg-gray-100">
                     <img
                       src={item.image}
                       alt={item.title}
                       className="w-full h-full object-contain object-center"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
 
                   {/* CONTENT */}
                   <div className="p-4 md:p-5 flex-1 flex flex-col">
-                    <h3 className="text-sm md:text-base font-bold text-gray-800">
+                    <h3 className="text-sm md:text-base font-bold text-gray-800 break-words">
                       {item.title}
                     </h3>
 
-                    <div className="flex items-center gap-2 mt-2">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-2">
                       <span className="font-black text-base md:text-lg lg:text-xl">
                         ₹{item.price}
                       </span>
                       <span className="line-through text-xs text-gray-400">
                         ₹{item.mrp}
                       </span>
-                      <span className="text-orange-600 text-xs font-bold">
+                      <span className="bg-orange-100 text-orange-700 text-xs font-bold px-1.5 py-0.5 rounded-full">
                         {item.discount}
                       </span>
                     </div>
                     <p className="text-xs text-gray-400 mt-1">⏱ {item.duration}</p>
 
                     <ul className="mt-3 md:mt-4 space-y-1 flex-1 text-xs md:text-sm text-gray-500">
-                      {item.includes.map((i, k) => (
-                        <li key={k}>• {i}</li>
+                      {item.includes.slice(0, 3).map((i, k) => (
+                        <li key={k} className="break-words">• {i}</li>
                       ))}
+                      {item.includes.length > 3 && (
+                        <li className="text-purple-600 text-xs">+{item.includes.length - 3} more</li>
+                      )}
                     </ul>
 
                     <button
                       onClick={() => setSelected(item)}
-                      className="mt-4 text-purple-700 text-xs md:text-sm font-bold hover:underline self-start"
+                      className="mt-4 text-purple-700 text-xs md:text-sm font-bold hover:underline self-start active:scale-95 transition-transform"
                     >
                       VIEW DETAILS
                     </button>
@@ -522,7 +690,7 @@ export default function MakeupServices() {
           FLOATING BUTTONS
           (WhatsApp + Call)
       ===================== */}
-      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 items-center">
+      <div className="fixed right-3 sm:right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 items-center">
         {/* WhatsApp Button */}
         <div className="relative flex items-center justify-center">
           <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-60 pulse-ring" />
@@ -530,13 +698,13 @@ export default function MakeupServices() {
             href="https://wa.me/919811923486"
             target="_blank"
             rel="noopener noreferrer"
-            className="float-btn relative w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-xl shadow-green-300/50"
+            className="float-btn relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-xl shadow-green-300/50 active:scale-95 transition-transform"
             aria-label="Chat on WhatsApp"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 48 48"
-              className="w-8 h-8"
+              className="w-7 h-7 sm:w-8 sm:h-8"
               fill="none"
             >
               <circle cx="24" cy="24" r="24" fill="#25D366" />
@@ -553,13 +721,13 @@ export default function MakeupServices() {
           <span className="absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-60 pulse-ring-2" />
           <a
             href="tel:+919811923486"
-            className="float-btn relative w-14 h-14 rounded-full bg-purple-600 flex items-center justify-center shadow-xl shadow-purple-300/50"
+            className="float-btn relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-purple-600 flex items-center justify-center shadow-xl shadow-purple-300/50 active:scale-95 transition-transform"
             aria-label="Call us"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 48 48"
-              className="w-7 h-7"
+              className="w-6 h-6 sm:w-7 sm:h-7"
               fill="none"
             >
               <circle cx="24" cy="24" r="24" fill="#7C3AED" />
@@ -584,24 +752,26 @@ export default function MakeupServices() {
           >
             <button
               onClick={() => setSelected(null)}
-              className="absolute top-4 right-4 z-20 bg-gray-100 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center font-bold"
+              className="absolute top-4 right-4 z-20 bg-gray-100 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center font-bold active:scale-95 transition-transform"
+              aria-label="Close modal"
             >
               ✕
             </button>
             <div className="overflow-y-auto p-4 md:p-6">
               <div className="flex gap-2 md:gap-4 mb-4 md:mb-6">
-                <div className="w-20 h-20 md:w-28 md:h-28 flex items-center justify-center bg-white rounded-xl flex-shrink-0">
+                <div className="w-20 h-20 md:w-28 md:h-28 flex items-center justify-center bg-white rounded-xl">
                   <img
                     src={selected.image}
                     alt={selected.title}
                     className="max-w-full max-h-full object-contain rounded-xl"
+                    loading="lazy"
                   />
                 </div>
                 <div>
-                  <h2 className="text-lg md:text-xl font-bold text-gray-900 leading-tight">
+                  <h2 className="text-lg md:text-xl font-bold text-gray-900 leading-tight break-words">
                     {selected.title}
                   </h2>
-                  <div className="mt-2 flex items-baseline gap-1 md:gap-2">
+                  <div className="mt-2 flex flex-wrap items-baseline gap-1 md:gap-2">
                     <span className="text-base md:text-lg font-bold text-purple-700">
                       ₹{selected.price}
                     </span>
@@ -623,9 +793,9 @@ export default function MakeupServices() {
                     {selected.includes.map((i, idx) => (
                       <li
                         key={idx}
-                        className="text-xs md:text-sm text-gray-600 flex gap-1 md:gap-2"
+                        className="text-xs md:text-sm text-gray-600 flex gap-1 md:gap-2 break-words"
                       >
-                        <span className="text-purple-500">✔</span> {i}
+                        <span className="text-purple-500 flex-shrink-0">✔</span> {i}
                       </li>
                     ))}
                   </ul>
@@ -639,7 +809,7 @@ export default function MakeupServices() {
                       {selected.info.map((i, idx) => (
                         <li
                           key={idx}
-                          className="text-xs md:text-sm text-gray-900 flex gap-1 md:gap-2 items-start"
+                          className="text-xs md:text-sm text-gray-900 flex gap-1 md:gap-2 items-start break-words"
                         >
                           <span className="mt-1 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />{" "}
                           {i}
