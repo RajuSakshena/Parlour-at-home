@@ -311,32 +311,32 @@ export default function PreBridalServices() {
         <style>{floatingStyles}</style>
 
         {/* HEADER WITH BACK BUTTON */}
-        <div className="py-4 md:py-6 lg:py-8 text-center bg-white border-b relative">
+        <div className="py-4 text-center bg-white border-b relative">
           <button
             onClick={() => navigate(-1)}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shadow-sm active:scale-95"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shadow-sm active:scale-95"
             aria-label="Go back"
           >
-            <ArrowLeft className="w-5 h-5 text-gray-700" />
+            <ArrowLeft className="w-4 h-4 text-gray-700" />
           </button>
 
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 tracking-tight">
+          <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">
             Pre-Bridal
           </h1>
-          <p className="text-xs md:text-sm text-gray-500 mt-1 uppercase tracking-widest">
+          <p className="text-xs text-gray-500 mt-1 uppercase tracking-widest">
             Premium Salon Services
           </p>
         </div>
 
         {/* NAV BAR */}
-        <div className="sticky top-0 z-40 bg-[#f6edff] py-3 md:py-4 shadow-sm">
+        <div className="sticky top-0 z-40 bg-[#f6edff] py-2 shadow-sm">
           <div className="flex justify-center">
-            <div className="flex gap-3 overflow-x-auto px-2 md:px-4 no-scrollbar">
+            <div className="flex gap-2 overflow-x-auto px-2 no-scrollbar">
               {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => scrollToSection(cat)}
-                  className="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-purple-200 text-purple-800 text-sm md:text-base font-semibold whitespace-nowrap hover:bg-purple-300 transition-colors active:scale-95"
+                  className="px-3 py-1 rounded-full bg-purple-200 text-purple-800 text-xs font-semibold whitespace-nowrap hover:bg-purple-300 transition-colors active:scale-95"
                 >
                   {cat}
                 </button>
@@ -345,62 +345,63 @@ export default function PreBridalServices() {
           </div>
         </div>
 
-        {/* SECTIONS */}
-        <div className="max-w-7xl mx-auto px-3 md:px-6 lg:px-10 py-6 md:py-10 space-y-8 md:space-y-16">
+        {/* SECTIONS - FIXED 3 COLUMN GRID */}
+        <div className="max-w-7xl mx-auto px-3 py-6 space-y-8">
           {categories.map((cat) => (
             <div key={cat} ref={(el) => (sectionRefs.current[cat] = el)}>
-              <h2 className="text-lg md:text-xl lg:text-2xl font-black mb-4 md:mb-6 uppercase tracking-tight">
+              <h2 className="text-lg font-black mb-3 uppercase tracking-tight">
                 {cat}
               </h2>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {/* FORCED 3 COLUMNS - NO RESPONSIVE BREAKPOINTS */}
+              <div className="grid grid-cols-3 gap-3">
                 {allData[cat].map((item, idx) => (
                   <div
                     key={idx}
-                    className="bg-white rounded-xl md:rounded-2xl shadow-sm hover:shadow-lg flex flex-col md:flex-row md:items-stretch overflow-hidden transition-shadow"
+                    className="bg-white rounded-lg shadow-sm hover:shadow-md flex flex-col overflow-hidden transition-shadow"
                   >
-                    {/* IMAGE */}
-                    <div className="w-full h-48 md:w-36 lg:w-44 md:h-auto flex-shrink-0 overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-t-none bg-gray-100">
+                    {/* IMAGE - fixed height, object-cover */}
+                    <div className="h-32 w-full overflow-hidden bg-gray-100">
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full object-contain object-center"
+                        className="w-full h-full object-cover"
                         loading="lazy"
                         decoding="async"
                       />
                     </div>
 
-                    {/* CONTENT */}
-                    <div className="p-4 md:p-5 flex-1 flex flex-col">
-                      <h3 className="text-sm md:text-base font-bold text-gray-800 break-words">
+                    {/* CONTENT - compact padding, text-xs */}
+                    <div className="p-2 flex flex-col flex-1">
+                      <h3 className="text-xs font-bold text-gray-800 break-words leading-tight">
                         {item.title}
                       </h3>
 
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-2">
-                        <span className="font-black text-base md:text-lg lg:text-xl">
+                      <div className="flex flex-wrap items-center gap-x-1 gap-y-0.5 mt-1">
+                        <span className="font-black text-sm">
                           ₹{item.price.toLocaleString("en-IN")}
                         </span>
-                        <span className="line-through text-xs text-gray-400">
+                        <span className="line-through text-[10px] text-gray-400">
                           ₹{item.mrp.toLocaleString("en-IN")}
                         </span>
-                        <span className="bg-orange-100 text-orange-700 text-xs font-bold px-1.5 py-0.5 rounded-full">
+                        <span className="bg-orange-100 text-orange-700 text-[10px] font-bold px-1 py-0.5 rounded-full">
                           {item.discount}
                         </span>
                       </div>
-                      <p className="text-xs text-gray-400 mt-1">⏱ {item.duration}</p>
+                      <p className="text-[10px] text-gray-400 mt-0.5">⏱ {item.duration}</p>
 
-                      <ul className="mt-3 md:mt-4 space-y-1 flex-1 text-xs md:text-sm text-gray-500">
-                        {item.includes.slice(0, 3).map((i, k) => (
+                      <ul className="mt-2 space-y-0.5 flex-1 text-[10px] text-gray-500">
+                        {item.includes.slice(0, 2).map((i, k) => (
                           <li key={k} className="break-words">• {i}</li>
                         ))}
-                        {item.includes.length > 3 && (
-                          <li className="text-purple-600 text-xs">+{item.includes.length - 3} more</li>
+                        {item.includes.length > 2 && (
+                          <li className="text-purple-600 text-[9px]">+{item.includes.length - 2} more</li>
                         )}
                       </ul>
 
                       <button
                         onClick={() => setSelected(item)}
-                        className="mt-4 text-purple-700 text-xs md:text-sm font-bold hover:underline self-start active:scale-95 transition-transform"
+                        className="mt-2 text-purple-700 text-[10px] font-bold hover:underline self-start active:scale-95 transition-transform"
                       >
                         VIEW DETAILS
                       </button>
@@ -416,7 +417,7 @@ export default function PreBridalServices() {
             FLOATING BUTTONS
             (WhatsApp + Call)
         ===================== */}
-        <div className="fixed right-3 sm:right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 items-center">
+        <div className="fixed right-3 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 items-center">
           {/* WhatsApp Button */}
           <div className="relative flex items-center justify-center">
             <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-60 pulse-ring" />
@@ -424,13 +425,13 @@ export default function PreBridalServices() {
               href="https://wa.me/919811923486"
               target="_blank"
               rel="noopener noreferrer"
-              className="float-btn relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-xl shadow-green-300/50 active:scale-95 transition-transform"
+              className="float-btn relative w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg shadow-green-300/50 active:scale-95 transition-transform"
               aria-label="Chat on WhatsApp"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 48 48"
-                className="w-7 h-7 sm:w-8 sm:h-8"
+                className="w-6 h-6"
                 fill="none"
               >
                 <circle cx="24" cy="24" r="24" fill="#25D366" />
@@ -447,13 +448,13 @@ export default function PreBridalServices() {
             <span className="absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-60 pulse-ring-2" />
             <a
               href="tel:+919811923486"
-              className="float-btn relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-purple-600 flex items-center justify-center shadow-xl shadow-purple-300/50 active:scale-95 transition-transform"
+              className="float-btn relative w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center shadow-lg shadow-purple-300/50 active:scale-95 transition-transform"
               aria-label="Call us"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 48 48"
-                className="w-6 h-6 sm:w-7 sm:h-7"
+                className="w-5 h-5"
                 fill="none"
               >
                 <circle cx="24" cy="24" r="24" fill="#7C3AED" />
@@ -466,7 +467,7 @@ export default function PreBridalServices() {
           </div>
         </div>
 
-        {/* DETAIL MODAL */}
+        {/* DETAIL MODAL (unchanged except for a few text-size adjustments for consistency) */}
         {selected && (
           <div
             className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
@@ -478,50 +479,50 @@ export default function PreBridalServices() {
             >
               <button
                 onClick={() => setSelected(null)}
-                className="absolute top-4 right-4 z-20 bg-gray-100 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center font-bold active:scale-95 transition-transform"
+                className="absolute top-3 right-3 z-20 bg-gray-100 text-gray-800 w-7 h-7 rounded-full flex items-center justify-center font-bold active:scale-95 transition-transform text-sm"
                 aria-label="Close modal"
               >
                 ✕
               </button>
-              <div className="overflow-y-auto p-4 md:p-6">
-                <div className="flex gap-2 md:gap-4 mb-4 md:mb-6">
-                  <div className="w-20 h-20 md:w-28 md:h-28 flex items-center justify-center bg-white rounded-xl">
+              <div className="overflow-y-auto p-4">
+                <div className="flex gap-3 mb-4">
+                  <div className="w-16 h-16 flex items-center justify-center bg-white rounded-lg">
                     <img
                       src={selected.image}
                       alt={selected.title}
-                      className="max-w-full max-h-full object-contain rounded-xl"
+                      className="max-w-full max-h-full object-contain rounded-lg"
                       loading="lazy"
                     />
                   </div>
                   <div>
-                    <h2 className="text-lg md:text-xl font-bold text-gray-900 leading-tight break-words">
+                    <h2 className="text-base font-bold text-gray-900 leading-tight break-words">
                       {selected.title}
                     </h2>
-                    <div className="mt-2 flex flex-wrap items-baseline gap-1 md:gap-2">
-                      <span className="text-base md:text-lg font-bold text-purple-700">
+                    <div className="mt-1 flex flex-wrap items-baseline gap-1">
+                      <span className="text-base font-bold text-purple-700">
                         ₹{selected.price.toLocaleString("en-IN")}
                       </span>
-                      <span className="text-xs md:text-sm text-gray-400 line-through">
+                      <span className="text-xs text-gray-400 line-through">
                         ₹{selected.mrp.toLocaleString("en-IN")}
                       </span>
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-gray-500 mt-0.5">
                       Duration: {selected.duration}
                     </p>
                   </div>
                 </div>
 
-                <div className="space-y-3 md:space-y-4">
+                <div className="space-y-3">
                   {/* Includes */}
                   <div>
-                    <h4 className="font-bold text-gray-800 mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wide md:tracking-wider">
+                    <h4 className="font-bold text-gray-800 mb-1 text-xs uppercase tracking-wide">
                       Includes:
                     </h4>
-                    <ul className="grid grid-cols-1 gap-1 md:gap-2">
+                    <ul className="grid grid-cols-1 gap-1">
                       {selected.includes.map((i, idx) => (
                         <li
                           key={idx}
-                          className="text-xs md:text-sm text-gray-600 flex gap-1 md:gap-2 break-words"
+                          className="text-xs text-gray-600 flex gap-1 break-words"
                         >
                           <span className="text-purple-500 flex-shrink-0">✔</span> {i}
                         </li>
@@ -530,16 +531,16 @@ export default function PreBridalServices() {
                   </div>
 
                   {/* Advantages + Brands */}
-                  <div className="bg-gray-50 p-3 md:p-4 rounded-lg md:rounded-xl">
-                    <h4 className="font-bold text-gray-800 mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wide md:tracking-wider">
+                  <div className="bg-gray-50 p-3 rounded-lg">
+                    <h4 className="font-bold text-gray-800 mb-1 text-xs uppercase tracking-wide">
                       Advantages:
                     </h4>
-                    <ul className="space-y-1 md:space-y-1.5 mb-3">
+                    <ul className="space-y-1 mb-3">
                       {["Beautiful & Healthy Skin", "Clear & Brighter Face & Body"].map(
                         (a, idx) => (
                           <li
                             key={idx}
-                            className="text-xs md:text-sm text-gray-900 flex gap-1 md:gap-2 items-start break-words"
+                            className="text-xs text-gray-900 flex gap-1 items-start break-words"
                           >
                             <span className="mt-1 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />{" "}
                             {a}
@@ -548,14 +549,14 @@ export default function PreBridalServices() {
                       )}
                     </ul>
 
-                    <h4 className="font-bold text-gray-800 mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wide md:tracking-wider">
+                    <h4 className="font-bold text-gray-800 mb-1 text-xs uppercase tracking-wide">
                       Brands Used:
                     </h4>
-                    <p className="text-xs md:text-sm text-gray-600 mb-3 break-words">
+                    <p className="text-xs text-gray-600 mb-3 break-words">
                       {selected.brands.join(", ")}
                     </p>
 
-                    <h4 className="font-bold text-gray-800 mb-1 text-xs md:text-sm uppercase tracking-wide md:tracking-wider">
+                    <h4 className="font-bold text-gray-800 mb-1 text-xs uppercase tracking-wide">
                       Adherence to WHO Guidelines:
                     </h4>
                     <ul className="space-y-1">
@@ -563,7 +564,7 @@ export default function PreBridalServices() {
                         (g, idx) => (
                           <li
                             key={idx}
-                            className="text-xs md:text-sm text-gray-900 flex gap-1 md:gap-2 items-start break-words"
+                            className="text-xs text-gray-900 flex gap-1 items-start break-words"
                           >
                             <span className="mt-1 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0" />{" "}
                             {g}
@@ -574,10 +575,10 @@ export default function PreBridalServices() {
                   </div>
                 </div>
 
-                {/* BOOK NOW → CALLS +91 9811923486 */}
+                {/* BOOK NOW → CALLS */}
                 <button
                   onClick={handleBookNow}
-                  className="w-full mt-4 md:mt-6 bg-purple-700 text-white py-2 md:py-3 rounded-xl text-sm md:text-base font-bold shadow-lg shadow-purple-200 active:scale-95 transition-transform"
+                  className="w-full mt-4 bg-purple-700 text-white py-2 rounded-lg text-sm font-bold shadow-md shadow-purple-200 active:scale-95 transition-transform"
                 >
                   📞 Book Now
                 </button>
