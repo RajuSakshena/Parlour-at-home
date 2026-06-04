@@ -24,8 +24,6 @@ import {
   Clock,
   Users,
   Award,
-  Zap,
-  ThumbsUp,
 } from "lucide-react";
 
 import facialImg from "../images/Facial Treatment.jpg";
@@ -562,7 +560,7 @@ function OffersSection() {
 }
 
 /* =========================
-   TESTIMONIALS SECTION (Google-style)
+   TESTIMONIALS SECTION (Google-style - without invalid microdata)
 ========================= */
 type Testimonial = {
   name: string;
@@ -647,8 +645,6 @@ function TestimonialsSection() {
                   key={index}
                   className="flex-shrink-0 w-[85vw] sm:w-80 md:w-96 bg-white rounded-2xl p-5 border border-gray-100 shadow-lg hover:shadow-xl transition"
                   aria-label={`Review by ${testimonial.name} from ${testimonial.location}`}
-                  itemScope
-                  itemType="https://schema.org/Review"
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
@@ -656,7 +652,7 @@ function TestimonialsSection() {
                         <User className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-gray-800 text-sm" itemProp="author">
+                        <h4 className="font-bold text-gray-800 text-sm">
                           {testimonial.name}
                         </h4>
                         <div className="flex items-center gap-1 mt-0.5">
@@ -681,7 +677,7 @@ function TestimonialsSection() {
                     </div>
                   </div>
 
-                  <p className="text-gray-700 text-sm leading-relaxed mt-3" itemProp="reviewBody">
+                  <p className="text-gray-700 text-sm leading-relaxed mt-3">
                     {isExpanded ? testimonial.review : shortText}
                   </p>
 
@@ -1007,8 +1003,6 @@ function LocationSEOSection() {
     </div>
   );
 
-  const shortContent = fullContent.props.children.slice(0, 3); // approximate first 250 words
-
   return (
     <section className="bg-gradient-to-br from-pink-50 to-white py-12 md:py-20">
       <div className="max-w-6xl mx-auto px-4">
@@ -1089,6 +1083,26 @@ function FloatingButtons() {
    HOME — EXPORT (with schemas)
 ========================= */
 export default function Home() {
+  // Build review schema array from testimonials
+  const reviewSchema = testimonials.map((t) => ({
+    "@type": "Review",
+    author: {
+      "@type": "Person",
+      name: t.name,
+    },
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: t.rating,
+      bestRating: "5",
+    },
+    reviewBody: t.review,
+    datePublished: t.date,
+    itemReviewed: {
+      "@type": "BeautySalon",
+      name: "Parlour at Doorstep",
+    },
+  }));
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -1103,7 +1117,7 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Parlour at Doorstep",
-    url: "https://www.parlouratdoorstep.com",
+    url: "https://parlouratdoorstep.com",
     description: "Professional home salon services across Delhi NCR — Facial, Waxing, Makeup, Hair Care, Mani-Pedi and more by certified beauticians.",
   };
 
@@ -1111,7 +1125,8 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Parlour at Doorstep",
-    url: "https://www.parlouratdoorstep.com",
+    url: "https://parlouratdoorstep.com",
+    logo: "https://parlouratdoorstep.com/favicon.svg",
     sameAs: ["https://www.instagram.com/parlouratdoorstep"],
     contactPoint: {
       "@type": "ContactPoint",
@@ -1126,13 +1141,23 @@ export default function Home() {
     "@type": "BeautySalon",
     name: "Parlour at Doorstep",
     description: "Professional salon services at home in Delhi NCR",
-    url: "https://www.parlouratdoorstep.com",
+    url: "https://parlouratdoorstep.com",
     telephone: "+919811923486",
     priceRange: "₹₹",
     openingHours: "Mo-Su 08:00-21:00",
-    aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "2500" },
-    address: { "@type": "PostalAddress", addressLocality: "Delhi", addressCountry: "IN" },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "2500",
+      bestRating: "5",
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Delhi",
+      addressCountry: "IN",
+    },
     areaServed: ["Delhi", "Noida", "Greater Noida", "Gurugram", "Ghaziabad", "Faridabad"],
+    review: reviewSchema,
   };
 
   return (
@@ -1143,13 +1168,17 @@ export default function Home() {
         <title>Salon at Home Delhi NCR | Professional Beautician at Home | 4.9 Rated</title>
         <meta name="description" content="Best salon at home in Delhi, Noida, Gurugram, Ghaziabad, Faridabad. Facial, waxing, makeup, hair spa by certified female beauticians. 5000+ happy customers. Same day booking!" />
         <meta name="keywords" content="salon at home Delhi, beautician at home Delhi, facial at home Delhi, waxing at home Delhi, makeup artist at home Delhi, salon at home Noida, salon at home Gurugram, salon at home Ghaziabad, salon at home Faridabad, salon at home Greater Noida" />
-        <link rel="canonical" href="https://www.parlouratdoorstep.com/" />
+        <link rel="canonical" href="https://parlouratdoorstep.com/" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="shortcut icon" href="/favicon.svg" />
         <link rel="preload" as="image" href={beautyTools} fetchPriority="high" />
         <meta property="og:title" content="Salon at Home Delhi NCR – Premium Beauty at Doorstep" />
         <meta property="og:description" content="Certified beauticians bring facial, waxing, makeup, hair spa to your home. 4.9 stars. Same-day booking." />
-        <meta property="og:image" content="https://www.parlouratdoorstep.com/og-image.png" />
+        <meta property="og:image" content="https://parlouratdoorstep.com/og-image.png" />
+        <meta property="og:url" content="https://parlouratdoorstep.com/" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://parlouratdoorstep.com/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(businessSchema)}</script>
